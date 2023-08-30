@@ -29,7 +29,4 @@ public class EditorView extends JFrame{
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
     }
-
-    private void createUIComponents() {
-    }
 }
