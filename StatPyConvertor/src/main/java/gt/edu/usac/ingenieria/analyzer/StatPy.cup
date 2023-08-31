@@ -13,7 +13,7 @@ import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpS;
     }
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
-
+        errors.add(new ERrorStpS("Syntax error, impossible to recover"));
     }
     public String getErrors() {
         return errors.stream().map(Object::toString).collect(Collectors.joining("\n-> "));
@@ -24,4 +24,4 @@ import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpS;
 :}
 
 // terminals
-terminal
+terminal KW

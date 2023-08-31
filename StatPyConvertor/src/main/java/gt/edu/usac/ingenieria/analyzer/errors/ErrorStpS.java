@@ -1,5 +1,7 @@
 package gt.edu.usac.ingenieria.analyzer.errors;
 
+import java.util.Objects;
+
 public class ErrorStpS {
     String message;
     int line;
@@ -19,12 +21,11 @@ public class ErrorStpS {
     }
 
     public void print(){
-        if (message == null) {
-            System.out.println(
-                    "Syntax error at: line-" + line + " column-" + column + ". Component: " + type + " = " + object + "."
-            );
-        } else {
-            System.out.println("Syntax error, impossible to recover");
-        }
+        System.out.println(
+                Objects.requireNonNullElseGet(
+                        message, () ->
+                                "Syntax error at: line-" + line + " column-" + column + ". Component: " + type + " = " + object + "."
+                )
+        );
     }
 }
