@@ -1,0 +1,2 @@
+package gt.edu.usac.ingenieria.analyzer;
+import java.util.stream.Collectors;
