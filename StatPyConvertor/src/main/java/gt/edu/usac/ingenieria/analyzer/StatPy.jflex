@@ -92,8 +92,8 @@ COMMENTML=[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
 // groups
 "("         {return new Sybmol(SYM.TK_LPAR,         yyline, yychar, yytext());}
 ")"         {return new Sybmol(SYM.TK_RPAR,         yyline, yychar, yytext());}
-"{"         {return new Sybmol(SYM.TK_LBR,          yyline, yychar, yytext());}
-"}"         {return new Sybmol(SYM.TK_RBR,          yyline, yychar, yytext());}
+"{"         {return new Sybmol(SYM.TK_LBRC,          yyline, yychar, yytext());}
+"}"         {return new Sybmol(SYM.TK_RBRC,          yyline, yychar, yytext());}
 "["         {return new Sybmol(SYM.TK_LBRK,         yyline, yychar, yytext());}
 "]"         {return new Sybmol(SYM.TK_RBRK,         yyline, yychar, yytext());}
 // assign
