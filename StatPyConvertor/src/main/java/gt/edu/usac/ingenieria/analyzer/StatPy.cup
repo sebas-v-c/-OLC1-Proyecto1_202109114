@@ -23,7 +23,7 @@ import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpS;
     }
 :}
 
-// TERMINALS
+/* TERMINAL */
 terminal String KW_MAIN;
 // data types
 terminal String KW_VOID, KW_INT, KW_DOUBLE, KW_CHAR, KW_BOOL, KW_STRING;
@@ -38,4 +38,13 @@ terminal String TK_PLUS, TK_MINUS, TK_MULT, TK_DIV;
 terminal String TK_GEQ, TK_LEQ, TK_EQEQ, TK_NEQ;
 terminal String TK_GREATER, TK_LESS, TK_AND, TK_OR, TK_NOT;
 // groups
-terminal String TK_LPAR, TK_RPAR, TK_LBRC, TK_RBRC, TK_LRBK, TK_RTBK
+terminal String TK_LPAR, TK_RPAR, TK_LBRC, TK_RBRC, TK_LRBK, TK_RTBK;
+// assign
+terminal String TK_EQ;
+// punctuation
+terminal String TK_COMA, TK_SCOLON;
+
+/* NON TERMINALS */
+non terminal Init;
+
+
