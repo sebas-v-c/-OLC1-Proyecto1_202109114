@@ -38,16 +38,21 @@ public class EditorController {
     private class OpenFileListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            // JFileChooser configuration
             UIManager.put("FileChooser.readOnly", Boolean.TRUE);
-            JFileChooser chooser = new JFileChooser();
+            String currentDir = System.getProperty("user.dir");
+            JFileChooser chooser = new JFileChooser(currentDir);
             FileNameExtensionFilter filter;
+
             switch (analyzer){
                 case STATPY -> filter = new FileNameExtensionFilter("Archivos StatPy", "sp");
                 case JSON -> filter = new FileNameExtensionFilter("Archivos JSON", "json");
                 default -> throw new IllegalStateException("Unexpected value: " + analyzer);
             }
+
             chooser.setFileFilter(filter);
             int returnval = chooser.showOpenDialog(null);
+
             if (returnval == JFileChooser.APPROVE_OPTION){
                 String filepath = chooser.getSelectedFile().getPath();
                 System.out.println(filepath);
