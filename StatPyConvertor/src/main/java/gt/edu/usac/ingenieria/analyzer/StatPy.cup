@@ -23,5 +23,10 @@ import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpS;
     }
 :}
 
-// terminals
-terminal String
+// TERMINALS
+terminal Element KW_MAIN
+// data types
+terminal String KW_VOID, KW_INT, KW_DOUBLE, KW_BOOL, KW_STRING
+// control structures
+terminal Element KW_IF, KW_ELSE, KW_SWITCH, KW_CASE, KW_DEFAULT
+terminal Element KW_BREAK, KW_FOR, KW_DO, KW_WHILE, KW_CONTINUE, KW_RETURN
