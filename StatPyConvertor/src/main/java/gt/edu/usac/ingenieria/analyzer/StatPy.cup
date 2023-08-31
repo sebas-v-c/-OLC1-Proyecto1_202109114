@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpS;
 
 // PARSER
+parser code
 {:
     ArrayList<ErrorStpS> errors = new ArrayList<>();
     public void syntax_error(Symbol s){
@@ -35,8 +36,9 @@ terminal String TK_STRING, TK_INT, TK_DOUBLE;
 terminal character TK_CHAR;
 // operators
 terminal String TK_PLUS, TK_MINUS, TK_MULT, TK_DIV;
-terminal String TK_GEQ, TK_LEQ, TK_EQEQ, TK_NEQ;
+terminal String TK_GEQ, TK_LEQ, TK_EQEQ, TK_NOTEQ;
 terminal String TK_GREATER, TK_LESS, TK_AND, TK_OR, TK_NOT;
+terminal String TK_UMINUS;
 // groups
 terminal String TK_LPAR, TK_RPAR, TK_LBRC, TK_RBRC, TK_LRBK, TK_RTBK;
 // assign
@@ -46,5 +48,30 @@ terminal String TK_COMA, TK_SCOLON;
 
 /* NON TERMINALS */
 non terminal Init;
+non terminal Intructions;
+non terminal Instruction;
 
 
+/*PRECEDENCES*/
+precedence left TK_OR;
+precedence left TK_AND;
+precedence right TK_NOT;
+precedence left TK_EQEQ, TK_NEQ;
+precedence left TK_LEQ, TK_GEQ, TK_LESS, TK_GREATER;
+precedence left TK_PLUS, TK_MINUS;
+precedence left TK_MULT, TK_DIV;
+precedence right TK_UMINUS;
+
+/* GRAMATIC */
+
+start with Init;
+
+Init            ::= Instructions;
+
+Intructions     ::=
+                    Instructions Instruction
+                |   Instruction
+                ;
+
+Instruction     ::= KW_VOID
+                ;
