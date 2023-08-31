@@ -1,2 +1,27 @@
 package gt.edu.usac.ingenieria.analyzer;
 import java.util.stream.Collectors;
+import java_cup.runtime.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpS;
+
+// PARSER
+{:
+    ArrayList<ErrorStpS> errors = new ArrayList<>();
+    public void syntax_error(Symbol s){
+        errors.add(new ErrorStpS(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+
+    }
+    public String getErrors() {
+        return errors.stream().map(Object::toString).collect(Collectors.joining("\n-> "));
+    }
+    public boolean isSuccessExecution() {
+        return !(errors.size() > 0);
+    }
+:}
+
+// terminals
+terminal

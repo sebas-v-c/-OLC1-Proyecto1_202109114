@@ -2,17 +2,17 @@
 package gt.edu.usac.ingenieria.analyzer;
 import java_cup.runtime.Symbol;
 import java.util.ArrayList;
-import gt.edu.usac.ingenieria.analyzer.errors.ErrorStp;
+import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpL;
 
 %%
 // java code: Error Array list
 %{
-    private ArrayList<ErrorStp> errors = new ArrayList<>();
+    private ArrayList<ErrorStpL> errors = new ArrayList<>();
     private void addError(int line, int column, String character){
-        errors.add(new ErrorStp(line, column, character));
+        errors.add(new ErrorStpL(line, column, character));
     }
 
-    public ArrayList<ErrorStp> getErrors(){
+    public ArrayList<ErrorStpL> getErrors(){
         return errors;
     }
 %}
