@@ -24,4 +24,4 @@ import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpS;
 :}
 
 // terminals
-terminal KW
+terminal String
