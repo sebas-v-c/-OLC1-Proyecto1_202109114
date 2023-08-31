@@ -24,7 +24,7 @@ public class ErrorStpS {
                     "Syntax error at: line-" + line + " column-" + column + ". Component: " + type + " = " + object + "."
             );
         } else {
-            System.out.println("Syntax error, imposible to recover");
+            System.out.println("Syntax error, impossible to recover");
         }
     }
 }
