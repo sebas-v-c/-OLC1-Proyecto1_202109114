@@ -24,9 +24,18 @@ import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpS;
 :}
 
 // TERMINALS
-terminal Element KW_MAIN
+terminal String KW_MAIN;
 // data types
-terminal String KW_VOID, KW_INT, KW_DOUBLE, KW_BOOL, KW_STRING
+terminal String KW_VOID, KW_INT, KW_DOUBLE, KW_CHAR, KW_BOOL, KW_STRING;
 // control structures
-terminal Element KW_IF, KW_ELSE, KW_SWITCH, KW_CASE, KW_DEFAULT
-terminal Element KW_BREAK, KW_FOR, KW_DO, KW_WHILE, KW_CONTINUE, KW_RETURN
+terminal Element KW_IF, KW_ELSE, KW_SWITCH, KW_CASE, KW_DEFAULT;
+terminal Element KW_BREAK, KW_FOR, KW_DO, KW_WHILE, KW_CONTINUE, KW_RETURN;
+// literals
+terminal String TK_STRING, TK_INT, TK_DOUBLE;
+terminal character TK_CHAR;
+// operators
+terminal String TK_PLUS, TK_MINUS, TK_MULT, TK_DIV;
+terminal String TK_GEQ, TK_LEQ, TK_EQEQ, TK_NEQ;
+terminal String TK_GREATER, TK_LESS, TK_AND, TK_OR, TK_NOT;
+// groups
+terminal String TK_LPAR, TK_RPAR, TK_LBRC, TK_RBRC, TK_LRBK, TK_RTBK
