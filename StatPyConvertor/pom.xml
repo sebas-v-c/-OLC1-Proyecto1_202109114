@@ -30,6 +30,7 @@
                 <version>1.9.1</version>
                 <executions>
                     <execution>
+                        <id>stp</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -49,16 +50,17 @@
                 <version>11b-20160615-2</version>
                 <executions>
                     <execution>
+                        <id>stp</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
+                        <configuration>
+                            <cupDefinition>src/main/java/gt/edu/usac/ingenieria/analyzer/statpy/StatPy.cup</cupDefinition>
+                            <outputDirectory>src/main/java</outputDirectory>
+                            <symbolsName>SYM</symbolsName>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <cupDefinition>${project.basedir}/src/main/java/gt/edu/usac/ingenieria/analyzer/statpy/StatPy.cup</cupDefinition>
-                    <outputDirectory>src/main/java</outputDirectory>
-                    <symbolsName>SYM</symbolsName>
-                </configuration>
             </plugin>
         </plugins>
     </build>
