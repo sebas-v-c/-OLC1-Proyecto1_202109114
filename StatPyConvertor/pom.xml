@@ -21,7 +21,6 @@
             <version>11b-20160615-2</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -29,6 +28,7 @@
                 <artifactId>jflex-maven-plugin</artifactId>
                 <version>1.9.1</version>
                 <executions>
+                    <!-- TO execute this file we need to run "mvn jflex:generate@stp" -->
                     <execution>
                         <id>stp</id>
                         <goals>
@@ -44,12 +44,14 @@
                 </executions>
             </plugin>
 
+
             <plugin>
                 <groupId>com.github.vbmacher</groupId>
                 <artifactId>cup-maven-plugin</artifactId>
                 <version>11b-20160615-2</version>
                 <executions>
                     <execution>
+                        <!-- TO execute this file we need to run "mvn cup:generate@stp" -->
                         <id>stp</id>
                         <goals>
                             <goal>generate</goal>
