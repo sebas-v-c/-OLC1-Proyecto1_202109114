@@ -11,5 +11,6 @@ public class App {
 
         EditorView editor = new EditorView();
         EditorController controller = new EditorController(editor);
+
     }
 }

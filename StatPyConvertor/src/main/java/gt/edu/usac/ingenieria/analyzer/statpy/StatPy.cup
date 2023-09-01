@@ -1,20 +1,21 @@
-package gt.edu.usac.ingenieria.analyzer;
+package gt.edu.usac.ingenieria.analyzer.statpy;
 import java.util.stream.Collectors;
 import java_cup.runtime.*;
 import java.util.Arrays;
 import java.util.ArrayList;
 import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpS;
 
+
 // PARSER
 parser code
 {:
     ArrayList<ErrorStpS> errors = new ArrayList<>();
     public void syntax_error(Symbol s){
-        errors.add(new ErrorStpS(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
+        errors.add(new ErrorStpS(s.left, s.right, s.value, STPYSym.terminalNames[s.sym]));
     }
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
-        errors.add(new ERrorStpS("Syntax error, impossible to recover"));
+        errors.add(new ErrorStpS("Syntax error, impossible to recover"));
     }
     public String getErrors() {
         return errors.stream().map(Object::toString).collect(Collectors.joining("\n-> "));
@@ -29,18 +30,17 @@ terminal String KW_MAIN;
 // data types
 terminal String KW_VOID, KW_INT, KW_DOUBLE, KW_CHAR, KW_BOOL, KW_STRING;
 // control structures
-terminal Element KW_IF, KW_ELSE, KW_SWITCH, KW_CASE, KW_DEFAULT;
-terminal Element KW_BREAK, KW_FOR, KW_DO, KW_WHILE, KW_CONTINUE, KW_RETURN;
+terminal String KW_IF, KW_ELSE, KW_SWITCH, KW_CASE, KW_DEFAULT;
+terminal String KW_BREAK, KW_FOR, KW_DO, KW_WHILE, KW_CONTINUE, KW_RETURN;
 // literals
-terminal String TK_STRING, TK_INT, TK_DOUBLE;
-terminal character TK_CHAR;
+terminal String TK_STRING, TK_CHAR, TK_INT, TK_DOUBLE, TK_ID;
 // operators
 terminal String TK_PLUS, TK_MINUS, TK_MULT, TK_DIV;
 terminal String TK_GEQ, TK_LEQ, TK_EQEQ, TK_NOTEQ;
 terminal String TK_GREATER, TK_LESS, TK_AND, TK_OR, TK_NOT;
 terminal String TK_UMINUS;
 // groups
-terminal String TK_LPAR, TK_RPAR, TK_LBRC, TK_RBRC, TK_LRBK, TK_RTBK;
+terminal String TK_LPAR, TK_RPAR, TK_LBRC, TK_RBRC, TK_LBRK, TK_RBRK;
 // assign
 terminal String TK_EQ;
 // punctuation
@@ -48,7 +48,7 @@ terminal String TK_COMA, TK_SCOLON;
 
 /* NON TERMINALS */
 non terminal Init;
-non terminal Intructions;
+non terminal Instructions;
 non terminal Instruction;
 
 
@@ -56,7 +56,7 @@ non terminal Instruction;
 precedence left TK_OR;
 precedence left TK_AND;
 precedence right TK_NOT;
-precedence left TK_EQEQ, TK_NEQ;
+precedence left TK_EQEQ, TK_NOTEQ;
 precedence left TK_LEQ, TK_GEQ, TK_LESS, TK_GREATER;
 precedence left TK_PLUS, TK_MINUS;
 precedence left TK_MULT, TK_DIV;
@@ -68,10 +68,9 @@ start with Init;
 
 Init            ::= Instructions;
 
-Intructions     ::=
+Instructions     ::=
                     Instructions Instruction
                 |   Instruction
                 ;
 
-Instruction     ::= KW_VOID
-                ;
+Instruction     ::= KW_VOID;
