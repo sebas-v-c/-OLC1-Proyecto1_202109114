@@ -50,6 +50,8 @@ terminal String TK_COMA, TK_SCOLON;
 non terminal Init;
 non terminal Instructions;
 non terminal Instruction;
+non terminal DeclareVar;
+non terminal DataType;
 
 
 /*PRECEDENCES*/
@@ -66,13 +68,28 @@ precedence right TK_UMINUS;
 
 start with Init;
 
+// beginnig
 Init            ::= Instructions;
 
+Main            ::= KW_VOID KW_MAIN TK_LPAR TK_RPAR TK_LBRC Instructions TK_RBRC;
+
 Instructions    ::=
-                    Instructions TK_PLUS Instructions
-                |   Instructions TK_MULT Instructions
-                |   TK_LPAR Instructions TK_RPAR
+                    Instructions Instruction
                 |   Instruction
                 ;
 
-Instruction     ::= TK_INT;
+Instruction     ::=
+                    DeclareVar TK_SCOLON
+                |   error
+                ;
+
+DeclareVar      ::= DataType TK_ID TK_EQ Expresion;
+
+
+DataType        ::=
+                    KW_INT
+                |   KW_BOOL
+                |   KW_DOUBLE
+                |   KW_CHAR
+                |   KW_STRING
+                ;
