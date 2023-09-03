@@ -17,8 +17,9 @@ parser code
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
         errors.add(new ErrorStpS("Syntax error, impossible to recover"));
     }
-    public String getErrors() {
-        return errors.stream().map(Object::toString).collect(Collectors.joining("\n-> "));
+    public ArrayList<ErrorStpS> getErrors() {
+        return errors;
+        //return errors.stream().map(Object::toString).collect(Collectors.joining("\n-> "));
     }
     public boolean isSuccessExecution() {
         return !(errors.size() > 0);
@@ -52,12 +53,21 @@ terminal String TK_DOLL;
 
 /* NON TERMINALS */
 non terminal Init;
+non terminal Main;
+
 non terminal Instructions;
 non terminal Instruction;
+
 non terminal DeclareVar;
+
 non terminal DataType;
+
 non terminal Expresion;
 non terminal Math;
+non terminal Relation;
+non terminal Logic;
+non terminal CallFunc;
+non terminal CallJson;
 
 
 /*PRECEDENCES*/
@@ -75,7 +85,7 @@ precedence right TK_UMINUS;
 start with Init;
 
 // beginnig
-Init            ::= Instructions;
+Init            ::= Main;
 
 Main            ::= KW_VOID KW_MAIN TK_LPAR TK_RPAR TK_LBRC Instructions TK_RBRC;
 
@@ -102,8 +112,8 @@ Expresion       ::=
                 |   TK_CHAR
                 |   TK_INT
                 |   TK_DOUBLE
-                |   TK_TRUE
-                |   TK_FALSE
+                |   KW_TRUE
+                |   KW_FALSE
                 |   TK_LPAR Expresion TK_RPAR
                 ;
 

@@ -33,7 +33,6 @@ import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpL;
 %public
 %class STPLexer
 %cup
-%char
 %column
 %full
 %line
@@ -42,13 +41,12 @@ import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpL;
 // contructor
 %init{
     yyline = 1;
-    yychar = 1;
 %init}
 
 //regular expressions
 DISCARTED=[ \r\t]+
 TEXT=([^\n\"\\]|\\.)
-ID=(\_)*[a-zA-Z][a-zA-Z0-9\_]*
+ID=(\_)*[a-zA-ZñÑ][a-zA-Z0-9ñÑ\_]*
 STRING=\"({TEXT}*)\"
 CHAR=\'({TEXT})\'
 INTEGER=[0-9]+
@@ -117,7 +115,7 @@ COMMENTML=[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
     // especial symbol
     "$"         {return symbol(SYM.TK_DOLL,         yytext());}
     // reset char count
-    \n          {yychar = 1;}
+    \n          {yycolumn = 1;}
     {DISCARTED} {}
     {COMMENT}   {}
     {COMMENTML} {}

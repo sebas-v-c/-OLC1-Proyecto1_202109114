@@ -1,5 +1,7 @@
 package gt.edu.usac.ingenieria.analyzer.statpy;
 
+import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpL;
+import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpS;
 import java_cup.runtime.Symbol;
 import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
@@ -30,9 +32,11 @@ public class SPTParserTest {
             parser = new STPParser(scanner);
             //parseSymbol = parser.debug_parse();
             parseSymbol = parser.parse();
-            if (parser.getErrors().length() > 0){
+            if (!parser.getErrors().isEmpty()){
                 logger.log(Level.INFO, "Errors founded in the parser");
-                System.out.println("-> " + parser.getErrors());
+                for (ErrorStpS error : parser.getErrors()) {
+                    error.print();
+                }
             }
         } catch (IOException e){
             logger.log(Level.SEVERE, null, e);
