@@ -31,7 +31,7 @@ import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpL;
 
 // directives
 %public
-%class StatPyLexer
+%class STPLexer
 %cup
 %char
 %column

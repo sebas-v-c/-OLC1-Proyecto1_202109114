@@ -11,7 +11,7 @@ import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpL;
 
 
 @SuppressWarnings("fallthrough")
-public class StatPyLexer implements java_cup.runtime.Scanner {
+public class STPLexer implements java_cup.runtime.Scanner {
 
   /** This character denotes the end of file. */
   public static final int YYEOF = -1;
@@ -363,7 +363,7 @@ public class StatPyLexer implements java_cup.runtime.Scanner {
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  public StatPyLexer(java.io.Reader in) {
+  public STPLexer(java.io.Reader in) {
       yyline = 1;
     yychar = 1;
     this.zzReader = in;

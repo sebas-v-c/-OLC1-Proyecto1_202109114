@@ -70,7 +70,7 @@
                         <configuration>
                             <cupDefinition>src/main/java/gt/edu/usac/ingenieria/analyzer/statpy/StatPy.cup</cupDefinition>
                             <outputDirectory>src/main/java</outputDirectory>
-                            <className>Parser</className>
+                            <className>STPParser</className>
                             <symbolsName>SYM</symbolsName>
                         </configuration>
                     </execution>

@@ -15,7 +15,7 @@ import java_cup.runtime.XMLElement;
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
   */
 @SuppressWarnings({"rawtypes"})
-public class Parser extends java_cup.runtime.lr_parser {
+public class STPParser extends java_cup.runtime.lr_parser {
 
  public final Class getSymbolContainer() {
     return SYM.class;
@@ -23,14 +23,14 @@ public class Parser extends java_cup.runtime.lr_parser {
 
   /** Default constructor. */
   @Deprecated
-  public Parser() {super();}
+  public STPParser() {super();}
 
   /** Constructor which sets the default scanner. */
   @Deprecated
-  public Parser(java_cup.runtime.Scanner s) {super(s);}
+  public STPParser(java_cup.runtime.Scanner s) {super(s);}
 
   /** Constructor which sets the default scanner. */
-  public Parser(java_cup.runtime.Scanner s, java_cup.runtime.SymbolFactory sf) {super(s,sf);}
+  public STPParser(java_cup.runtime.Scanner s, java_cup.runtime.SymbolFactory sf) {super(s,sf);}
 
   /** Production table. */
   protected static final short _production_table[][] = 
@@ -73,12 +73,12 @@ public class Parser extends java_cup.runtime.lr_parser {
   public short[][] reduce_table() {return _reduce_table;}
 
   /** Instance of action encapsulation class. */
-  protected CUP$Parser$actions action_obj;
+  protected CUP$STPParser$actions action_obj;
 
   /** Action encapsulation object initializer. */
   protected void init_actions()
     {
-      action_obj = new CUP$Parser$actions(this);
+      action_obj = new CUP$STPParser$actions(this);
     }
 
   /** Invoke a user supplied parse action. */
@@ -90,7 +90,7 @@ public class Parser extends java_cup.runtime.lr_parser {
     throws java.lang.Exception
   {
     /* call code in generated class */
-    return action_obj.CUP$Parser$do_action(act_num, parser, stack, top);
+    return action_obj.CUP$STPParser$do_action(act_num, parser, stack, top);
   }
 
   /** Indicates start state. */
@@ -124,117 +124,117 @@ public class Parser extends java_cup.runtime.lr_parser {
 
 /** Cup generated class to encapsulate user supplied action code.*/
 @SuppressWarnings({"rawtypes", "unchecked", "unused"})
-class CUP$Parser$actions {
-  private final Parser parser;
+class CUP$STPParser$actions {
+  private final STPParser parser;
 
   /** Constructor */
-  CUP$Parser$actions(Parser parser) {
+  CUP$STPParser$actions(STPParser parser) {
     this.parser = parser;
   }
 
   /** Method 0 with the actual generated action code for actions 0 to 300. */
-  public final java_cup.runtime.Symbol CUP$Parser$do_action_part00000000(
-    int                        CUP$Parser$act_num,
-    java_cup.runtime.lr_parser CUP$Parser$parser,
-    java.util.Stack            CUP$Parser$stack,
-    int                        CUP$Parser$top)
+  public final java_cup.runtime.Symbol CUP$STPParser$do_action_part00000000(
+    int                        CUP$STPParser$act_num,
+    java_cup.runtime.lr_parser CUP$STPParser$parser,
+    java.util.Stack            CUP$STPParser$stack,
+    int                        CUP$STPParser$top)
     throws java.lang.Exception
     {
       /* Symbol object for return from actions */
-      java_cup.runtime.Symbol CUP$Parser$result;
+      java_cup.runtime.Symbol CUP$STPParser$result;
 
       /* select the action based on the action number */
-      switch (CUP$Parser$act_num)
+      switch (CUP$STPParser$act_num)
         {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 0: // $START ::= Init EOF 
             {
               Object RESULT =null;
-		int start_valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
-		int start_valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		Object start_val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		int start_valleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).left;
+		int start_valright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).right;
+		Object start_val = (Object)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).value;
 		RESULT = start_val;
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("$START",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$STPParser$result = parser.getSymbolFactory().newSymbol("$START",0, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           /* ACCEPT */
-          CUP$Parser$parser.done_parsing();
-          return CUP$Parser$result;
+          CUP$STPParser$parser.done_parsing();
+          return CUP$STPParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 1: // Init ::= Instructions 
             {
               Object RESULT =null;
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("Init",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$STPParser$result = parser.getSymbolFactory().newSymbol("Init",0, ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
-          return CUP$Parser$result;
+          return CUP$STPParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 2: // Instructions ::= Instructions TK_PLUS Instructions 
             {
               Object RESULT =null;
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("Instructions",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$STPParser$result = parser.getSymbolFactory().newSymbol("Instructions",1, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
-          return CUP$Parser$result;
+          return CUP$STPParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 3: // Instructions ::= Instructions TK_MULT Instructions 
             {
               Object RESULT =null;
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("Instructions",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$STPParser$result = parser.getSymbolFactory().newSymbol("Instructions",1, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
-          return CUP$Parser$result;
+          return CUP$STPParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 4: // Instructions ::= TK_LPAR Instructions TK_RPAR 
             {
               Object RESULT =null;
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("Instructions",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$STPParser$result = parser.getSymbolFactory().newSymbol("Instructions",1, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
-          return CUP$Parser$result;
+          return CUP$STPParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 5: // Instructions ::= Instruction 
             {
               Object RESULT =null;
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("Instructions",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$STPParser$result = parser.getSymbolFactory().newSymbol("Instructions",1, ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
-          return CUP$Parser$result;
+          return CUP$STPParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 6: // Instruction ::= TK_INT 
             {
               Object RESULT =null;
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("Instruction",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$STPParser$result = parser.getSymbolFactory().newSymbol("Instruction",2, ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
-          return CUP$Parser$result;
+          return CUP$STPParser$result;
 
           /* . . . . . .*/
           default:
             throw new Exception(
-               "Invalid action number "+CUP$Parser$act_num+"found in internal parse table");
+               "Invalid action number "+CUP$STPParser$act_num+"found in internal parse table");
 
         }
     } /* end of method */
 
   /** Method splitting the generated action code into several parts. */
-  public final java_cup.runtime.Symbol CUP$Parser$do_action(
-    int                        CUP$Parser$act_num,
-    java_cup.runtime.lr_parser CUP$Parser$parser,
-    java.util.Stack            CUP$Parser$stack,
-    int                        CUP$Parser$top)
+  public final java_cup.runtime.Symbol CUP$STPParser$do_action(
+    int                        CUP$STPParser$act_num,
+    java_cup.runtime.lr_parser CUP$STPParser$parser,
+    java.util.Stack            CUP$STPParser$stack,
+    int                        CUP$STPParser$top)
     throws java.lang.Exception
     {
-              return CUP$Parser$do_action_part00000000(
-                               CUP$Parser$act_num,
-                               CUP$Parser$parser,
-                               CUP$Parser$stack,
-                               CUP$Parser$top);
+              return CUP$STPParser$do_action_part00000000(
+                               CUP$STPParser$act_num,
+                               CUP$STPParser$parser,
+                               CUP$STPParser$stack,
+                               CUP$STPParser$top);
     }
 }
 
