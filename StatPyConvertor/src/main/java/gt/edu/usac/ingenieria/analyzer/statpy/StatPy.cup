@@ -11,7 +11,7 @@ parser code
 {:
     ArrayList<ErrorStpS> errors = new ArrayList<>();
     public void syntax_error(Symbol s){
-        errors.add(new ErrorStpS(s.left, s.right, s.value, STPYSym.terminalNames[s.sym]));
+        errors.add(new ErrorStpS(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
     }
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
@@ -68,9 +68,11 @@ start with Init;
 
 Init            ::= Instructions;
 
-Instructions     ::=
-                    Instructions Instruction
+Instructions    ::=
+                    Instructions TK_PLUS Instructions
+                |   Instructions TK_MULT Instructions
+                |   TK_LPAR Instructions TK_RPAR
                 |   Instruction
                 ;
 
-Instruction     ::= KW_VOID;
+Instruction     ::= TK_INT;

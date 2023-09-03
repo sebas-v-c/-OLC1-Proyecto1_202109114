@@ -20,6 +20,17 @@
             <artifactId>cup-maven-plugin</artifactId>
             <version>11b-20160615-2</version>
         </dependency>
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -59,6 +70,7 @@
                         <configuration>
                             <cupDefinition>src/main/java/gt/edu/usac/ingenieria/analyzer/statpy/StatPy.cup</cupDefinition>
                             <outputDirectory>src/main/java</outputDirectory>
+                            <className>Parser</className>
                             <symbolsName>SYM</symbolsName>
                         </configuration>
                     </execution>
