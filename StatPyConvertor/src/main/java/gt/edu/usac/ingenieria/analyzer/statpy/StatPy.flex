@@ -78,6 +78,8 @@ COMMENTML=[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
     "while"     {return symbol(SYM.KW_WHILE,        yytext());}
     "continue"  {return symbol(SYM.KW_CONTINUE,     yytext());}
     "return"    {return symbol(SYM.KW_RETURN,       yytext());}
+    "true"      {return symbol(SYM.KW_TRUE,         yytext());}
+    "false"     {return symbol(SYM.KW_FALSE,        yytext());}
     // values
     {STRING}    {return symbol(SYM.TK_STRING,       yytext());}
     {CHAR}      {return symbol(SYM.TK_CHAR,         yytext());}

@@ -32,6 +32,8 @@ terminal String KW_VOID, KW_INT, KW_DOUBLE, KW_CHAR, KW_BOOL, KW_STRING;
 // control structures
 terminal String KW_IF, KW_ELSE, KW_SWITCH, KW_CASE, KW_DEFAULT;
 terminal String KW_BREAK, KW_FOR, KW_DO, KW_WHILE, KW_CONTINUE, KW_RETURN;
+// bools
+terminal boolean KW_TRUE, KW_FALSE;
 // literals
 terminal String TK_STRING, TK_CHAR, TK_INT, TK_DOUBLE, TK_ID;
 // operators
@@ -100,7 +102,10 @@ Expresion       ::=
                 |   TK_CHAR
                 |   TK_INT
                 |   TK_DOUBLE
-                |   TR
+                |   TK_TRUE
+                |   TK_FALSE
+                |   TK_LPAR Expresion TK_RPAR
+                ;
 
 
 DataType        ::=
