@@ -43,7 +43,7 @@ public class STPScannerTest {
             } while (parseSymbol.value != null);
 
             if (scanner.getErrors().size() > 0){
-                logger.log(Level.INFO, "Error founded in the scanner");
+                logger.log(Level.INFO, "Errors founded in the scanner");
                 for (ErrorStpL error : scanner.getErrors()) {
                     error.print();
                 }

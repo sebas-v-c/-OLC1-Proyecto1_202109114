@@ -113,8 +113,9 @@ COMMENTML=[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
     // punctuation
     ","         {return symbol(SYM.TK_COMA,         yytext());}
     ";"         {return symbol(SYM.TK_SCOLON,       yytext());}
-    // especial symbol
+    // especial symbols
     "$"         {return symbol(SYM.TK_DOLL,         yytext());}
+    "."         {return symboll(SYM.TK_DOT,         yytext());}
     // reset char count
     \n          {yycolumn = 1;}
     {DISCARTED} {}

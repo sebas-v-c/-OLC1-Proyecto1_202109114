@@ -12,6 +12,6 @@ public class ErrorStpL {
     }
 
     public void print(){
-        System.out.println("Unrecognized character\"" + character + "\" at: line-" + line + " - column-" + column);
+        System.out.println("Unrecognized character \"" + character + "\" at: line-" + line + " - column-" + column);
     }
 }

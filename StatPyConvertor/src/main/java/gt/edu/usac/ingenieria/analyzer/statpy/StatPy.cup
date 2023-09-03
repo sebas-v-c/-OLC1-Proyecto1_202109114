@@ -65,11 +65,16 @@ non terminal Expresion;
 non terminal Math;
 non terminal Relation;
 non terminal Logic;
+// Conditional estructures
+non terminal IfStatement;
+non terminal SwitchStatement;
 // call a function
 non terminal CallFunc;
 non terminal ArgsList;
 
 non terminal CallJson;
+// local environment
+non terminal LocalEnv;
 
 
 /*PRECEDENCES*/
@@ -99,6 +104,8 @@ Instructions    ::=
 Instruction     ::=
                     DeclareVar TK_SCOLON
                 |   CallFunc TK_SCOLON
+                |   IfStatement
+                |   SwitchStatement
                 |   error
                 ;
 
@@ -123,6 +130,17 @@ CallFunc        ::=
 ArgsList        ::=
                     ArgsList TK_COMA Expresion
                 |   Expresion
+                ;
+
+IfStatement     ::=
+                    KW_IF TK_LPAR Expresion TK_RPAR LocalEnv KW_ELSE IfStatement
+                |   KW_IF TK_LPAR Expresion TK_RPAR LocalEnv KW_ELSE LocalEnv
+                |   KW_IF TK_LPAR Expresion TK_RPAR LocalEnv
+                ;
+
+LocalEnv        ::=
+                    TK_LBRC Instructions TK_RBRC
+                |   TK_LBRC TK_RBRC
                 ;
 
 Expresion       ::=
