@@ -33,6 +33,7 @@ import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpL;
 %public
 %class STPLexer
 %cup
+%char
 %column
 %full
 %line

@@ -54,19 +54,21 @@ terminal String TK_DOLL;
 /* NON TERMINALS */
 non terminal Init;
 non terminal Main;
-
+// instructions
 non terminal Instructions;
 non terminal Instruction;
-
+// variable declaration
 non terminal DeclareVar;
-
 non terminal DataType;
-
+// expresion control
 non terminal Expresion;
 non terminal Math;
 non terminal Relation;
 non terminal Logic;
+// call a function
 non terminal CallFunc;
+non terminal ArgsList;
+
 non terminal CallJson;
 
 
@@ -96,10 +98,32 @@ Instructions    ::=
 
 Instruction     ::=
                     DeclareVar TK_SCOLON
+                |   CallFunc TK_SCOLON
                 |   error
                 ;
 
-DeclareVar      ::= DataType TK_ID TK_EQ Expresion;
+DeclareVar      ::=
+                    DataType TK_ID TK_EQ Expresion
+                |   DataType TK_ID
+                ;
+
+DataType        ::=
+                    KW_INT
+                |   KW_BOOL
+                |   KW_DOUBLE
+                |   KW_CHAR
+                |   KW_STRING
+                ;
+
+CallFunc        ::=
+                    TK_ID TK_LPAR ArgsList TK_RPAR
+                |   TK_ID TK_LPAR TK_RPAR
+                ;
+
+ArgsList        ::=
+                    ArgsList TK_COMA Expresion
+                |   Expresion
+                ;
 
 Expresion       ::=
                     Math
@@ -117,11 +141,25 @@ Expresion       ::=
                 |   TK_LPAR Expresion TK_RPAR
                 ;
 
+Math            ::=
+                    Expresion TK_PLUS Expresion
+                |   Expresion TK_MINUS Expresion
+                |   Expresion TK_MULT Expresion
+                |   Expresion TK_DIV Expresion
+                |   TK_UMINUS Expresion                 %prec TK_UMINUS
+                ;
 
-DataType        ::=
-                    KW_INT
-                |   KW_BOOL
-                |   KW_DOUBLE
-                |   KW_CHAR
-                |   KW_STRING
+Relation        ::=
+                    Expresion TK_GEQ Expresion
+                |   Expresion TK_LEQ Expresion
+                |   Expresion TK_EQEQ Expresion
+                |   Expresion TK_NOTEQ Expresion
+                |   Expresion TK_GREATER Expresion
+                |   Expresion TK_LESS Expresion
+                ;
+
+Logic           ::=
+                    Expresion TK_AND Expresion
+                |   Expresion TK_OR Expresion
+                |   TK_NOT Expresion
                 ;
