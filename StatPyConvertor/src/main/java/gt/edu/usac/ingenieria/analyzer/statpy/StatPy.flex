@@ -47,7 +47,7 @@ import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpL;
 //regular expressions
 DISCARTED=[ \r\t]+
 TEXT=([^\n\"\\]|\\.)
-ID=(\_)*[a-zA-ZñÑ][a-zA-Z0-9ñÑ\_]*
+ID=(\_)*[a-zA-ZñÑ][a-zA-Z0-9ñÑ\_\.]*
 STRING=\"({TEXT}*)\"
 CHAR=\'({TEXT})\'
 INTEGER=[0-9]+
@@ -115,7 +115,6 @@ COMMENTML=[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
     ";"         {return symbol(SYM.TK_SCOLON,       yytext());}
     // especial symbols
     "$"         {return symbol(SYM.TK_DOLL,         yytext());}
-    "."         {return symboll(SYM.TK_DOT,         yytext());}
     // reset char count
     \n          {yycolumn = 1;}
     {DISCARTED} {}
