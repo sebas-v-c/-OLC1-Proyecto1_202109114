@@ -45,6 +45,8 @@ terminal String TK_LPAR, TK_RPAR, TK_LBRC, TK_RBRC, TK_LBRK, TK_RBRK;
 terminal String TK_EQ;
 // punctuation
 terminal String TK_COMA, TK_SCOLON;
+// especial
+terminal String TK_DOLL;
 
 /* NON TERMINALS */
 non terminal Init;
@@ -52,6 +54,8 @@ non terminal Instructions;
 non terminal Instruction;
 non terminal DeclareVar;
 non terminal DataType;
+non terminal Expresion;
+non terminal Math;
 
 
 /*PRECEDENCES*/
@@ -84,6 +88,19 @@ Instruction     ::=
                 ;
 
 DeclareVar      ::= DataType TK_ID TK_EQ Expresion;
+
+Expresion       ::=
+                    Math
+                |   Relation
+                |   Logic
+                |   CallFunc
+                |   CallJson
+                |   TK_ID
+                |   TK_STRING
+                |   TK_CHAR
+                |   TK_INT
+                |   TK_DOUBLE
+                |   TR
 
 
 DataType        ::=
