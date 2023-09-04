@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
 
 public class EditorController {
     private static final String STATPY = "StatPy";
@@ -23,6 +24,9 @@ public class EditorController {
         view.addMStatPyListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (!Objects.equals(analyzer, STATPY)){
+                    view.cleanTextAreas();
+                }
                 analyzer = STATPY;
                 view.setAnalysisLabelText(STATPY);
             }
@@ -30,6 +34,9 @@ public class EditorController {
         view.addMJsonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (!Objects.equals(analyzer, JSON)){
+                    view.cleanTextAreas();
+                }
                 analyzer = JSON;
                 view.setAnalysisLabelText(JSON);
             }
@@ -62,8 +69,11 @@ public class EditorController {
                 try {
                     BufferedReader br = new BufferedReader(new FileReader(filepath));
                     String line;
+                    view.cleanTextAreas();
                     while ((line = br.readLine()) != null){
+                        view.appendEntryTextArea(line + "\n");
                     }
+                    br.close();
                 } catch (FileNotFoundException ex) {
                     // TODO show alert
                     throw new RuntimeException(ex);

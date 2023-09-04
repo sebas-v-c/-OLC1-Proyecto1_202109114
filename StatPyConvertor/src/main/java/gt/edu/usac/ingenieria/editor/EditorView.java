@@ -31,6 +31,10 @@ public class EditorView extends JFrame{
         this.setLocationRelativeTo(null);
     }
 
+    public void cleanTextAreas(){
+        entryTextArea.setText("");
+        outTextArea.setText("");
+    }
     public void setAnalysisLabelText(String text){
         analLabel.setText(text);
     }
