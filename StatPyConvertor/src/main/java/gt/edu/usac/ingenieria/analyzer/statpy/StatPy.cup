@@ -38,6 +38,7 @@ terminal boolean KW_TRUE, KW_FALSE;
 // literals
 terminal String TK_STRING, TK_CHAR, TK_INT, TK_DOUBLE, TK_ID;
 // operators
+terminal String TK_INC, TK_DEC;
 terminal String TK_PLUS, TK_MINUS, TK_MULT, TK_DIV;
 terminal String TK_GEQ, TK_LEQ, TK_EQEQ, TK_NOTEQ;
 terminal String TK_GREATER, TK_LESS, TK_AND, TK_OR, TK_NOT;
@@ -57,6 +58,7 @@ non terminal Main;
 // instructions
 non terminal Instructions;
 non terminal Instruction;
+non terminal IncreDecre;
 // variable declaration
 non terminal DeclareVar;
 non terminal DataType;
@@ -66,15 +68,20 @@ non terminal Math;
 non terminal Relation;
 non terminal Logic;
 non terminal ReasignVar;
-// Conditional estructures
+// Conditional structures
 non terminal IfStatement;
 non terminal SwitchStatement, CaseDeft, Cases, Case, Default;
+// loop structures
+non terminal ForLoop, ForArgs, ForInitArg;
+non terminal WhileLoop, DoWhileLoop;
 
 // call a function
 non terminal CallFunc;
 non terminal ArgsList;
 
-non terminal CallJson;
+non terminal DeclareFunc;
+
+non terminal CallJson, JsonArg;
 // local environment
 non terminal LocalEnv;
 non terminal LocalEnvs;
@@ -106,10 +113,19 @@ Instructions    ::=
 
 Instruction     ::=
                     DeclareVar TK_SCOLON
+                |   DeclareFunc
                 |   CallFunc TK_SCOLON
                 |   IfStatement
                 |   SwitchStatement
-                |   ReasignVar
+                |   ForLoop
+                |   WhileLoop
+                |   DoWhileLoop TK_SCOLON
+                |   ReasignVar TK_SCOLON
+                |   IncreDecre TK_SCOLON
+                |   KW_BREAK TK_SCOLON
+                |   KW_RETURN TK_SCOLON
+                |   KW_RETURN Expresion TK_SCOLON
+                |   KW_CONTINUE TK_SCOLON
                 |   error
                 ;
 
@@ -127,6 +143,8 @@ DataType        ::=
                 ;
 
 ReasignVar      ::= TK_ID TK_EQ Expresion;
+
+DeclareFunc     ::= KW_VOID TK_ID TK_LPAR TK_RPAR LocalEnv;
 
 CallFunc        ::=
                     TK_ID TK_LPAR ArgsList TK_RPAR
@@ -178,6 +196,33 @@ Default         ::=
                 |   KW_DEFAULT TK_COLON
                 ;
 
+ForLoop         ::=
+                    KW_FOR TK_LPAR ForArgs TK_RPAR LocalEnv;
+
+ForArgs         ::= ForInitArg TK_SCOLON Expresion TK_SCOLON IncreDecre;
+
+WhileLoop       ::= KW_WHILE TK_LPAR Expresion TK_RPAR LocalEnv;
+
+DoWhileLoop     ::= KW_DO LocalEnv KW_WHILE TK_LPAR Expresion TK_RPAR;
+
+ForInitArg      ::= KW_INT TK_ID TK_EQ TK_INT
+                |   ReasignVar;
+
+
+IncreDecre      ::=
+                    TK_ID TK_INC
+                |   TK_ID TK_DEC
+                ;
+
+CallJson        ::=
+                    TK_DOLL TK_LBRC JsonArg TK_COMA JsonArg TK_COMA JsonArg TK_RBRC
+                ;
+
+JsonArg         ::=
+                    TK_ID
+                |   TK_STRING
+                ;
+
 
 Expresion       ::=
                     Math
@@ -185,6 +230,7 @@ Expresion       ::=
                 |   Logic
                 |   CallFunc
                 |   CallJson
+                |   IncreDecre
                 |   TK_ID
                 |   TK_STRING
                 |   TK_CHAR
@@ -192,9 +238,6 @@ Expresion       ::=
                 |   TK_DOUBLE
                 |   KW_TRUE
                 |   KW_FALSE
-                |   KW_BREAK
-                |   KW_RETURN
-                |   KW_CONTINUE
                 |   TK_LPAR Expresion TK_RPAR
                 ;
 

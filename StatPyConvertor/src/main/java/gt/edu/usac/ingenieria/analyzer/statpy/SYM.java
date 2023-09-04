@@ -8,57 +8,59 @@ package gt.edu.usac.ingenieria.analyzer.statpy;
 /** CUP generated interface containing symbol constants. */
 public interface SYM {
   /* terminals */
-  public static final int TK_UMINUS = 40;
-  public static final int TK_GREATER = 35;
-  public static final int TK_MINUS = 28;
+  public static final int TK_UMINUS = 42;
+  public static final int TK_GREATER = 37;
+  public static final int TK_MINUS = 30;
   public static final int TK_INT = 24;
   public static final int KW_FALSE = 21;
-  public static final int TK_DOLL = 51;
+  public static final int TK_DOLL = 53;
   public static final int TK_DOUBLE = 25;
   public static final int KW_INT = 4;
-  public static final int TK_NOT = 39;
-  public static final int TK_AND = 37;
-  public static final int TK_OR = 38;
-  public static final int TK_LESS = 36;
+  public static final int TK_NOT = 41;
+  public static final int TK_AND = 39;
+  public static final int TK_OR = 40;
+  public static final int TK_LESS = 38;
   public static final int KW_FOR = 15;
   public static final int KW_DO = 16;
   public static final int KW_DOUBLE = 5;
   public static final int KW_CHAR = 6;
-  public static final int TK_RPAR = 42;
-  public static final int TK_DIV = 30;
-  public static final int TK_GEQ = 31;
+  public static final int TK_INC = 27;
+  public static final int TK_RPAR = 44;
+  public static final int TK_DIV = 32;
+  public static final int TK_GEQ = 33;
   public static final int TK_ID = 26;
   public static final int KW_CASE = 12;
-  public static final int TK_PLUS = 27;
-  public static final int TK_RBRK = 46;
-  public static final int TK_SCOLON = 49;
-  public static final int TK_EQ = 47;
-  public static final int TK_COMA = 48;
-  public static final int TK_RBRC = 44;
+  public static final int TK_PLUS = 29;
+  public static final int TK_RBRK = 48;
+  public static final int TK_SCOLON = 51;
+  public static final int TK_EQ = 49;
+  public static final int TK_COMA = 50;
+  public static final int TK_RBRC = 46;
   public static final int KW_BOOL = 7;
   public static final int KW_CONTINUE = 18;
-  public static final int TK_COLON = 50;
+  public static final int TK_COLON = 52;
+  public static final int TK_EQEQ = 35;
   public static final int KW_RETURN = 19;
-  public static final int TK_EQEQ = 33;
   public static final int EOF = 0;
   public static final int error = 1;
   public static final int KW_MAIN = 2;
   public static final int KW_TRUE = 20;
   public static final int KW_SWITCH = 11;
   public static final int KW_IF = 9;
-  public static final int TK_LEQ = 32;
+  public static final int TK_LEQ = 34;
   public static final int KW_VOID = 3;
+  public static final int TK_DEC = 28;
   public static final int KW_BREAK = 14;
   public static final int TK_STRING = 22;
-  public static final int TK_LPAR = 41;
-  public static final int TK_NOTEQ = 34;
+  public static final int TK_LPAR = 43;
+  public static final int TK_NOTEQ = 36;
   public static final int KW_ELSE = 10;
   public static final int KW_STRING = 8;
   public static final int KW_DEFAULT = 13;
   public static final int KW_WHILE = 17;
-  public static final int TK_LBRK = 45;
-  public static final int TK_MULT = 29;
-  public static final int TK_LBRC = 43;
+  public static final int TK_LBRK = 47;
+  public static final int TK_MULT = 31;
+  public static final int TK_LBRC = 45;
   public static final int TK_CHAR = 23;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -88,6 +90,8 @@ public interface SYM {
   "TK_INT",
   "TK_DOUBLE",
   "TK_ID",
+  "TK_INC",
+  "TK_DEC",
   "TK_PLUS",
   "TK_MINUS",
   "TK_MULT",

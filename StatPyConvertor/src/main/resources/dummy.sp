@@ -31,4 +31,19 @@ void main (){
             Console.Write("No valido,. 1 2 3");
     }
 
+    b++;
+
+    for (int a= 0; a<10;a++){
+        Console.Write("No valido,. 1 2 3");
+    }
+
+    while(a < 10){
+        Console.Write("El valor sexo");
+    }
+
+    int a = 1;
+    do {
+        Console.Write("el valor de a es: " + a);
+    } while(a < 5);
+
 }

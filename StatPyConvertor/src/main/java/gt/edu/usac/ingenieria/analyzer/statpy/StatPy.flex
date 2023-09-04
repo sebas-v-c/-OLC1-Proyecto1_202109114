@@ -86,6 +86,9 @@ COMMENTML=[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
     {DOUBLE}    {return symbol(SYM.TK_DOUBLE,       yytext());}
     // vars
     {ID}        {return symbol(SYM.TK_ID,           yytext());}
+    // Increment decrement
+    "++"        {return symbol(SYM.TK_INC,          yytext());}
+    "--"        {return symbol(SYM.TK_DEC,          yytext());}
     // aritmetics
     "+"         {return symbol(SYM.TK_PLUS,         yytext());}
     "-"         {return symbol(SYM.TK_MINUS,        yytext());}
