@@ -4,17 +4,19 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.Objects;
+
 
 public class EditorController {
     private static final String STATPY = "StatPy";
     private static final String JSON = "JSON";
     private EditorView view;
     private String analyzer = STATPY;
+    private String filePath;
     public EditorController(EditorView view) {
         this.view = view;
 
@@ -56,16 +58,16 @@ public class EditorController {
             FileNameExtensionFilter filter;
 
             switch (analyzer){
-                case STATPY -> filter = new FileNameExtensionFilter("Archivos StatPy", "sp");
-                case JSON -> filter = new FileNameExtensionFilter("Archivos JSON", "json");
+                case STATPY -> filter = new FileNameExtensionFilter("Archivos StatPy (*.stp)", "sp");
+                case JSON -> filter = new FileNameExtensionFilter("Archivos JSON (*.json)", "json");
                 default -> throw new IllegalStateException("Unexpected value: " + analyzer);
             }
-
             chooser.setFileFilter(filter);
-            int returnval = chooser.showOpenDialog(null);
 
+            int returnval = chooser.showOpenDialog(null);
             if (returnval == JFileChooser.APPROVE_OPTION){
                 String filepath = chooser.getSelectedFile().getPath();
+                filePath = filepath;
                 try {
                     BufferedReader br = new BufferedReader(new FileReader(filepath));
                     String line;
@@ -86,19 +88,75 @@ public class EditorController {
         }
     }
 
-    // TODO save file
     private class SaveFileListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (filePath == null){
+                SaveAsFileListener savadfile = new SaveAsFileListener();
+                savadfile.actionPerformed(e);
+                return;
+            }
+            String extension;
+            switch (analyzer){
+                case STATPY -> extension = ".sp";
+                case JSON -> extension = ".json";
+                default -> throw new IllegalStateException("Unexpected value: " + analyzer);
+            }
 
+            try {
+                if (!filePath.endsWith(extension)){
+                    filePath += extension;
+                }
+
+                Path path = Path.of(filePath);
+                Files.write(path, view.getEntryTextArea().getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 
-    // TODO save as file
     private class SaveAsFileListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            // JFileChooser configuration
+            String currentDir = System.getProperty("user.dir");
+            JFileChooser chooser = new JFileChooser(currentDir);
+            FileNameExtensionFilter filter;
+            String extension;
 
+            switch (analyzer){
+                case STATPY:
+                    extension = "sp";
+                    filter = new FileNameExtensionFilter("Archivos StatPy (*.stp)", extension);
+                    break;
+                case JSON:
+                    extension = "json";
+                    filter = new FileNameExtensionFilter("Archivos JSON (*.json)", extension);
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + analyzer);
+            }
+            chooser.setFileFilter(filter);
+
+            int returnval = chooser.showOpenDialog(null);
+            if (returnval == JFileChooser.APPROVE_OPTION){
+                File file = chooser.getSelectedFile();
+                String filepath = chooser.getSelectedFile().getAbsolutePath();
+                filePath = filepath;
+                if (!filepath.endsWith("." + extension)){
+                    filepath += "." + extension;
+                    file = new File(filepath);
+                }
+
+                try {
+                    Path path = Path.of(filepath);
+                    Files.write(path, view.getEntryTextArea().getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+            }
         }
     }
 
