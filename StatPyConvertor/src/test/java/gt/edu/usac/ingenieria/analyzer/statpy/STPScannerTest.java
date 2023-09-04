@@ -16,7 +16,7 @@ public class STPScannerTest {
     Logger logger = Logger.getLogger(this.getClass().getName());
     @Test
     public void testInputFile(){
-        STPLexer scanner;
+        STPLexer scanner = null;
         STPParser parser = null;
         Symbol parseSymbol = null;
         boolean testFile = false;
@@ -34,12 +34,14 @@ public class STPScannerTest {
 
             do {
                 parseSymbol = scanner.next_token();
+                /*
                 System.out.println(
                                 parseSymbol.value + " ".repeat(25 - String.valueOf(parseSymbol.value).length()) +
                                 parseSymbol.left + " ".repeat(6 - String.valueOf(parseSymbol.left).length()) +
                                 parseSymbol.right + " ".repeat(8 - String.valueOf(parseSymbol.right).length()) +
                                 gt.edu.usac.ingenieria.analyzer.statpy.SYM.terminalNames[parseSymbol.sym]
                 );
+                 */
             } while (parseSymbol.value != null);
 
             if (scanner.getErrors().size() > 0){
@@ -52,6 +54,14 @@ public class STPScannerTest {
             logger.log(Level.SEVERE, null, e);
         } catch (Exception e) {
             Logger.getLogger(SPTParserTest.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        if (!scanner.getErrors().isEmpty()) {
+            logger.log(Level.SEVERE, "Error founded in the scanner");
+            for (ErrorStpL error : scanner.getErrors()) {
+                error.print();
+            }
+            Assert.assertFalse(true);
         }
 
         if (parseSymbol == null){

@@ -32,16 +32,18 @@ public class SPTParserTest {
             parser = new STPParser(scanner);
             //parseSymbol = parser.debug_parse();
             parseSymbol = parser.parse();
-            if (!parser.getErrors().isEmpty()){
-                logger.log(Level.INFO, "Errors founded in the parser");
-                for (ErrorStpS error : parser.getErrors()) {
-                    error.print();
-                }
-            }
         } catch (IOException e){
             logger.log(Level.SEVERE, null, e);
         } catch (Exception e) {
             Logger.getLogger(SPTParserTest.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        if (!parser.getErrors().isEmpty()){
+            logger.log(Level.INFO, "Errors founded in the parser");
+            for (ErrorStpS error : parser.getErrors()) {
+                error.print();
+            }
+            Assert.assertFalse(true);
         }
 
         if (parseSymbol == null){
