@@ -80,9 +80,8 @@ non terminal WhileLoop, DoWhileLoop;
 non terminal CallFunc;
 non terminal ArgsList;
 
-non terminal DeclareFunc;
+//non terminal DeclareFunc;
 
-non terminal BasicStruc;
 non terminal GlobalVarsFunc, GlobalVarsEnv, GlobalVarsInsts, GlobalVarsInst;
 
 non terminal GraphFuncs;
@@ -239,7 +238,7 @@ DataType        ::=
 
 ReasignVar      ::= TK_ID TK_EQ Expresion;
 
-DeclareFunc     ::= KW_VOID TK_ID TK_LPAR TK_RPAR LocalEnv;
+//DeclareFunc     ::= KW_VOID TK_ID TK_LPAR TK_RPAR LocalEnv;
 
 CallFunc        ::=
                     TK_ID TK_LPAR ArgsList TK_RPAR

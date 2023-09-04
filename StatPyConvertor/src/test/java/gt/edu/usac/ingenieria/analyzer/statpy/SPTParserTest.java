@@ -23,7 +23,7 @@ public class SPTParserTest {
         STPLexer scanner;
         STPParser parser = null;
         Symbol parseSymbol = null;
-        boolean testFile = true;
+        boolean testFile = false;
         String fileName = "src/main/resources/" + (testFile ? "dummy" : "ejemplo") + ".sp";
 
         try {
