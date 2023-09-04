@@ -31,12 +31,14 @@ public class EditorController {
                 view.cleanTextAreas();
             }
             analyzer = STATPY;
+            view.setExecButtonText("Ejecutar");
             view.setAnalysisLabelText(STATPY);
         });
         view.addMJsonListener(e -> {
             if (!Objects.equals(analyzer, JSON)){
                 view.cleanTextAreas();
             }
+            view.setExecButtonText("Cargar");
             analyzer = JSON;
             view.setAnalysisLabelText(JSON);
         });
@@ -70,6 +72,8 @@ public class EditorController {
         }
 
         private JFileChooser getjFileChooser(String currentDir) {
+            UIManager.put("FileChooser.cancelButtonText", "Cerrar");
+            UIManager.put("FileChooser.openButtonText", "Abrir");
             JFileChooser chooser = new JFileChooser(currentDir);
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             FileNameExtensionFilter filter;
@@ -116,7 +120,8 @@ public class EditorController {
         @Override
         public void actionPerformed(ActionEvent e) {
             // JFileChooser configuration
-            UIManager.put("FileChooser.openButtonText", "Save");
+            UIManager.put("FileChooser.openButtonText", "Abrir");
+            UIManager.put("FileChooser.cancelButtonText", "Cerrar");
             String currentDir = System.getProperty("user.dir");
             JFileChooser chooser = new JFileChooser(currentDir);
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
