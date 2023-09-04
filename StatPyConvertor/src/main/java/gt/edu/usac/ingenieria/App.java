@@ -12,9 +12,9 @@ import java.util.Locale;
 
 public class App {
     public static void main(String[] args) {
-        Locale.setDefault(new Locale("es"));
-
         FlatIntelliJLaf.setup();
+
+        Locale.setDefault(new Locale("es"));
 
         EditorView editor = new EditorView();
         EditorController controller = new EditorController(editor);
