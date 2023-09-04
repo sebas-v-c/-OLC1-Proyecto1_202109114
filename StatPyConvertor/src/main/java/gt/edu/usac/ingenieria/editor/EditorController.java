@@ -1,5 +1,7 @@
 package gt.edu.usac.ingenieria.editor;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,6 +38,20 @@ public class EditorController {
     private class OpenFileListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            UIManager.put("FileChooser.readOnly", Boolean.TRUE);
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter;
+            switch (analyzer){
+                case STATPY -> filter = new FileNameExtensionFilter("Archivos StatPy", "sp");
+                case JSON -> filter = new FileNameExtensionFilter("Archivos JSON", "json");
+                default -> throw new IllegalStateException("Unexpected value: " + analyzer);
+            }
+            chooser.setFileFilter(filter);
+            int returnval = chooser.showOpenDialog(null);
+            if (returnval == JFileChooser.APPROVE_OPTION){
+                String filepath = chooser.getSelectedFile().getPath();
+                System.out.println(filepath);
+            }
 
         }
     }
@@ -59,5 +75,9 @@ public class EditorController {
     // TODO create execute method
     // the execute either traduce or analyze only
     private class ExecuteListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
     }
 }
