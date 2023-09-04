@@ -128,7 +128,7 @@ COMMENTML=[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
     // especial symbols
     "$"               {return symbol(SYM.TK_DOLL,         yytext());}
     // reset char count
-    \n                {yycolumn = 1;}
+    \n                {yycolumn = 0;}
     {DISCARTED}       {}
     {COMMENT}         {}
     {COMMENTML}       {}

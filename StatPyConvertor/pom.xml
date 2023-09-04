@@ -52,6 +52,19 @@
                             <outputDirectory>src/main/java</outputDirectory>
                         </configuration>
                     </execution>
+                    <!-- TO execute this file we need to run "mvn jflex:generate@json" -->
+                    <execution>
+                        <id>json</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <lexDefinitions>
+                                <lexDefinition>src/main/java/gt/edu/usac/ingenieria/analyzer/json/Json.flex</lexDefinition>
+                            </lexDefinitions>
+                            <outputDirectory>src/main/java</outputDirectory>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
 
@@ -71,6 +84,20 @@
                             <cupDefinition>src/main/java/gt/edu/usac/ingenieria/analyzer/statpy/StatPy.cup</cupDefinition>
                             <outputDirectory>src/main/java</outputDirectory>
                             <className>STPParser</className>
+                            <symbolsName>SYM</symbolsName>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <!-- TO execute this file we need to run "mvn cup:generate@json" -->
+                        <id>json</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <cupDefinition>src/main/java/gt/edu/usac/ingenieria/analyzer/json/Json.cup</cupDefinition>
+                            <outputDirectory>src/main/java</outputDirectory>
+                            <className>JsonParser</className>
                             <symbolsName>SYM</symbolsName>
                         </configuration>
                     </execution>
