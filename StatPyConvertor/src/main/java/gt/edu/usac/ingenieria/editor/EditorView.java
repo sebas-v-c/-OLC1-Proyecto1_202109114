@@ -1,7 +1,16 @@
 package gt.edu.usac.ingenieria.editor;
 
+import javax.imageio.ImageIO;
+import javax.print.DocFlavor;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicRadioButtonUI;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 public class EditorView extends JFrame{
     private JPanel mainPanel;
@@ -22,7 +31,7 @@ public class EditorView extends JFrame{
     private JTextArea outTextArea;
     private JButton cleanButton;
     private JLabel loadedJsonsLabel;
-    private JCheckBox StatPyCheckBox;
+    private JRadioButton statPyRadioButton;
 
     public EditorView() {
         super("StatPy");
@@ -40,8 +49,8 @@ public class EditorView extends JFrame{
     public void setExecButtonText(String text){
         execButton.setText(text);
     }
-    public void setCheckBoxState(boolean state){
-        StatPyCheckBox.setSelected(state);
+    public void setRadioButtonState(boolean state){
+        statPyRadioButton.setSelected(state);
     }
     public void setAnalysisLabelText(String text){
         analLabel.setText(text);
@@ -91,4 +100,35 @@ public class EditorView extends JFrame{
     public void addCleaButtonListener(ActionListener listener){
         cleanButton.addActionListener(listener);
     }
+
+    public void setSelectedStatPy(boolean selected){
+        statPyRadioButton.setSelected(selected);
+    }
+
+    private ImageIcon loadImageFromResources(String imageName) {
+        try {
+            ClassLoader classLoader = getClass().getClassLoader();
+            InputStream inputStream = classLoader.getResourceAsStream(imageName);
+
+            if (inputStream != null) {
+                byte[] bytes = inputStream.readAllBytes();
+                inputStream.close();
+                return new ImageIcon(bytes);
+            } else {
+                System.err.println("Resource not found: " + imageName);
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    private void createUIComponents() {
+        statPyRadioButton = new JRadioButton();
+        statPyRadioButton.setDisabledSelectedIcon(loadImageFromResources("check-mark.png"));
+        statPyRadioButton.setDisabledIcon(loadImageFromResources("not-mark.png"));
+        statPyRadioButton.setSelectedIcon(loadImageFromResources("check-mark.png"));
+        statPyRadioButton.setIcon(loadImageFromResources("not-mark.png"));
+    }
+
 }
