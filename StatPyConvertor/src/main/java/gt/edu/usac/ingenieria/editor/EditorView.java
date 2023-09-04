@@ -1,6 +1,7 @@
 package gt.edu.usac.ingenieria.editor;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public class EditorView extends JFrame{
     private JPanel mainPanel;
@@ -28,5 +29,35 @@ public class EditorView extends JFrame{
         this.setVisible(true);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
+    }
+
+    public void setAnalysisLabelText(String text){
+        analLabel.setText(text);
+    }
+
+    // button listeners
+    public void addMOpenListener(ActionListener listener){
+        mOpen.addActionListener(listener);
+    }
+    public void addMSaveListener(ActionListener listener){
+        mSave.addActionListener(listener);
+    }
+    public void addMSaveAsListener(ActionListener listener){
+        mSaveAs.addActionListener(listener);
+    }
+    public void addMStatPyListener(ActionListener listener){
+        mStatPy.addActionListener(listener);
+    }
+    public void addMJsonListener(ActionListener listener){
+        mJson.addActionListener(listener);
+    }
+    public void addExecButtonListener(ActionListener listener){
+        execButton.addActionListener(listener);
+    }
+    public void addMReportTokensListener(ActionListener listener){
+        mReportTokens.addActionListener(listener);
+    }
+    public void addMReportErrorsListener(ActionListener listener){
+        mReportErrors.addActionListener(listener);
     }
 }
