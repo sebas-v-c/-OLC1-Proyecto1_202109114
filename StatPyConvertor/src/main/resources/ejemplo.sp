@@ -3,6 +3,7 @@
 void main ( ){
 	int b = 2;
 	int a =1;
+	int c = -5.03;
 	int var1 = 5+8*9;
 	if (b > a){
 		Console.Write("b mayor que a");

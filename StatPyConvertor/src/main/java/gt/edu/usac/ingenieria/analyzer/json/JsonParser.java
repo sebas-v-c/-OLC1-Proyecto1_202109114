@@ -35,10 +35,11 @@ public class JsonParser extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\014\000\002\002\004\000\002\002\004\000\002\003" +
+    "\000\016\000\002\002\004\000\002\002\003\000\002\003" +
     "\004\000\002\003\005\000\002\004\004\000\002\004\003" +
-    "\000\002\005\006\000\002\006\003\000\002\006\003\000" +
-    "\002\006\003\000\002\006\004\000\002\006\003" });
+    "\000\002\005\006\000\002\005\005\000\002\006\003\000" +
+    "\002\006\003\000\002\006\003\000\002\006\004\000\002" +
+    "\006\004\000\002\006\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -46,18 +47,21 @@ public class JsonParser extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\025\000\004\004\005\001\002\000\004\002\027\001" +
-    "\002\000\004\004\007\001\002\000\004\002\000\001\002" +
-    "\000\006\005\010\010\013\001\002\000\006\002\uffff\007" +
-    "\uffff\001\002\000\006\005\ufffc\010\ufffc\001\002\000\006" +
-    "\005\025\010\013\001\002\000\004\006\014\001\002\000" +
-    "\014\004\007\010\020\011\016\012\022\013\017\001\002" +
-    "\000\004\007\ufff6\001\002\000\004\007\ufff8\001\002\000" +
-    "\004\011\024\001\002\000\004\007\ufffa\001\002\000\004" +
-    "\007\023\001\002\000\004\007\ufff9\001\002\000\006\005" +
-    "\ufffb\010\ufffb\001\002\000\004\007\ufff7\001\002\000\006" +
-    "\002\ufffe\007\ufffe\001\002\000\006\005\ufffd\010\ufffd\001" +
-    "\002\000\004\002\001\001\002" });
+    "\000\025\000\004\004\006\001\002\000\004\002\000\001" +
+    "\002\000\004\002\027\001\002\000\006\005\007\010\012" +
+    "\001\002\000\012\002\uffff\005\uffff\007\uffff\010\uffff\001" +
+    "\002\000\006\005\ufffc\010\ufffc\001\002\000\006\005\025" +
+    "\010\012\001\002\000\004\006\013\001\002\000\014\004" +
+    "\006\010\017\011\015\012\020\013\016\001\002\000\010" +
+    "\005\ufff4\007\ufff4\010\ufff4\001\002\000\010\005\ufff7\007" +
+    "\ufff7\010\ufff7\001\002\000\006\011\023\012\024\001\002" +
+    "\000\010\005\ufff9\007\ufff9\010\ufff9\001\002\000\010\005" +
+    "\ufff8\007\ufff8\010\ufff8\001\002\000\010\005\ufffa\007\022" +
+    "\010\ufffa\001\002\000\006\005\ufffb\010\ufffb\001\002\000" +
+    "\010\005\ufff6\007\ufff6\010\ufff6\001\002\000\010\005\ufff5" +
+    "\007\ufff5\010\ufff5\001\002\000\012\002\ufffe\005\ufffe\007" +
+    "\ufffe\010\ufffe\001\002\000\006\005\ufffd\010\ufffd\001\002" +
+    "\000\004\002\001\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -65,11 +69,11 @@ public class JsonParser extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\025\000\004\002\003\001\001\000\002\001\001\000" +
-    "\004\003\005\001\001\000\002\001\001\000\006\004\011" +
-    "\005\010\001\001\000\002\001\001\000\002\001\001\000" +
-    "\004\005\025\001\001\000\002\001\001\000\006\003\014" +
-    "\006\020\001\001\000\002\001\001\000\002\001\001\000" +
+    "\000\025\000\006\002\004\003\003\001\001\000\002\001" +
+    "\001\000\002\001\001\000\006\004\010\005\007\001\001" +
+    "\000\002\001\001\000\002\001\001\000\004\005\025\001" +
+    "\001\000\002\001\001\000\006\003\013\006\020\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001" });
@@ -167,11 +171,11 @@ class CUP$JsonParser$actions {
           return CUP$JsonParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 1: // Init ::= TK_LBRC Object 
+          case 1: // Init ::= Object 
             {
               Object RESULT =null;
 
-              CUP$JsonParser$result = parser.getSymbolFactory().newSymbol("Init",0, ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)), ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), RESULT);
+              CUP$JsonParser$result = parser.getSymbolFactory().newSymbol("Init",0, ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), RESULT);
             }
           return CUP$JsonParser$result;
 
@@ -221,7 +225,16 @@ class CUP$JsonParser$actions {
           return CUP$JsonParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // ValueType ::= TK_STRING 
+          case 7: // Content ::= TK_STRING TK_COLON ValueType 
+            {
+              Object RESULT =null;
+
+              CUP$JsonParser$result = parser.getSymbolFactory().newSymbol("Content",3, ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-2)), ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), RESULT);
+            }
+          return CUP$JsonParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 8: // ValueType ::= TK_STRING 
             {
               Object RESULT =null;
 
@@ -230,7 +243,7 @@ class CUP$JsonParser$actions {
           return CUP$JsonParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // ValueType ::= TK_DOUBLE 
+          case 9: // ValueType ::= TK_DOUBLE 
             {
               Object RESULT =null;
 
@@ -239,7 +252,7 @@ class CUP$JsonParser$actions {
           return CUP$JsonParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // ValueType ::= TK_INT 
+          case 10: // ValueType ::= TK_INT 
             {
               Object RESULT =null;
 
@@ -248,7 +261,7 @@ class CUP$JsonParser$actions {
           return CUP$JsonParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // ValueType ::= TK_MINUS TK_INT 
+          case 11: // ValueType ::= TK_MINUS TK_INT 
             {
               Object RESULT =null;
 
@@ -257,7 +270,16 @@ class CUP$JsonParser$actions {
           return CUP$JsonParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // ValueType ::= Object 
+          case 12: // ValueType ::= TK_MINUS TK_DOUBLE 
+            {
+              Object RESULT =null;
+
+              CUP$JsonParser$result = parser.getSymbolFactory().newSymbol("ValueType",4, ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)), ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), RESULT);
+            }
+          return CUP$JsonParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 13: // ValueType ::= Object 
             {
               Object RESULT =null;
 

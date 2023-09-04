@@ -44,7 +44,7 @@ precedence right TK_MINUS;
 
 start with Init;
 
-Init            ::= TK_LBRC Object;
+Init            ::= Object;
 
 Object          ::=
                     TK_LBRC TK_RBRC
@@ -56,7 +56,10 @@ Contents        ::=
                 |   Content
                 ;
 
-Content         ::= TK_STRING TK_COLON ValueType TK_COMA;
+Content         ::=
+                    TK_STRING TK_COLON ValueType TK_COMA
+                |   TK_STRING TK_COLON ValueType
+                ;
 
 
 ValueType       ::=
@@ -64,5 +67,6 @@ ValueType       ::=
                 |   TK_DOUBLE
                 |   TK_INT
                 |   TK_MINUS TK_INT
+                |   TK_MINUS TK_DOUBLE
                 |   Object
                 ;

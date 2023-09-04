@@ -877,7 +877,7 @@ public class STPLexer implements java_cup.runtime.Scanner {
           // fall through
           case 64: break;
           case 3:
-            { yycolumn = 1;
+            { yycolumn = 0;
             }
           // fall through
           case 65: break;

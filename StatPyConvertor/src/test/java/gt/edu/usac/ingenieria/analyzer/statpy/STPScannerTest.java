@@ -25,12 +25,14 @@ public class STPScannerTest {
         try{
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             scanner = new STPLexer(br);
+            /*
             System.out.println(
                             "TOKEN" + " ".repeat(25 - "TOKEN".length()) +
                             "LINE" + " ".repeat(6 - "LINE".length()) +
                             "COLUMN" + " ".repeat(8 - "COLUMN".length()) +
                             "TYPE"
             );
+             */
 
             do {
                 parseSymbol = scanner.next_token();
