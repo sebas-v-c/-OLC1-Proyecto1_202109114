@@ -34,6 +34,22 @@ public class EditorView extends JFrame{
     public void setAnalysisLabelText(String text){
         analLabel.setText(text);
     }
+    public String getEntryTextArea(){
+        return entryTextArea.getText();
+    }
+    public void setEntryTextArea(String text){
+        entryTextArea.setText(text);
+    }
+    public void appendEntryTextArea(String line){
+        entryTextArea.append(line);
+    }
+    public String getOutTextArea(){
+        return outTextArea.getText();
+    }
+    public void setOutTextArea(String text){
+        outTextArea.setText(text);
+    }
+
 
     // button listeners
     public void addMOpenListener(ActionListener listener){
