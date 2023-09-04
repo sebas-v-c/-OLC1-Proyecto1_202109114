@@ -41,7 +41,7 @@ void main (){
         Console.Write("El valor sexo");
     }
 
-    int a = 1;
+    int a = -1;
     do {
         Console.Write("el valor de a es: " + a);
     } while(a < 5);

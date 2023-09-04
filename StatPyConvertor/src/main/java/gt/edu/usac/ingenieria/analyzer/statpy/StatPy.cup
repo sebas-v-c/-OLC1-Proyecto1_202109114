@@ -35,6 +35,8 @@ terminal String KW_IF, KW_ELSE, KW_SWITCH, KW_CASE, KW_DEFAULT;
 terminal String KW_BREAK, KW_FOR, KW_DO, KW_WHILE, KW_CONTINUE, KW_RETURN;
 // bools
 terminal boolean KW_TRUE, KW_FALSE;
+// graph key words
+terminal KW_DEFGLB, KW_BARGRPH, KW_PIEGRPH, KW_TITLE, KW_XAXIS, KW_VALUES, KW_TITLEX, KW_TITLEY;
 // literals
 terminal String TK_STRING, TK_CHAR, TK_INT, TK_DOUBLE, TK_ID;
 // operators
@@ -80,6 +82,14 @@ non terminal ArgsList;
 
 non terminal DeclareFunc;
 
+non terminal BasicStruc;
+non terminal GlobalVarsFunc, GlobalVarsEnv, GlobalVarsInsts, GlobalVarsInst;
+
+non terminal GraphFuncs;
+non terminal PieGraphInsts, PieGraphInst;
+non terminal BarGraphInsts, BarGraphInst;
+non terminal ArrArgsX, ArrArgsV;
+
 non terminal CallJson, JsonArg;
 // local environment
 non terminal LocalEnv;
@@ -105,15 +115,87 @@ Init            ::= Main;
 
 Main            ::= KW_VOID KW_MAIN TK_LPAR TK_RPAR TK_LBRC Instructions TK_RBRC;
 
+
+
 Instructions    ::=
                     Instructions Instruction
                 |   Instruction
                 ;
 
+GraphFuncs      ::=
+                    KW_VOID KW_BARGRPH TK_LPAR TK_RPAR TK_LBRC BarGraphInsts TK_RBRC
+                |   KW_VOID KW_PIEGRPH TK_LPAR TK_RPAR TK_LBRC PieGraphInsts TK_RBRC
+                ;
+
+PieGraphInsts   ::=
+                    PieGraphInsts PieGraphInst
+                |   PieGraphInst
+                ;
+
+PieGraphInst    ::=
+                    KW_STRING KW_TITLE TK_EQ TK_ID TK_SCOLON
+                |   KW_STRING KW_TITLE TK_EQ TK_STRING TK_SCOLON
+                |   KW_STRING TK_LBRC TK_RBRC KW_XAXIS TK_EQ TK_LBRC ArrArgsX TK_RBRC TK_SCOLON
+                |   KW_DOUBLE TK_LBRC TK_RBRC KW_VALUES TK_EQ TK_LBRC ArrArgsV TK_RBRC TK_SCOLON
+                ;
+
+
+BarGraphInsts   ::=
+                    BarGraphInsts BarGraphInst
+                |   BarGraphInst
+                ;
+
+BarGraphInst    ::=
+                    KW_STRING KW_TITLE TK_EQ TK_ID TK_SCOLON
+                |   KW_STRING KW_TITLE TK_EQ TK_STRING TK_SCOLON
+                |   KW_STRING KW_TITLEX TK_EQ TK_STRING TK_SCOLON
+                |   KW_STRING KW_TITLEX TK_EQ TK_ID TK_SCOLON
+                |   KW_STRING KW_TITLEY TK_EQ TK_STRING TK_SCOLON
+                |   KW_STRING KW_TITLEY TK_EQ TK_ID TK_SCOLON
+                |   KW_STRING TK_LBRK TK_RBRK KW_XAXIS TK_EQ TK_LBRC ArrArgsX TK_RBRC TK_SCOLON
+                |   KW_DOUBLE TK_LBRK TK_RBRK KW_VALUES TK_EQ TK_LBRC ArrArgsV TK_RBRC TK_SCOLON
+                ;
+
+ArrArgsX        ::=
+                    ArrArgsX TK_COMA TK_STRING
+                |   ArrArgsX TK_COMA TK_ID
+                |   TK_STRING
+                |   TK_ID
+                ;
+
+ArrArgsV        ::=
+                    ArrArgsV TK_COMA TK_DOUBLE
+                |   ArrArgsV TK_COMA TK_ID
+                |   ArrArgsV TK_COMA CallJson
+                |   TK_DOUBLE
+                |   TK_ID
+                |   CallJson
+                ;
+
+
+GlobalVarsFunc  ::=
+                    KW_VOID KW_DEFGLB TK_LPAR TK_RPAR GlobalVarsEnv;
+
+GlobalVarsEnv   ::=
+                    TK_LBRC GlobalVarsInsts TK_RBRC
+                |   TK_LBRC TK_RBRC
+                ;
+
+GlobalVarsInsts ::= GlobalVarsInsts GlobalVarsInst
+                |   GlobalVarsInst
+                ;
+
+GlobalVarsInst  ::=
+                    KW_STRING TK_ID TK_EQ TK_STRING TK_SCOLON
+                |   KW_DOUBLE TK_ID TK_EQ TK_DOUBLE TK_SCOLON
+                |   KW_STRING TK_ID TK_EQ CallJson TK_SCOLON
+                |   KW_DOUBLE TK_ID TK_EQ CallJson TK_SCOLON
+                ;
+
+
 Instruction     ::=
                     DeclareVar TK_SCOLON
                 |   DeclareArr TK_SCOLON
-                |   DeclareFunc
                 |   CallFunc TK_SCOLON
                 |   IfStatement
                 |   SwitchStatement
@@ -126,8 +208,12 @@ Instruction     ::=
                 |   KW_RETURN TK_SCOLON
                 |   KW_RETURN Expresion TK_SCOLON
                 |   KW_CONTINUE TK_SCOLON
+                |   GlobalVarsFunc
+                |   GraphFuncs
                 |   error
                 ;
+
+
 
 DeclareVar      ::=
                     DataType TK_ID TK_EQ Expresion
@@ -206,7 +292,8 @@ Default         ::=
                 ;
 
 ForLoop         ::=
-                    KW_FOR TK_LPAR ForArgs TK_RPAR LocalEnv;
+                    KW_FOR TK_LPAR ForArgs TK_RPAR LocalEnv
+                ;
 
 ForArgs         ::= ForInitArg TK_SCOLON Expresion TK_SCOLON IncreDecre;
 
@@ -232,7 +319,6 @@ JsonArg         ::=
                 |   TK_STRING
                 ;
 
-
 Expresion       ::=
                     Math
                 |   Relation
@@ -255,7 +341,7 @@ Math            ::=
                 |   Expresion TK_MINUS Expresion
                 |   Expresion TK_MULT Expresion
                 |   Expresion TK_DIV Expresion
-                |   TK_UMINUS Expresion                 %prec TK_UMINUS
+                |   TK_MINUS Expresion                 %prec TK_UMINUS
                 ;
 
 Relation        ::=
