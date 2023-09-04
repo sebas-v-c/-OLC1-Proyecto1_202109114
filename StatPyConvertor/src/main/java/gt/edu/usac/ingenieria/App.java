@@ -14,7 +14,7 @@ public class App {
     public static void main(String[] args) {
         FlatIntelliJLaf.setup();
 
-        Locale.setDefault(new Locale("es"));
+        Locale.setDefault(new Locale("es", "ES"));
 
         EditorView editor = new EditorView();
         EditorController controller = new EditorController(editor);
