@@ -13,7 +13,7 @@ public interface SYM {
   public static final int TK_MINUS = 28;
   public static final int TK_INT = 24;
   public static final int KW_FALSE = 21;
-  public static final int TK_DOLL = 50;
+  public static final int TK_DOLL = 51;
   public static final int TK_DOUBLE = 25;
   public static final int KW_INT = 4;
   public static final int TK_NOT = 39;
@@ -37,6 +37,7 @@ public interface SYM {
   public static final int TK_RBRC = 44;
   public static final int KW_BOOL = 7;
   public static final int KW_CONTINUE = 18;
+  public static final int TK_COLON = 50;
   public static final int KW_RETURN = 19;
   public static final int TK_EQEQ = 33;
   public static final int EOF = 0;
@@ -110,6 +111,7 @@ public interface SYM {
   "TK_EQ",
   "TK_COMA",
   "TK_SCOLON",
+  "TK_COLON",
   "TK_DOLL"
   };
 }

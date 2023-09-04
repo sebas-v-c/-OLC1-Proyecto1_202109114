@@ -65,9 +65,11 @@ non terminal Expresion;
 non terminal Math;
 non terminal Relation;
 non terminal Logic;
+non terminal ReasignVar;
 // Conditional estructures
 non terminal IfStatement;
-non terminal SwitchStatement;
+non terminal SwitchStatement, CaseDeft, Cases, Case, Default;
+
 // call a function
 non terminal CallFunc;
 non terminal ArgsList;
@@ -107,6 +109,7 @@ Instruction     ::=
                 |   CallFunc TK_SCOLON
                 |   IfStatement
                 |   SwitchStatement
+                |   ReasignVar
                 |   error
                 ;
 
@@ -122,6 +125,8 @@ DataType        ::=
                 |   KW_CHAR
                 |   KW_STRING
                 ;
+
+ReasignVar      ::= TK_ID TK_EQ Expresion;
 
 CallFunc        ::=
                     TK_ID TK_LPAR ArgsList TK_RPAR
@@ -164,7 +169,14 @@ Cases           ::=
                 ;
 
 Case            ::=
-                    KW_CASE Expresion TK_SCOLON
+                    KW_CASE Expresion TK_COLON Instructions
+                |   KW_CASE Expresion TK_COLON
+                ;
+
+Default         ::=
+                    KW_DEFAULT TK_COLON Instructions
+                |   KW_DEFAULT TK_COLON
+                ;
 
 
 Expresion       ::=
@@ -180,6 +192,9 @@ Expresion       ::=
                 |   TK_DOUBLE
                 |   KW_TRUE
                 |   KW_FALSE
+                |   KW_BREAK
+                |   KW_RETURN
+                |   KW_CONTINUE
                 |   TK_LPAR Expresion TK_RPAR
                 ;
 

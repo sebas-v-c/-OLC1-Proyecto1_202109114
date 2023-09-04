@@ -18,4 +18,17 @@ void main (){
 	} else {
 	    Console.Write("a y b son iguales");
 	}
+
+	switch(valor){
+	    case si:
+	        precio = 55;
+	        break;
+	    case 2:
+	        precio = 25;
+        case 3:
+            precio = 40;
+        default:
+            Console.Write("No valido,. 1 2 3");
+    }
+
 }
