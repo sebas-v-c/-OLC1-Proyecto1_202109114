@@ -60,8 +60,7 @@ non terminal Instructions;
 non terminal Instruction;
 non terminal IncreDecre;
 // variable declaration
-non terminal DeclareVar;
-non terminal DataType;
+non terminal DeclareVar, DeclareArr, ArrArgs, DataType;
 // expresion control
 non terminal Expresion;
 non terminal Math;
@@ -113,6 +112,7 @@ Instructions    ::=
 
 Instruction     ::=
                     DeclareVar TK_SCOLON
+                |   DeclareArr TK_SCOLON
                 |   DeclareFunc
                 |   CallFunc TK_SCOLON
                 |   IfStatement
@@ -132,6 +132,15 @@ Instruction     ::=
 DeclareVar      ::=
                     DataType TK_ID TK_EQ Expresion
                 |   DataType TK_ID
+                ;
+
+DeclareArr      ::=
+                    DataType TK_LBRK TK_RBRK TK_ID TK_EQ TK_LBRC ArrArgs TK_RBRC
+                ;
+
+ArrArgs         ::=
+                    ArrArgs TK_COMA Expresion
+                |   Expresion
                 ;
 
 DataType        ::=
