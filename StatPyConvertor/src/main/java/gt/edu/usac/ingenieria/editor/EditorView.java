@@ -20,6 +20,9 @@ public class EditorView extends JFrame{
     private JLabel analLabel;
     private JTextArea entryTextArea;
     private JTextArea outTextArea;
+    private JButton cleanButton;
+    private JLabel loadedJsonsLabel;
+    private JCheckBox StatPyCheckBox;
 
     public EditorView() {
         super("StatPy");
@@ -34,6 +37,15 @@ public class EditorView extends JFrame{
     public void cleanTextAreas(){
         entryTextArea.setText("");
         outTextArea.setText("");
+    }
+    public void setLoadedJsonsText(String text){
+        loadedJsonsLabel.setText(text);
+    }
+    public void setExecButtonText(String text){
+        execButton.setText(text);
+    }
+    public void setCheckBoxState(boolean state){
+        StatPyCheckBox.setSelected(state);
     }
     public void setAnalysisLabelText(String text){
         analLabel.setText(text);
@@ -79,5 +91,8 @@ public class EditorView extends JFrame{
     }
     public void addMReportErrorsListener(ActionListener listener){
         mReportErrors.addActionListener(listener);
+    }
+    public void addCleaButtonListener(ActionListener listener){
+        cleanButton.addActionListener(listener);
     }
 }
