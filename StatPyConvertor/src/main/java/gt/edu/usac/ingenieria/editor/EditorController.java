@@ -23,6 +23,9 @@ public class EditorController {
         view.addMOpenListener(new OpenFileListener());
         view.addMSaveListener(new SaveFileListener());
         view.addMSaveAsListener(new SaveAsFileListener());
+        view.addExecButtonListener(new ExecuteListener());
+        view.addMReportErrorsListener(new ReportErrorsListener());
+        view.addMReportTokensListener(new ReportTokensListener());
         view.addMStatPyListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,26 +46,15 @@ public class EditorController {
                 view.setAnalysisLabelText(JSON);
             }
         });
-
-        view.addExecButtonListener(new ExecuteListener());
     }
 
-    // TODO Open file
     private class OpenFileListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             // JFileChooser configuration
             UIManager.put("FileChooser.readOnly", Boolean.TRUE);
             String currentDir = System.getProperty("user.dir");
-            JFileChooser chooser = new JFileChooser(currentDir);
-            FileNameExtensionFilter filter;
-
-            switch (analyzer){
-                case STATPY -> filter = new FileNameExtensionFilter("Archivos StatPy (*.stp)", "sp");
-                case JSON -> filter = new FileNameExtensionFilter("Archivos JSON (*.json)", "json");
-                default -> throw new IllegalStateException("Unexpected value: " + analyzer);
-            }
-            chooser.setFileFilter(filter);
+            JFileChooser chooser = getjFileChooser(currentDir);
 
             int returnval = chooser.showOpenDialog(null);
             if (returnval == JFileChooser.APPROVE_OPTION){
@@ -76,15 +68,25 @@ public class EditorController {
                         view.appendEntryTextArea(line + "\n");
                     }
                     br.close();
-                } catch (FileNotFoundException ex) {
-                    // TODO show alert
-                    throw new RuntimeException(ex);
                 } catch (IOException ex) {
-                    // TODO show alert
                     throw new RuntimeException(ex);
                 }
             }
 
+        }
+
+        private JFileChooser getjFileChooser(String currentDir) {
+            JFileChooser chooser = new JFileChooser(currentDir);
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            FileNameExtensionFilter filter;
+
+            switch (analyzer){
+                case STATPY -> filter = new FileNameExtensionFilter("Archivos StatPy (*.stp)", "sp");
+                case JSON -> filter = new FileNameExtensionFilter("Archivos JSON (*.json)", "json");
+                default -> throw new IllegalStateException("Unexpected value: " + analyzer);
+            }
+            chooser.setFileFilter(filter);
+            return chooser;
         }
     }
 
@@ -120,23 +122,24 @@ public class EditorController {
         @Override
         public void actionPerformed(ActionEvent e) {
             // JFileChooser configuration
+            UIManager.put("FileChooser.openButtonText", "Save");
             String currentDir = System.getProperty("user.dir");
             JFileChooser chooser = new JFileChooser(currentDir);
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             FileNameExtensionFilter filter;
             String extension;
 
-            switch (analyzer){
-                case STATPY:
+            filter = switch (analyzer) {
+                case STATPY -> {
                     extension = "sp";
-                    filter = new FileNameExtensionFilter("Archivos StatPy (*.stp)", extension);
-                    break;
-                case JSON:
+                    yield new FileNameExtensionFilter("Archivos StatPy (*.stp)", extension);
+                }
+                case JSON -> {
                     extension = "json";
-                    filter = new FileNameExtensionFilter("Archivos JSON (*.json)", extension);
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + analyzer);
-            }
+                    yield new FileNameExtensionFilter("Archivos JSON (*.json)", extension);
+                }
+                default -> throw new IllegalStateException("Unexpected value: " + analyzer);
+            };
             chooser.setFileFilter(filter);
 
             int returnval = chooser.showOpenDialog(null);
@@ -163,6 +166,21 @@ public class EditorController {
     // TODO create execute method
     // the execute either traduce or analyze only
     private class ExecuteListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    // TODO generate errors report
+    private class ReportErrorsListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+    // TODO generate tokens report
+    private class ReportTokensListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
 
