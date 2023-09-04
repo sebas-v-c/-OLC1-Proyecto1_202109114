@@ -19,15 +19,15 @@ public class JsonParserTest {
 
     @Test
     public void testInputFile(){
-        STPLexer scanner;
-        STPParser parser = null;
+        JsonLexer scanner;
+        JsonParser parser = null;
         Symbol parseSymbol = null;
         String fileName = "src/main/resources/ejemploJSON.json";
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
-            scanner = new STPLexer(br);
-            parser = new STPParser(scanner);
+            scanner = new JsonLexer(br);
+            parser = new JsonParser(scanner);
             //parseSymbol = parser.debug_parse();
             parseSymbol = parser.parse();
         } catch (IOException e){
