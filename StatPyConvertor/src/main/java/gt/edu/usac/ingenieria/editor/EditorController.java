@@ -4,6 +4,10 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class EditorController {
     private static final String STATPY = "StatPy";
@@ -55,7 +59,18 @@ public class EditorController {
 
             if (returnval == JFileChooser.APPROVE_OPTION){
                 String filepath = chooser.getSelectedFile().getPath();
-                System.out.println(filepath);
+                try {
+                    BufferedReader br = new BufferedReader(new FileReader(filepath));
+                    String line;
+                    while ((line = br.readLine()) != null){
+                    }
+                } catch (FileNotFoundException ex) {
+                    // TODO show alert
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
+                    // TODO show alert
+                    throw new RuntimeException(ex);
+                }
             }
 
         }
