@@ -1,14 +1,63 @@
 package gt.edu.usac.ingenieria.editor;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class EditorController {
-    EditorView view;
-    // TODO Open file
-    // TODO save file
-    // TODO save as file
-    // TODO Change analyzer
-    // TODO create execute method
-    // the execute either traduce or analyze only
+    private static final String STATPY = "StatPy";
+    private static final String JSON = "JSON";
+    private EditorView view;
+    private String analyzer = STATPY;
     public EditorController(EditorView view) {
         this.view = view;
+
+        view.addMOpenListener(new OpenFileListener());
+        view.addMSaveListener(new SaveFileListener());
+        view.addMSaveAsListener(new SaveAsFileListener());
+        view.addMStatPyListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                analyzer = STATPY;
+                view.setAnalysisLabelText(STATPY);
+            }
+        });
+        view.addMJsonListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                analyzer = JSON;
+                view.setAnalysisLabelText(JSON);
+            }
+        });
+
+        view.addExecButtonListener(new ExecuteListener());
+    }
+
+    // TODO Open file
+    private class OpenFileListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    // TODO save file
+    private class SaveFileListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    // TODO save as file
+    private class SaveAsFileListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    // TODO create execute method
+    // the execute either traduce or analyze only
+    private class ExecuteListener implements ActionListener {
     }
 }
