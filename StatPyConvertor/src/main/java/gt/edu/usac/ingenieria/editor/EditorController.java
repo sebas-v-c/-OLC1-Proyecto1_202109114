@@ -26,6 +26,7 @@ public class EditorController {
         view.addExecButtonListener(new ExecuteListener());
         view.addMReportErrorsListener(new ReportErrorsListener());
         view.addMReportTokensListener(new ReportTokensListener());
+        view.addCleaButtonListener(new ClearListener());
         view.addMStatPyListener(e -> {
             if (!Objects.equals(analyzer, STATPY)){
                 view.cleanTextAreas();
@@ -164,7 +165,24 @@ public class EditorController {
     private class ExecuteListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            switch (analyzer){
+                case STATPY:
+                    executeStatPy();
+                    view.setSelectedStatPy(true);
+                    break;
+                case JSON:
+                    loadJson();
+                    view.setLoadedJsonsText(String.valueOf(view.getLoadedJsonsNum() + 1));
+                    break;
+            }
 
+        }
+        // This should thow an exception
+        private void executeStatPy(){
+
+        }
+        // This should thow an exception
+        private void loadJson() {
         }
     }
 
@@ -177,6 +195,14 @@ public class EditorController {
     }
     // TODO generate tokens report
     private class ReportTokensListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    // TODO delete all loaded files
+    private class ClearListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
 
