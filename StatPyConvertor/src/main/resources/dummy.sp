@@ -13,7 +13,9 @@ void main (){
 
 	if (b > a){
 		Console.Write("b mayor que a");
-	}else if(a == b){
+	} else if(a == b){
 		Console.Write("a y b son iguales");
+	} else {
+	    Console.Write("a y b son iguales");
 	}
 }

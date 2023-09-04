@@ -47,7 +47,7 @@ terminal String TK_LPAR, TK_RPAR, TK_LBRC, TK_RBRC, TK_LBRK, TK_RBRK;
 // assign
 terminal String TK_EQ;
 // punctuation
-terminal String TK_COMA, TK_SCOLON;
+terminal String TK_COMA, TK_SCOLON, TK_COLON;
 // especial
 terminal String TK_DOLL;
 
@@ -75,6 +75,7 @@ non terminal ArgsList;
 non terminal CallJson;
 // local environment
 non terminal LocalEnv;
+non terminal LocalEnvs;
 
 
 /*PRECEDENCES*/
@@ -142,6 +143,29 @@ LocalEnv        ::=
                     TK_LBRC Instructions TK_RBRC
                 |   TK_LBRC TK_RBRC
                 ;
+
+SwitchStatement ::=
+                    KW_SWITCH TK_LPAR Expresion TK_RPAR LocalEnvs;
+
+LocalEnvs       ::=
+                    TK_LBRC CaseDeft TK_RBRC
+                |   TK_LBRC TK_RBRC
+                ;
+
+CaseDeft        ::=
+                    Cases Default
+                |   Cases
+                |   Default
+                ;
+
+Cases           ::=
+                    Cases Case
+                |   Case
+                ;
+
+Case            ::=
+                    KW_CASE Expresion TK_SCOLON
+
 
 Expresion       ::=
                     Math
