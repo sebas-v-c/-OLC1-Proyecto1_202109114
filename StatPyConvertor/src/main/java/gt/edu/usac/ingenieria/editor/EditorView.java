@@ -46,11 +46,11 @@ public class EditorView extends JFrame{
     public void setLoadedJsonsText(String text){
         loadedJsonsLabel.setText(text);
     }
+    public int getLoadedJsonsNum(){
+        return Integer.parseInt(loadedJsonsLabel.getText());
+    }
     public void setExecButtonText(String text){
         execButton.setText(text);
-    }
-    public void setRadioButtonState(boolean state){
-        statPyRadioButton.setSelected(state);
     }
     public void cleanTextAreas(){
         entryTextArea.setText("");
