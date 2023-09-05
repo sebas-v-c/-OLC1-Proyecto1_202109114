@@ -12,10 +12,8 @@ import java.util.Objects;
 
 
 public class EditorController {
-    private static final String STATPY = "StatPy";
-    private static final String JSON = "JSON";
     private final EditorView view;
-    private String analyzer = STATPY;
+    private Mode analyzer = Mode.STATPY;
     private String filePath;
     public EditorController(EditorView view) {
         this.view = view;
@@ -28,20 +26,20 @@ public class EditorController {
         view.addMReportTokensListener(new ReportTokensListener());
         view.addCleaButtonListener(new ClearListener());
         view.addMStatPyListener(e -> {
-            if (!Objects.equals(analyzer, STATPY)){
+            if (analyzer != Mode.STATPY){
                 view.cleanTextAreas();
             }
-            analyzer = STATPY;
+            analyzer = Mode.STATPY;
             view.setExecButtonText("Ejecutar");
-            view.setAnalysisLabelText(STATPY);
+            view.setAnalysisLabelText("StatPy");
         });
         view.addMJsonListener(e -> {
-            if (!Objects.equals(analyzer, JSON)){
+            if (analyzer != Mode.JSON){
                 view.cleanTextAreas();
             }
             view.setExecButtonText("Cargar");
-            analyzer = JSON;
-            view.setAnalysisLabelText(JSON);
+            analyzer = Mode.JSON;
+            view.setAnalysisLabelText("JSON");
         });
     }
 
