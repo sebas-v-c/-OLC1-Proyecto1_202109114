@@ -3,6 +3,7 @@
 void main ( ){
 	int b = 2;
 	int a =1;
+	int c = -5.03;
 	int var1 = 5+8*9;
 	if (b > a){
 		Console.Write("b mayor que a");
@@ -24,7 +25,7 @@ void main ( ){
 	}
 	void GraficaBarras(){
 		string Titulo= reporte1;
-		string [] Ejex= { "Probabilidad Esperada clase 1", "Probabilidad Obtenida Clase 1", var2, var22, var3, var33};
+		string [] Ejex= { "Probabilidad 1", "Probabilidad 1", var2, var22, var3, var33};
 		double [] Valores= { pe1, po1, pe2, po2, pe3, ${ NewValor, "archivo1.json", "valor2"} };
 		string TituloX= "Atributo";
 		string TituloY= "Puntaje";

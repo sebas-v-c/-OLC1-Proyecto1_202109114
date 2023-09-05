@@ -7,6 +7,10 @@
 	"Titulo":"titulo Pie",
 	"variable1": 4.5,
 	"Titulo2": "titulo barras",
-	"variable2": 5.0
+	"variable2": 5.0,
+	"variable3": {
+		"variable5": -5,
+		"variable6": -0.2134
+	}
 
 }

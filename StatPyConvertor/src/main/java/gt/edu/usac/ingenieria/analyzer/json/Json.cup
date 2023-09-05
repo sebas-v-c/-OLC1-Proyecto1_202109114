@@ -1,0 +1,72 @@
+package gt.edu.usac.ingenieria.analyzer.json;
+import java.util.stream.Collectors;
+import java_cup.runtime.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpS;
+
+
+// PARSER
+parser code
+{:
+    ArrayList<ErrorStpS> errors = new ArrayList<>();
+    public void syntax_error(Symbol s){
+        errors.add(new ErrorStpS(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+        errors.add(new ErrorStpS("Syntax error, impossible to recover"));
+    }
+    public ArrayList<ErrorStpS> getErrors() {
+        return errors;
+        //return errors.stream().map(Object::toString).collect(Collectors.joining("\n-> "));
+    }
+    public boolean isSuccessExecution() {
+        return !(errors.size() > 0);
+    }
+:}
+
+terminal String TK_LBRC, TK_RBRC;
+terminal String TK_COLON, TK_COMA;
+terminal String TK_STRING, TK_INT, TK_DOUBLE;
+terminal String TK_MINUS;
+
+non terminal Init;
+
+non terminal Object;
+non terminal Contents, Content, ValueType;
+
+
+precedence right TK_MINUS;
+
+
+
+
+start with Init;
+
+Init            ::= Object;
+
+Object          ::=
+                    TK_LBRC TK_RBRC
+                |   TK_LBRC Contents TK_RBRC
+                ;
+
+Contents        ::=
+                    Contents Content
+                |   Content
+                ;
+
+Content         ::=
+                    TK_STRING TK_COLON ValueType TK_COMA
+                |   TK_STRING TK_COLON ValueType
+                ;
+
+
+ValueType       ::=
+                    TK_STRING
+                |   TK_DOUBLE
+                |   TK_INT
+                |   TK_MINUS TK_INT
+                |   TK_MINUS TK_DOUBLE
+                |   Object
+                ;
