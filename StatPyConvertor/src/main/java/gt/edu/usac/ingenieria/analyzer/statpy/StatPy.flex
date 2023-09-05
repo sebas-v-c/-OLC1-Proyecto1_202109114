@@ -1,32 +1,32 @@
 // package and imports
 package gt.edu.usac.ingenieria.analyzer.statpy;
-import java_cup.runtime.*;
+import gt.edu.usac.ingenieria.analyzer.errors.LexError;import java_cup.runtime.*;
 import java_cup.sym;
 import java.util.ArrayList;
-import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpL;
+import gt.edu.usac.ingenieria.analyzer.errors.LexError;
 
 %%
 // java code: Error Array list
 %{
-    private ArrayList<ErrorStpL> errors = new ArrayList<>();
-    private void addError(String value){
-        errors.add(new ErrorStpL(yyline, yycolumn, value));
-    }
+    private ArrayList<LexError> errors = new ArrayList<>();
+        private void addError(String value){
+            errors.add(new LexError(yyline, yycolumn, value));
+        }
 
-    public ArrayList<ErrorStpL> getErrors(){
-        return errors;
-    }
+        public ArrayList<LexError> getErrors(){
+            return errors;
+        }
 
-    StringBuffer string = new StringBuffer();
+        StringBuffer string = new StringBuffer();
 
-    private Symbol symbol(int type){
-        return new Symbol(type, yyline, yycolumn);
-    }
+        private Symbol symbol(int type){
+            return new Symbol(type, yyline, yycolumn);
+        }
 
-    private Symbol symbol(int type, Object value){
-        return new Symbol(type, yyline, yycolumn, value);
-    }
-%}
+        private Symbol symbol(int type, Object value){
+            return new Symbol(type, yyline, yycolumn, value);
+        }
+    %}
 
 
 // directives

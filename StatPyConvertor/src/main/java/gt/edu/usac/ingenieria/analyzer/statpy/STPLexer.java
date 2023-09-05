@@ -7,7 +7,7 @@ package gt.edu.usac.ingenieria.analyzer.statpy;
 import java_cup.runtime.*;
 import java_cup.sym;
 import java.util.ArrayList;
-import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpL;
+import gt.edu.usac.ingenieria.analyzer.errors.LexError;
 
 
 @SuppressWarnings("fallthrough")
@@ -421,12 +421,12 @@ public class STPLexer implements java_cup.runtime.Scanner {
   private boolean zzEOFDone;
 
   /* user code: */
-    private ArrayList<ErrorStpL> errors = new ArrayList<>();
+    private ArrayList<LexError> errors = new ArrayList<>();
     private void addError(String value){
-        errors.add(new ErrorStpL(yyline, yycolumn, value));
+        errors.add(new LexError(yyline, yycolumn, value));
     }
 
-    public ArrayList<ErrorStpL> getErrors(){
+    public ArrayList<LexError> getErrors(){
         return errors;
     }
 

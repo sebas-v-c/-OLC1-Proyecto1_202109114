@@ -2,21 +2,21 @@ package gt.edu.usac.ingenieria.analyzer.errors;
 
 import java.util.Objects;
 
-public class ErrorStpS {
+public class SynError {
     String message;
     int line;
     int column;
     Object object;
     String type;
 
-    public ErrorStpS(int line, int column, Object object, String type){
+    public SynError(int line, int column, Object object, String type){
         this.line = line;
         this.column = column;
         this.object = object;
         this.type = type;
     }
 
-    public ErrorStpS(String message){
+    public SynError(String message){
         this.message = message;
     }
 

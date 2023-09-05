@@ -1,7 +1,7 @@
 package gt.edu.usac.ingenieria.lang.instruction.structure;
 
 
-public enum Type{
+public enum StructType {
     IF,
     SWITCH,
     FOR,

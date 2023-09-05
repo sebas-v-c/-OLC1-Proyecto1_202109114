@@ -1,13 +1,11 @@
 package gt.edu.usac.ingenieria.analyzer.statpy;
 
-import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpL;
-import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpS;
+import gt.edu.usac.ingenieria.analyzer.errors.SynError;
 import java_cup.runtime.Symbol;
 import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -40,7 +38,7 @@ public class SPTParserTest {
 
         if (!parser.getErrors().isEmpty()){
             logger.log(Level.INFO, "Errors founded in the parser");
-            for (ErrorStpS error : parser.getErrors()) {
+            for (SynError error : parser.getErrors()) {
                 error.print();
             }
             Assert.assertFalse(true);

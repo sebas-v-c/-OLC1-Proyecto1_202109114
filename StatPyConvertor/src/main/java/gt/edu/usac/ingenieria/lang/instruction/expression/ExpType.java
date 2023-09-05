@@ -1,6 +1,6 @@
 package gt.edu.usac.ingenieria.lang.instruction.expression;
 
-public enum Type {
+public enum ExpType {
     MATH,
     RELATION,
     LOGIC,
