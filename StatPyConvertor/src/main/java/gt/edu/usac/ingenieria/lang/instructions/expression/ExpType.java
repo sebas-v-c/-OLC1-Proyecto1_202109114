@@ -1,4 +1,4 @@
-package gt.edu.usac.ingenieria.lang.instruction.expression;
+package gt.edu.usac.ingenieria.lang.instructions.expression;
 
 public enum ExpType {
     MATH,

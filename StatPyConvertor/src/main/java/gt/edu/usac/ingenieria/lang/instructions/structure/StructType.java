@@ -1,4 +1,4 @@
-package gt.edu.usac.ingenieria.lang.instruction.structure;
+package gt.edu.usac.ingenieria.lang.instructions.structure;
 
 
 public enum StructType {

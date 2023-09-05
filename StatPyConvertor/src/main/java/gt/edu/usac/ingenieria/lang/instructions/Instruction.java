@@ -1,4 +1,4 @@
-package gt.edu.usac.ingenieria.lang.instruction;
+package gt.edu.usac.ingenieria.lang.instructions;
 
 public class Instruction {
     public int line;

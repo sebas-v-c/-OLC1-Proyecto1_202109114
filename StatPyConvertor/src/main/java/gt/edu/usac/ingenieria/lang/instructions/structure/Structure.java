@@ -1,7 +1,7 @@
-package gt.edu.usac.ingenieria.lang.instruction.structure;
+package gt.edu.usac.ingenieria.lang.instructions.structure;
 
-import gt.edu.usac.ingenieria.lang.instruction.Instruction;
-import gt.edu.usac.ingenieria.lang.instruction.Type;
+import gt.edu.usac.ingenieria.lang.instructions.Instruction;
+import gt.edu.usac.ingenieria.lang.instructions.Type;
 
 public class Structure extends Instruction {
     StructType structType;

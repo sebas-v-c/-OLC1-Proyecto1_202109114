@@ -1,7 +1,7 @@
-package gt.edu.usac.ingenieria.lang.instruction.expression;
+package gt.edu.usac.ingenieria.lang.instructions.expression;
 
-import gt.edu.usac.ingenieria.lang.instruction.Instruction;
-import gt.edu.usac.ingenieria.lang.instruction.Type;
+import gt.edu.usac.ingenieria.lang.instructions.Instruction;
+import gt.edu.usac.ingenieria.lang.instructions.Type;
 
 public class Expression extends Instruction {
     ExpType ExpType;
