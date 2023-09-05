@@ -1,7 +1,7 @@
-package gt.edu.usac.ingenieria.lang.statpy.instructions.expression;
+package gt.edu.usac.ingenieria.lang.statpy.expression;
 
-import gt.edu.usac.ingenieria.lang.statpy.instructions.Instruction;
-import gt.edu.usac.ingenieria.lang.statpy.instructions.Type;
+import gt.edu.usac.ingenieria.lang.statpy.Instruction;
+import gt.edu.usac.ingenieria.lang.statpy.Type;
 
 public class Expression extends Instruction {
     ExpType ExpType;

@@ -1,4 +1,4 @@
-package gt.edu.usac.ingenieria.lang.statpy.instructions;
+package gt.edu.usac.ingenieria.lang.statpy;
 
 public class Instruction {
     public int line;

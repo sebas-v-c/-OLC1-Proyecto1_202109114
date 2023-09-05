@@ -1,4 +1,4 @@
-package gt.edu.usac.ingenieria.lang.statpy.instructions.expression;
+package gt.edu.usac.ingenieria.lang.statpy.expression;
 
 public enum ExpType {
     MATH,

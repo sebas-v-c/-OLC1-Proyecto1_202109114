@@ -1,7 +1,7 @@
-package gt.edu.usac.ingenieria.lang.statpy.instructions.sentence;
+package gt.edu.usac.ingenieria.lang.statpy.sentence;
 
-import gt.edu.usac.ingenieria.lang.statpy.instructions.Instruction;
-import gt.edu.usac.ingenieria.lang.statpy.instructions.Type;
+import gt.edu.usac.ingenieria.lang.statpy.Instruction;
+import gt.edu.usac.ingenieria.lang.statpy.Type;
 
 public class Sentence extends Instruction {
     SentType sentType;

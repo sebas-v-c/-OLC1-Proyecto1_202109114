@@ -1,4 +1,4 @@
-package gt.edu.usac.ingenieria.lang.statpy.instructions.sentence;
+package gt.edu.usac.ingenieria.lang.statpy.sentence;
 
 public enum SentType {
     DECLARE_ID,

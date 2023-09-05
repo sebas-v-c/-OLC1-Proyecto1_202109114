@@ -1,7 +1,7 @@
-package gt.edu.usac.ingenieria.lang.statpy.instructions.graph;
+package gt.edu.usac.ingenieria.lang.statpy.graph;
 
-import gt.edu.usac.ingenieria.lang.statpy.instructions.Instruction;
-import gt.edu.usac.ingenieria.lang.statpy.instructions.Type;
+import gt.edu.usac.ingenieria.lang.statpy.Instruction;
+import gt.edu.usac.ingenieria.lang.statpy.Type;
 
 public class Graph extends Instruction {
     GraphType graphType;

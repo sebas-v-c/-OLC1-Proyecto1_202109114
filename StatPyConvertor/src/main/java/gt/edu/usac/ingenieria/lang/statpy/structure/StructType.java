@@ -1,4 +1,4 @@
-package gt.edu.usac.ingenieria.lang.statpy.instructions.structure;
+package gt.edu.usac.ingenieria.lang.statpy.structure;
 
 
 public enum StructType {
