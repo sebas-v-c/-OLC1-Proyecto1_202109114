@@ -104,6 +104,7 @@ precedence left TK_LEQ, TK_GEQ, TK_LESS, TK_GREATER;
 precedence left TK_PLUS, TK_MINUS;
 precedence left TK_MULT, TK_DIV;
 precedence right TK_UMINUS;
+precedence right TK_DOLL;
 
 /* GRAMATIC */
 
