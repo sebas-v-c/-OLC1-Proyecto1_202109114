@@ -1,8 +1,10 @@
 package gt.edu.usac.ingenieria.lang.statpy.sentence;
 
 public class ControlRW extends Sentence{
-    public ControlRW(int line, int column) {
+    String crw;
+    public ControlRW(int line, int column, String crw) {
         super(line, column, SentType.CONTROL_RW);
+        this.crw = crw;
     }
 
     @Override

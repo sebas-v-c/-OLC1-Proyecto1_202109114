@@ -11,6 +11,6 @@ public class Print extends Sentence {
 
     @Override
     public String toPython() {
-        return null;
+        return "print(" + exp.toPython() + ")";
     }
 }

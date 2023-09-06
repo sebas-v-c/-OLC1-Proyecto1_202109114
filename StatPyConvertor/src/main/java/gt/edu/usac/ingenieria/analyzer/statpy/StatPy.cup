@@ -14,6 +14,7 @@ import gt.edu.usac.ingenieria.lang.statpy.structure.*;
 // PARSER
 parser code
 {:
+    public ArrayList<Instruction> inst;
     ArrayList<SynError> errors = new ArrayList<>();
     public void syntax_error(Symbol s){
         errors.add(new SynError(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
@@ -62,22 +63,25 @@ terminal String TK_DOLL;
 
 /* NON TERMINALS */
 non terminal String Init;
-non terminal Main Main;
+non terminal Main;
 // instructions
-non terminal Instructions;
-non terminal Instruction;
-non terminal IncreDecre;
+non terminal ArrayList<Instruction> Instructions;
+non terminal Instruction Instruction;
+non terminal Expression IncreDecre;
 // variable declaration
-non terminal DeclareVar, DeclareArr, ArrArgs, DataType;
+non terminal Sentence DeclareVar, DeclareArr;
+non terminal Expression ArrArgs, DataType;
 // expresion control
-non terminal Expresion;
-non terminal Math;
-non terminal Relation;
-non terminal Logic;
-non terminal ReasignVar;
+non terminal Expression Expresion;
+non terminal Expression Math;
+non terminal Expression Relation;
+non terminal Expression Logic;
+non terminal Expression ReasignVar;
 // Conditional structures
-non terminal IfStatement;
-non terminal SwitchStatement, CaseDeft, Cases, Case, Default;
+non terminal Instruction IfStatement;
+non terminal SwitchStatement, CaseDeft;
+non terminal ArrayList<Case> Cases;
+non terminal Case Case, Default;
 // loop structures
 non terminal ForLoop, ForArgs, ForInitArg;
 non terminal WhileLoop, DoWhileLoop;
@@ -120,13 +124,13 @@ start with Init;
 // beginnig
 Init            ::= Main;
 
-Main            ::= KW_VOID KW_MAIN TK_LPAR TK_RPAR TK_LBRC Instructions TK_RBRC;
+Main            ::= KW_VOID KW_MAIN TK_LPAR TK_RPAR TK_LBRC Instructions:i TK_RBRC {:inst=i;:};
 
 
 
 Instructions    ::=
-                    Instructions Instruction
-                |   Instruction
+                    Instructions:s Instruction:i    {:RESULT = s; RESULT.add(i);:}
+                |   Instruction:i                   {:RESULT = new ArrayList<>(Arrays.asList(i));:}
                 ;
 
 GraphFuncs      ::=
@@ -201,52 +205,42 @@ GlobalVarsInst  ::=
 
 
 Instruction     ::=
-                    DeclareVar TK_SCOLON
-                |   DeclareArr TK_SCOLON
-                |   CallFunc TK_SCOLON
-                |   IfStatement
-                |   SwitchStatement
-                |   ForLoop
-                |   WhileLoop
-                |   Print
-                |   DoWhileLoop TK_SCOLON
-                |   ReasignVar TK_SCOLON
-                |   IncreDecre TK_SCOLON
-                |   KW_BREAK TK_SCOLON
-                |   KW_RETURN TK_SCOLON
-                |   KW_RETURN Expresion TK_SCOLON
-                |   KW_CONTINUE TK_SCOLON
-                |   GlobalVarsFunc
-                |   GraphFuncs
+                    DeclareVar:i TK_SCOLON                  {:RESULT=i;:}
+                |   DeclareArr:i TK_SCOLON                  {:RESULT=i;:}
+                |   CallFunc:i TK_SCOLON                    {:RESULT=i;:}
+                |   IfStatement:i                           {:RESULT=i;:}
+                |   SwitchStatement:i                       {:RESULT=i;:}
+                |   ForLoop:i                               {:RESULT=i;:}
+                |   WhileLoop:i                             {:RESULT=i;:}
+                |   Print:i                                 {:RESULT=i;:}
+                |   DoWhileLoop:i TK_SCOLON                 {:RESULT=i;:}
+                |   ReasignVar:i TK_SCOLON                  {:RESULT=i;:}
+                |   IncreDecre:i TK_SCOLON                  {:RESULT=i;:}
+                |   KW_BREAK:i TK_SCOLON                    {:RESULT= new ControlRW(ileft, iright, i);:}
+                |   KW_RETURN:i TK_SCOLON                   {:RESULT= new Return(ileft, iright, null);:}
+                |   KW_RETURN:i Expresion:exp TK_SCOLON     {:RESULT= new Return(ileft, iright, exp);:}
+                |   KW_CONTINUE:i TK_SCOLON                 {:RESULT= new ControlRW(ileft, iright, i);:}
+                |   GlobalVarsFunc:i                        {:RESULT=i;:}
+                |   GraphFuncs:i                            {:RESULT=i;:}
                 |   error
-                ;
-
-Print           ::=
-                    KW_PRINT TK_LPAR Expresion TK_RPAR TK_SCOLON
-                |   KW_PRINT TK_LPAR TK_RPAR TK_SCOLON
                 ;
 
 
 DeclareVar      ::=
-                    DataType TK_ID TK_EQ Expresion
-                |   DataType TK_ID
+                    DataType TK_ID:id TK_EQ Expresion:exp  {:RESULT = new DeclareId(idleft, idright, id, exp);:}
+                |   DataType TK_ID:id                      {:RESULT = new DeclareId(idleft, idright, id, null);:}
                 ;
 
 DeclareArr      ::=
-                    DataType TK_LBRK TK_RBRK TK_ID TK_EQ TK_LBRC ArrArgs TK_RBRC
-                ;
-
-ArrArgs         ::=
-                    ArrArgs TK_COMA Expresion
-                |   Expresion
+                    DataType TK_LBRK TK_RBRK TK_ID:id TK_EQ TK_LBRC ArgsList:arg TK_RBRC {:RESULT = new DeclareArr(idleft, idright, id, arg);:}
                 ;
 
 DataType        ::=
-                    KW_INT
-                |   KW_BOOL
-                |   KW_DOUBLE
-                |   KW_CHAR
-                |   KW_STRING
+                    KW_INT      {:RESULT = PrimitiveType.INT;:}
+                |   KW_BOOL     {:RESULT = PrimitiveType.BOOLEA;:}
+                |   KW_DOUBLE   {:RESULT = PrimitiveType.DOUBLE;:}
+                |   KW_CHAR     {:RESULT = PrimitiveType.CHAR;:}
+                |   KW_STRING   {:RESULT = PrimitiveType.STRING;:}
                 ;
 
 ReasignVar      ::= TK_ID TK_EQ Expresion;
@@ -259,8 +253,8 @@ CallFunc        ::=
                 ;
 
 ArgsList        ::=
-                    ArgsList TK_COMA Expresion
-                |   Expresion
+                    ArgsList:l TK_COMA Expresion:e {:RESULT=l; RESULT.add(e);:}
+                |   Expresion:e                    {:RESULT= new ArrayList<>(Arrays(e));:}
                 ;
 
 IfStatement     ::=
@@ -369,4 +363,10 @@ Logic           ::=
                     Expresion TK_AND Expresion
                 |   Expresion TK_OR Expresion
                 |   TK_NOT Expresion
+                ;
+
+
+Print           ::=
+                    KW_PRINT:p TK_LPAR Expresion:exp TK_RPAR TK_SCOLON {:RESULT= new Print(pleft, pright, exp);:}
+                |   KW_PRINT:p TK_LPAR TK_RPAR TK_SCOLON               {:RESULT= new Print(pleft, pright, null):}
                 ;

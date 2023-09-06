@@ -13,6 +13,6 @@ public class Main extends Structure{
 
     @Override
     public String toPython() {
-        return null;
+        return "SEXO";
     }
 }
