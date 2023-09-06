@@ -70,7 +70,8 @@ non terminal Instruction Instruction;
 non terminal Expression IncreDecre;
 // variable declaration
 non terminal Sentence DeclareVar, DeclareArr;
-non terminal Expression ArrArgs, DataType;
+non terminal Expression ArrArgs;
+non terminal PrimitiveType DataType;
 // expresion control
 non terminal Expression Expresion;
 non terminal Expression Math;
@@ -87,7 +88,7 @@ non terminal ForLoop, ForArgs, ForInitArg;
 non terminal WhileLoop, DoWhileLoop;
 
 // call a function
-non terminal CallFunc;
+non terminal Expression CallFunc;
 non terminal ArgsList;
 
 //non terminal DeclareFunc;
@@ -248,8 +249,8 @@ ReasignVar      ::= TK_ID TK_EQ Expresion;
 //DeclareFunc     ::= KW_VOID TK_ID TK_LPAR TK_RPAR LocalEnv;
 
 CallFunc        ::=
-                    TK_ID TK_LPAR ArgsList TK_RPAR
-                |   TK_ID TK_LPAR TK_RPAR
+                    TK_ID:id TK_LPAR ArgsList:args TK_RPAR {:RESULT = new CallFunc(idleft, idright, id, args);:}
+                |   TK_ID:id TK_LPAR TK_RPAR               {:RESULT = new CallFunc(idleft, idright, id, null);:}
                 ;
 
 ArgsList        ::=
