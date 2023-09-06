@@ -5,6 +5,7 @@ public enum SentType {
     REASIGN_ID,
     DECLARE_ARR,
     CODE_BLOCK,
-    CONTROL_RW
+    CONTROL_RW,
+    PRINT
 
 }

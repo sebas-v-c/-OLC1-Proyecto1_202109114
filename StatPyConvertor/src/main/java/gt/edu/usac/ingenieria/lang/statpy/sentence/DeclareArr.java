@@ -1,4 +1,15 @@
 package gt.edu.usac.ingenieria.lang.statpy.sentence;
 
-public class DeclareArr {
+import gt.edu.usac.ingenieria.lang.statpy.expression.Expression;
+
+import java.util.ArrayList;
+
+public class DeclareArr extends Sentence{
+    String id;
+    ArrayList<Expression> expressions;
+    public DeclareArr(int line, int column, String id, ArrayList<Expression> expressions) {
+        super(line, column, SentType.DECLARE_ARR);
+        this.id = id;
+        this.expressions = expressions;
+    }
 }

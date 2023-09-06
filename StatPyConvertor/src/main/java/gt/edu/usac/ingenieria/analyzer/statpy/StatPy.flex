@@ -47,7 +47,7 @@ import gt.edu.usac.ingenieria.analyzer.errors.LexError;
 //regular expressions
 DISCARTED=[ \r\t]+
 TEXT=([^\n\"\\]|\\.)
-ID=(\_)*[a-zA-ZñÑ][a-zA-Z0-9ñÑ\_\.]*
+ID=(\_)*[a-zA-ZñÑ][a-zA-Z0-9ñÑ\_]*
 STRING=\"({TEXT}*)\"
 CHAR=\'({TEXT})\'
 INTEGER=[0-9]+
@@ -87,6 +87,7 @@ COMMENTML=[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
     "TituloX"         {return symbol(SYM.KW_TITLEX,       yytext());}
     "TituloY"         {return symbol(SYM.KW_TITLEY,       yytext());}
     "Valores"         {return symbol(SYM.KW_VALUES,       yytext());}
+    "Console.Write"   {return symbol(SYM.KW_PRINT,        yytext());}
     // values
     {STRING}          {return symbol(SYM.TK_STRING,       yytext());}
     {CHAR}            {return symbol(SYM.TK_CHAR,         yytext());}

@@ -33,6 +33,7 @@ terminal String KW_VOID, KW_INT, KW_DOUBLE, KW_CHAR, KW_BOOL, KW_STRING;
 // control structures
 terminal String KW_IF, KW_ELSE, KW_SWITCH, KW_CASE, KW_DEFAULT;
 terminal String KW_BREAK, KW_FOR, KW_DO, KW_WHILE, KW_CONTINUE, KW_RETURN;
+terminal String KW_PRINT;
 // bools
 terminal boolean KW_TRUE, KW_FALSE;
 // graph key words
@@ -93,6 +94,7 @@ non terminal CallJson, JsonArg;
 // local environment
 non terminal LocalEnv;
 non terminal LocalEnvs;
+non terminal Print;
 
 
 /*PRECEDENCES*/
@@ -201,6 +203,7 @@ Instruction     ::=
                 |   SwitchStatement
                 |   ForLoop
                 |   WhileLoop
+                |   Print
                 |   DoWhileLoop TK_SCOLON
                 |   ReasignVar TK_SCOLON
                 |   IncreDecre TK_SCOLON
@@ -213,6 +216,10 @@ Instruction     ::=
                 |   error
                 ;
 
+Print           ::=
+                    KW_PRINT TK_LPAR Expresion TK_RPAR TK_SCOLON
+                |   KW_PRINT TK_LPAR TK_RPAR TK_SCOLON
+                ;
 
 
 DeclareVar      ::=

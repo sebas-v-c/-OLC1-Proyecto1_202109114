@@ -8,6 +8,7 @@ public enum ExpType {
     CALLJSON,
     CALLFUNC,
     PRIMITIVE,
+    RETURN
 
 
 }
