@@ -80,11 +80,13 @@ non terminal Expression Logic;
 non terminal Expression ReasignVar;
 // Conditional structures
 non terminal Instruction IfStatement;
-non terminal SwitchStatement, CaseDeft;
+non terminal Instruction SwitchStatement;
+non terminal CaseDeft;
 non terminal ArrayList<Case> Cases;
 non terminal Case Case, Default;
 // loop structures
-non terminal ForLoop, ForArgs, ForInitArg;
+non terminal Instruction ForLoop;
+non terminal ForArgs, ForInitArg;
 non terminal WhileLoop, DoWhileLoop;
 
 // call a function
@@ -259,43 +261,45 @@ ArgsList        ::=
                 ;
 
 IfStatement     ::=
-                    KW_IF TK_LPAR Expresion TK_RPAR LocalEnv KW_ELSE IfStatement
-                |   KW_IF TK_LPAR Expresion TK_RPAR LocalEnv KW_ELSE LocalEnv
-                |   KW_IF TK_LPAR Expresion TK_RPAR LocalEnv
+                    KW_IF:f TK_LPAR Expresion:exp TK_RPAR LocalEnv:env KW_ELSE IfStatement:f2 {:RETULT = new If(fleft, fright, exp, env, f2);:}
+                |   KW_IF:f TK_LPAR Expresion:exp TK_RPAR LocalEnv:env KW_ELSE LocalEnv:env2  {:RETULT = new If(fleft, fright, exp, env, env2);:}
+                |   KW_IF:f TK_LPAR Expresion:exp TK_RPAR LocalEnv:env                        {:RETULT = new If(fleft, fright, exp, env, null);:}
                 ;
 
 LocalEnv        ::=
-                    TK_LBRC Instructions TK_RBRC
-                |   TK_LBRC TK_RBRC
+                    TK_LBRC:l Instructions:i TK_RBRC {:RETULT = new CodeBlock(lleft, lright, i);:}
+                |   TK_LBRC:l TK_RBRC                {:RETULT = new CodeBlock(lleft, lright, new ArrayList<>());:}
                 ;
 
 SwitchStatement ::=
-                    KW_SWITCH TK_LPAR Expresion TK_RPAR LocalEnvs;
+                    KW_SWITCH:s TK_LPAR Expresion:exp TK_RPAR LocalEnvs:env {:RETULT = new Switch(sleft, sright, exp, (ArrayList<Case>) b[0], (CodeBlock)b[1]);:}
+
+                ;
 
 LocalEnvs       ::=
-                    TK_LBRC CaseDeft TK_RBRC
-                |   TK_LBRC TK_RBRC
+                    TK_LBRC CaseDeft:cd TK_RBRC {:RESULT = cd;:}
+                |   TK_LBRC TK_RBRC             {:RESULT = new Object[]{null, null};:}
                 ;
 
 CaseDeft        ::=
-                    Cases Default
-                |   Cases
-                |   Default
+                    Cases:c Default:d {:RESULT = new Object[] {c, d};:}
+                |   Cases:c           {:RESULT = new Object[] {c, null};:}
+                |   Default:d         {:RESULT = new Object[] {null, d};:}
                 ;
 
 Cases           ::=
-                    Cases Case
-                |   Case
+                    Cases:cs Case:c {:RESULT = cs; RESULT.add(c);:}
+                |   Case:c          {:RESULT = new ArrayList<>(Arrays.asList(c));:}
                 ;
 
 Case            ::=
-                    KW_CASE Expresion TK_COLON Instructions
-                |   KW_CASE Expresion TK_COLON
+                    KW_CASE:c Expresion:exp TK_COLON Instructions:i {:RESULT = new Case(cleft, cright, exp, new CodeBlock(ileft, iright, i));:}
+                |   KW_CASE:c Expresion:exp TK_COLON                {:RESULT = new Case(cleft, cright, exp, new CodeBlock<>(cleft, cright, new ArrayList<>()));:}
                 ;
 
 Default         ::=
-                    KW_DEFAULT TK_COLON Instructions
-                |   KW_DEFAULT TK_COLON
+                    KW_DEFAULT:d TK_COLON Instructions:i {:RESULT = new CodeBlock(dleft, dright, i);:}
+                |   KW_DEFAULT:d TK_COLON                {:RESTUL = new CodeBlock(dleft, dright, new ArrayList<>());:}
                 ;
 
 ForLoop         ::=
