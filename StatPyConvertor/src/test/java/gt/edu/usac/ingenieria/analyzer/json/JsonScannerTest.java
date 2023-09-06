@@ -25,21 +25,26 @@ public class JsonScannerTest {
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             scanner = new JsonLexer(br);
+            /*
             System.out.println(
                     "TOKEN" + " ".repeat(25 - "TOKEN".length()) +
                             "LINE" + " ".repeat(6 - "LINE".length()) +
                             "COLUMN" + " ".repeat(8 - "COLUMN".length()) +
                             "TYPE"
             );
+             */
 
             do {
                 parseSymbol = scanner.next_token();
+                /*
                 System.out.println(
                         parseSymbol.value + " ".repeat(25 - String.valueOf(parseSymbol.value).length()) +
                                 parseSymbol.left + " ".repeat(6 - String.valueOf(parseSymbol.left).length()) +
                                 parseSymbol.right + " ".repeat(8 - String.valueOf(parseSymbol.right).length()) +
                                 gt.edu.usac.ingenieria.analyzer.json.SYM.terminalNames[parseSymbol.sym]
                 );
+
+                 */
             } while (parseSymbol.value != null);
 
             if (scanner.getErrors().size() > 0) {
