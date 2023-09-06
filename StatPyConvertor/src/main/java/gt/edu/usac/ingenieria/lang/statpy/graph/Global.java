@@ -1,4 +1,13 @@
 package gt.edu.usac.ingenieria.lang.statpy.graph;
 
-public class Global {
+import gt.edu.usac.ingenieria.lang.statpy.Instruction;
+
+import java.util.ArrayList;
+
+public class Global extends Graph{
+    ArrayList<Instruction> instructions;
+    public Global(int line, int column, ArrayList<Instruction> instructions) {
+        super(line, column, GraphType.GLOBAL);
+        this.instructions = instructions;
+    }
 }

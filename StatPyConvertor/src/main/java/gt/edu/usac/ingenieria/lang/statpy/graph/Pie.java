@@ -1,4 +1,13 @@
 package gt.edu.usac.ingenieria.lang.statpy.graph;
 
-public class Pie {
+import gt.edu.usac.ingenieria.lang.statpy.Instruction;
+
+import java.util.ArrayList;
+
+public class Pie extends Graph{
+    ArrayList<Instruction> instructions;
+    public Pie(int line, int column, ArrayList<Instruction> instructions) {
+        super(line, column, GraphType.PIE);
+        this.instructions = instructions;
+    }
 }
