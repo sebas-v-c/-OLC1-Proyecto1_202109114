@@ -1,9 +1,7 @@
 package gt.edu.usac.ingenieria.analyzer.json;
 
-import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpL;
+import gt.edu.usac.ingenieria.analyzer.errors.LexError;
 import gt.edu.usac.ingenieria.analyzer.statpy.SPTParserTest;
-import gt.edu.usac.ingenieria.analyzer.statpy.STPLexer;
-import gt.edu.usac.ingenieria.analyzer.statpy.STPParser;
 import java_cup.runtime.Symbol;
 import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
@@ -46,7 +44,7 @@ public class JsonScannerTest {
 
             if (scanner.getErrors().size() > 0) {
                 logger.log(Level.INFO, "Errors founded in the scanner");
-                for (ErrorStpL error : scanner.getErrors()) {
+                for (LexError error : scanner.getErrors()) {
                     error.print();
                 }
             }
@@ -58,7 +56,7 @@ public class JsonScannerTest {
 
         if (!scanner.getErrors().isEmpty()) {
             logger.log(Level.SEVERE, "Error founded in the scanner");
-            for (ErrorStpL error : scanner.getErrors()) {
+            for (LexError error : scanner.getErrors()) {
                 error.print();
             }
             Assert.assertFalse(true);

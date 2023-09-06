@@ -1,9 +1,7 @@
 package gt.edu.usac.ingenieria.analyzer.json;
 
-import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpS;
+import gt.edu.usac.ingenieria.analyzer.errors.SynError;
 import gt.edu.usac.ingenieria.analyzer.statpy.SPTParserTest;
-import gt.edu.usac.ingenieria.analyzer.statpy.STPLexer;
-import gt.edu.usac.ingenieria.analyzer.statpy.STPParser;
 import java_cup.runtime.Symbol;
 import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
@@ -38,7 +36,7 @@ public class JsonParserTest {
 
         if (!parser.getErrors().isEmpty()){
             logger.log(Level.INFO, "Errors founded in the parser");
-            for (ErrorStpS error : parser.getErrors()) {
+            for (SynError error : parser.getErrors()) {
                 error.print();
             }
             Assert.assertFalse(true);

@@ -1,32 +1,32 @@
 // package and imports
 package gt.edu.usac.ingenieria.analyzer.statpy;
-import java_cup.runtime.*;
+import gt.edu.usac.ingenieria.analyzer.errors.LexError;import java_cup.runtime.*;
 import java_cup.sym;
 import java.util.ArrayList;
-import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpL;
+import gt.edu.usac.ingenieria.analyzer.errors.LexError;
 
 %%
 // java code: Error Array list
 %{
-    private ArrayList<ErrorStpL> errors = new ArrayList<>();
-    private void addError(String value){
-        errors.add(new ErrorStpL(yyline, yycolumn, value));
-    }
+    private ArrayList<LexError> errors = new ArrayList<>();
+        private void addError(String value){
+            errors.add(new LexError(yyline, yycolumn, value));
+        }
 
-    public ArrayList<ErrorStpL> getErrors(){
-        return errors;
-    }
+        public ArrayList<LexError> getErrors(){
+            return errors;
+        }
 
-    StringBuffer string = new StringBuffer();
+        StringBuffer string = new StringBuffer();
 
-    private Symbol symbol(int type){
-        return new Symbol(type, yyline, yycolumn);
-    }
+        private Symbol symbol(int type){
+            return new Symbol(type, yyline, yycolumn);
+        }
 
-    private Symbol symbol(int type, Object value){
-        return new Symbol(type, yyline, yycolumn, value);
-    }
-%}
+        private Symbol symbol(int type, Object value){
+            return new Symbol(type, yyline, yycolumn, value);
+        }
+    %}
 
 
 // directives
@@ -47,7 +47,7 @@ import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpL;
 //regular expressions
 DISCARTED=[ \r\t]+
 TEXT=([^\n\"\\]|\\.)
-ID=(\_)*[a-zA-ZñÑ][a-zA-Z0-9ñÑ\_\.]*
+ID=(\_)*[a-zA-ZñÑ][a-zA-Z0-9ñÑ\_]*
 STRING=\"({TEXT}*)\"
 CHAR=\'({TEXT})\'
 INTEGER=[0-9]+
@@ -87,6 +87,7 @@ COMMENTML=[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
     "TituloX"         {return symbol(SYM.KW_TITLEX,       yytext());}
     "TituloY"         {return symbol(SYM.KW_TITLEY,       yytext());}
     "Valores"         {return symbol(SYM.KW_VALUES,       yytext());}
+    "Console.Write"   {return symbol(SYM.KW_PRINT,        yytext());}
     // values
     {STRING}          {return symbol(SYM.TK_STRING,       yytext());}
     {CHAR}            {return symbol(SYM.TK_CHAR,         yytext());}

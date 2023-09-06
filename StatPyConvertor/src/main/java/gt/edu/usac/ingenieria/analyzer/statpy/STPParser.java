@@ -5,12 +5,10 @@
 
 package gt.edu.usac.ingenieria.analyzer.statpy;
 
-import java.util.stream.Collectors;
+import gt.edu.usac.ingenieria.analyzer.errors.SynError;
 import java_cup.runtime.*;
-import java.util.Arrays;
+
 import java.util.ArrayList;
-import gt.edu.usac.ingenieria.analyzer.errors.ErrorStpS;
-import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
   */
@@ -698,15 +696,15 @@ public class STPParser extends java_cup.runtime.lr_parser {
 
 
 
-    ArrayList<ErrorStpS> errors = new ArrayList<>();
+    ArrayList<SynError> errors = new ArrayList<>();
     public void syntax_error(Symbol s){
-        errors.add(new ErrorStpS(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
+        errors.add(new SynError(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
     }
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
-        errors.add(new ErrorStpS("Syntax error, impossible to recover"));
+        errors.add(new SynError("Syntax error, impossible to recover"));
     }
-    public ArrayList<ErrorStpS> getErrors() {
+    public ArrayList<SynError> getErrors() {
         return errors;
         //return errors.stream().map(Object::toString).collect(Collectors.joining("\n-> "));
     }
