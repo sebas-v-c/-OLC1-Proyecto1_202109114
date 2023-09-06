@@ -68,9 +68,9 @@ public class STPParser extends java_cup.runtime.lr_parser {
     "\004\000\002\022\004\000\002\022\003\000\002\022\003" +
     "\000\002\023\004\000\002\023\003\000\002\024\006\000" +
     "\002\024\005\000\002\025\005\000\002\025\004\000\002" +
-    "\026\007\000\002\027\007\000\002\031\007\000\002\032" +
-    "\010\000\002\030\006\000\002\030\003\000\002\006\004" +
-    "\000\002\006\004\000\002\050\012\000\002\051\003\000" +
+    "\026\007\000\002\027\007\000\002\030\006\000\002\030" +
+    "\003\000\002\006\004\000\002\006\004\000\002\031\007" +
+    "\000\002\032\010\000\002\050\012\000\002\051\003\000" +
     "\002\051\003\000\002\013\003\000\002\013\003\000\002" +
     "\013\003\000\002\013\003\000\002\013\003\000\002\013" +
     "\003\000\002\013\003\000\002\013\003\000\002\013\003" +
@@ -142,15 +142,15 @@ public class STPParser extends java_cup.runtime.lr_parser {
     "\002\000\004\066\156\001\002\000\006\045\uffc0\072\uffc0" +
     "\001\002\000\006\045\uffbe\072\uffbe\001\002\000\012\046" +
     "\055\047\057\066\056\074\060\001\002\000\006\045\uffc2" +
-    "\072\uffc2\001\002\000\044\050\uffa1\051\uffa1\052\uffa1\053" +
-    "\uffa1\054\uffa1\055\uffa1\056\uffa1\057\uffa1\060\uffa1\061\uffa1" +
-    "\062\uffa1\063\uffa1\067\uffa1\071\uffa1\075\uffa1\076\uffa1\077" +
-    "\uffa1\001\002\000\032\027\065\030\063\041\070\042\075" +
+    "\072\uffc2\001\002\000\044\050\uffa3\051\uffa3\052\uffa3\053" +
+    "\uffa3\054\uffa3\055\uffa3\056\uffa3\057\uffa3\060\uffa3\061\uffa3" +
+    "\062\uffa3\063\uffa3\067\uffa3\071\uffa3\075\uffa3\076\uffa3\077" +
+    "\uffa3\001\002\000\032\027\065\030\063\041\070\042\075" +
     "\043\077\044\066\045\102\051\101\064\100\066\067\067" +
-    "\150\100\071\001\002\000\044\050\uffa0\051\uffa0\052\uffa0" +
-    "\053\uffa0\054\uffa0\055\uffa0\056\uffa0\057\uffa0\060\uffa0\061" +
-    "\uffa0\062\uffa0\063\uffa0\067\uffa0\071\uffa0\075\uffa0\076\uffa0" +
-    "\077\uffa0\001\002\000\030\027\065\030\063\041\070\042" +
+    "\150\100\071\001\002\000\044\050\uffa2\051\uffa2\052\uffa2" +
+    "\053\uffa2\054\uffa2\055\uffa2\056\uffa2\057\uffa2\060\uffa2\061" +
+    "\uffa2\062\uffa2\063\uffa2\067\uffa2\071\uffa2\075\uffa2\076\uffa2" +
+    "\077\uffa2\001\002\000\030\027\065\030\063\041\070\042" +
     "\075\043\077\044\066\045\102\051\101\064\100\066\067" +
     "\100\071\001\002\000\044\050\uff9a\051\uff9a\052\uff9a\053" +
     "\uff9a\054\uff9a\055\uff9a\056\uff9a\057\uff9a\060\uff9a\061\uff9a" +
@@ -421,11 +421,11 @@ public class STPParser extends java_cup.runtime.lr_parser {
     "\100\071\001\002\000\004\076\374\001\002\000\004\076" +
     "\373\001\002\000\010\007\uffda\012\uffda\071\uffda\001\002" +
     "\000\010\007\uffd8\012\uffd8\071\uffd8\001\002\000\004\002" +
-    "\uffff\001\002\000\006\006\u0101\045\u0103\001\002\000\004" +
+    "\uffff\001\002\000\006\006\u0101\045\u0102\001\002\000\004" +
     "\067\u010c\001\002\000\004\076\u0107\001\002\000\004\045" +
-    "\u0104\001\002\000\004\076\uffa2\001\002\000\004\074\060" +
+    "\u0104\001\002\000\004\074\060\001\002\000\004\076\uffa4" +
     "\001\002\000\004\074\u0105\001\002\000\004\043\u0106\001" +
-    "\002\000\004\076\uffa3\001\002\000\030\027\065\030\063" +
+    "\002\000\004\076\uffa5\001\002\000\030\027\065\030\063" +
     "\041\070\042\075\043\077\044\066\045\102\051\101\064" +
     "\100\066\067\100\071\001\002\000\034\050\114\051\116" +
     "\052\112\053\105\054\110\055\111\056\107\057\104\060" +
@@ -462,10 +462,10 @@ public class STPParser extends java_cup.runtime.lr_parser {
     "\100\066\067\100\071\001\002\000\034\050\114\051\116" +
     "\052\112\053\105\054\110\055\111\056\107\057\104\060" +
     "\106\061\117\062\113\063\115\067\u0117\001\002\000\004" +
-    "\070\u010e\001\002\000\052\003\uffa5\005\uffa5\006\uffa5\007" +
-    "\uffa5\010\uffa5\011\uffa5\012\uffa5\013\uffa5\015\uffa5\016\uffa5" +
-    "\017\uffa5\020\uffa5\021\uffa5\022\uffa5\023\uffa5\024\uffa5\025" +
-    "\uffa5\026\uffa5\045\uffa5\071\uffa5\001\002\000\052\003\uffc9" +
+    "\070\u010e\001\002\000\052\003\uffa1\005\uffa1\006\uffa1\007" +
+    "\uffa1\010\uffa1\011\uffa1\012\uffa1\013\uffa1\015\uffa1\016\uffa1" +
+    "\017\uffa1\020\uffa1\021\uffa1\022\uffa1\023\uffa1\024\uffa1\025" +
+    "\uffa1\026\uffa1\045\uffa1\071\uffa1\001\002\000\052\003\uffc9" +
     "\005\uffc9\006\uffc9\007\uffc9\010\uffc9\011\uffc9\012\uffc9\013" +
     "\uffc9\015\uffc9\016\uffc9\017\uffc9\020\uffc9\021\uffc9\022\uffc9" +
     "\023\uffc9\024\uffc9\025\uffc9\026\uffc9\045\uffc9\071\uffc9\001" +
@@ -481,7 +481,7 @@ public class STPParser extends java_cup.runtime.lr_parser {
     "\051\101\064\100\066\067\100\071\001\002\000\034\050" +
     "\114\051\116\052\112\053\105\054\110\055\111\056\107" +
     "\057\104\060\106\061\117\062\113\063\115\067\u0120\001" +
-    "\002\000\004\076\uffa4\001\002\000\052\003\uffd7\005\uffd7" +
+    "\002\000\004\076\uffa0\001\002\000\052\003\uffd7\005\uffd7" +
     "\006\uffd7\007\uffd7\010\uffd7\011\uffd7\012\uffd7\013\uffd7\015" +
     "\uffd7\016\uffd7\017\uffd7\020\uffd7\021\uffd7\022\uffd7\023\uffd7" +
     "\024\uffd7\025\uffd7\026\uffd7\045\uffd7\071\uffd7\001\002\000" +
@@ -655,7 +655,7 @@ public class STPParser extends java_cup.runtime.lr_parser {
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\004\050\370" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\010\017\u0101" +
+    "\001\000\002\001\001\000\002\001\001\000\010\017\u0102" +
     "\027\376\030\377\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
@@ -1225,7 +1225,7 @@ class CUP$STPParser$actions {
               Instruction RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
-		Object i = (Object)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
+		Instruction i = (Instruction)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
 		RESULT=i;
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("Instruction",3, ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
@@ -1411,7 +1411,7 @@ class CUP$STPParser$actions {
 		String id = (String)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-4)).value;
 		int argleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).left;
 		int argright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).right;
-		Object arg = (Object)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).value;
+		ArrayList<Expression> arg = (ArrayList<Expression>)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).value;
 		RESULT = new DeclareArr(idleft, idright, id, arg);
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("DeclareArr",6, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-7)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
@@ -1466,7 +1466,13 @@ class CUP$STPParser$actions {
           case 68: // ReasignVar ::= TK_ID TK_EQ Expresion 
             {
               Expression RESULT =null;
-
+		int idleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).right;
+		String id = (String)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).value;
+		int expleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
+		int expright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
+		Expression exp = (Expression)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
+		RESULT = new ReasignId(idleft, idright, id, exp);
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("ReasignVar",13, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1480,7 +1486,7 @@ class CUP$STPParser$actions {
 		String id = (String)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-3)).value;
 		int argsleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).left;
 		int argsright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).right;
-		Object args = (Object)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).value;
+		ArrayList<Expression> args = (ArrayList<Expression>)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).value;
 		RESULT = new CallFunc(idleft, idright, id, args);
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("CallFunc",25, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-3)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
@@ -1501,10 +1507,10 @@ class CUP$STPParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 71: // ArgsList ::= ArgsList TK_COMA Expresion 
             {
-              Object RESULT =null;
+              ArrayList<Expression> RESULT =null;
 		int lleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).left;
 		int lright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).right;
-		Object l = (Object)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).value;
+		ArrayList<Expression> l = (ArrayList<Expression>)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
 		Expression e = (Expression)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
@@ -1516,7 +1522,7 @@ class CUP$STPParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 72: // ArgsList ::= Expresion 
             {
-              Object RESULT =null;
+              ArrayList<Expression> RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
 		Expression e = (Expression)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
@@ -1541,7 +1547,7 @@ class CUP$STPParser$actions {
 		int f2left = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
 		int f2right = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
 		Instruction f2 = (Instruction)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
-		RETURN = new If(fleft, fright, exp, env, f2);
+		RETULT = new If(fleft, fright, exp, env, f2);
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("IfStatement",14, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-6)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1562,7 +1568,7 @@ class CUP$STPParser$actions {
 		int env2left = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
 		int env2right = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
 		Object env2 = (Object)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
-		RETURN = new If(fleft, fright, exp, env, env2);
+		RETULT = new If(fleft, fright, exp, env, env2);
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("IfStatement",14, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-6)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1580,7 +1586,7 @@ class CUP$STPParser$actions {
 		int envleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
 		int envright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
 		Object env = (Object)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
-		RETURN = new If(fleft, fright, exp, env, null);
+		RETULT = new If(fleft, fright, exp, env, null);
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("IfStatement",14, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-4)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1595,7 +1601,7 @@ class CUP$STPParser$actions {
 		int ileft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).right;
 		ArrayList<Instruction> i = (ArrayList<Instruction>)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).value;
-		RETURN = new CodeBlock(lleft, lright, i);
+		RETULT = new CodeBlock(lleft, lright, i);
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("LocalEnv",40, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1607,7 +1613,7 @@ class CUP$STPParser$actions {
 		int lleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).left;
 		int lright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).right;
 		String l = (String)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).value;
-		RETURN = new CodeBlock(lleft, lright, new ArrayList<>());
+		RETULT = new CodeBlock(lleft, lright, new ArrayList<>());
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("LocalEnv",40, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1616,7 +1622,16 @@ class CUP$STPParser$actions {
           case 78: // SwitchStatement ::= KW_SWITCH TK_LPAR Expresion TK_RPAR LocalEnvs 
             {
               Instruction RESULT =null;
-
+		int sleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-4)).left;
+		int sright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-4)).right;
+		String s = (String)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-4)).value;
+		int expleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).left;
+		int expright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).right;
+		Expression exp = (Expression)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).value;
+		int envleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
+		int envright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
+		Object env = (Object)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
+		RETULT = new Switch(sleft, sright, exp, (ArrayList<Case>) b[0], (CodeBlock)b[1]);
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("SwitchStatement",15, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-4)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1625,7 +1640,10 @@ class CUP$STPParser$actions {
           case 79: // LocalEnvs ::= TK_LBRC CaseDeft TK_RBRC 
             {
               Object RESULT =null;
-
+		int cdleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).left;
+		int cdright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).right;
+		Object cd = (Object)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).value;
+		RESULT = cd;
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("LocalEnvs",41, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1634,7 +1652,7 @@ class CUP$STPParser$actions {
           case 80: // LocalEnvs ::= TK_LBRC TK_RBRC 
             {
               Object RESULT =null;
-
+		RESULT = new Object[]{null, null};
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("LocalEnvs",41, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1643,7 +1661,13 @@ class CUP$STPParser$actions {
           case 81: // CaseDeft ::= Cases Default 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).right;
+		ArrayList<Case> c = (ArrayList<Case>)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).value;
+		int dleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
+		int dright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
+		Case d = (Case)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
+		RESULT = new Object[] {c, d};
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("CaseDeft",16, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1652,7 +1676,10 @@ class CUP$STPParser$actions {
           case 82: // CaseDeft ::= Cases 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
+		ArrayList<Case> c = (ArrayList<Case>)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
+		RESULT = new Object[] {c, null};
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("CaseDeft",16, ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1661,7 +1688,10 @@ class CUP$STPParser$actions {
           case 83: // CaseDeft ::= Default 
             {
               Object RESULT =null;
-
+		int dleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
+		int dright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
+		Case d = (Case)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
+		RESULT = new Object[] {null, d};
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("CaseDeft",16, ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1670,7 +1700,13 @@ class CUP$STPParser$actions {
           case 84: // Cases ::= Cases Case 
             {
               ArrayList<Case> RESULT =null;
-
+		int csleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).left;
+		int csright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).right;
+		ArrayList<Case> cs = (ArrayList<Case>)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).value;
+		int cleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
+		Case c = (Case)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
+		RESULT = cs; RESULT.add(c);
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("Cases",17, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1679,7 +1715,10 @@ class CUP$STPParser$actions {
           case 85: // Cases ::= Case 
             {
               ArrayList<Case> RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
+		Case c = (Case)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
+		RESULT = new ArrayList<>(Arrays.asList(c));
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("Cases",17, ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1688,7 +1727,16 @@ class CUP$STPParser$actions {
           case 86: // Case ::= KW_CASE Expresion TK_COLON Instructions 
             {
               Case RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-3)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-3)).right;
+		String c = (String)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-3)).value;
+		int expleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).left;
+		int expright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).right;
+		Expression exp = (Expression)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).value;
+		int ileft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
+		ArrayList<Instruction> i = (ArrayList<Instruction>)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
+		RESULT = new Case(cleft, cright, exp, new CodeBlock(ileft, iright, i));
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("Case",18, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-3)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1697,7 +1745,13 @@ class CUP$STPParser$actions {
           case 87: // Case ::= KW_CASE Expresion TK_COLON 
             {
               Case RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).right;
+		String c = (String)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).value;
+		int expleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).left;
+		int expright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).right;
+		Expression exp = (Expression)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).value;
+		RESULT = new Case(cleft, cright, exp, new CodeBlock<>(cleft, cright, new ArrayList<>()));
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("Case",18, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1706,7 +1760,13 @@ class CUP$STPParser$actions {
           case 88: // Default ::= KW_DEFAULT TK_COLON Instructions 
             {
               Case RESULT =null;
-
+		int dleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).left;
+		int dright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).right;
+		String d = (String)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).value;
+		int ileft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
+		ArrayList<Instruction> i = (ArrayList<Instruction>)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
+		RESULT = new CodeBlock(dleft, dright, i);
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("Default",19, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1715,7 +1775,10 @@ class CUP$STPParser$actions {
           case 89: // Default ::= KW_DEFAULT TK_COLON 
             {
               Case RESULT =null;
-
+		int dleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).left;
+		int dright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).right;
+		String d = (String)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).value;
+		RESTUL = new CodeBlock(dleft, dright, new ArrayList<>());
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("Default",19, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1723,8 +1786,17 @@ class CUP$STPParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 90: // ForLoop ::= KW_FOR TK_LPAR ForArgs TK_RPAR LocalEnv 
             {
-              Object RESULT =null;
-
+              Instruction RESULT =null;
+		int fleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-4)).left;
+		int fright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-4)).right;
+		String f = (String)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-4)).value;
+		int faleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).left;
+		int faright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).right;
+		Object fa = (Object)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).value;
+		int envleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
+		int envright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
+		Object env = (Object)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
+		RESULT = new For(fleft, fright, (Sentence)fa[0],(Expression) fa[1], (IncDec) fa[2],env);
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("ForLoop",20, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-4)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1733,13 +1805,73 @@ class CUP$STPParser$actions {
           case 91: // ForArgs ::= ForInitArg TK_SCOLON Expresion TK_SCOLON IncreDecre 
             {
               Object RESULT =null;
-
+		int fileft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-4)).left;
+		int firight = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-4)).right;
+		Sentence fi = (Sentence)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-4)).value;
+		int expleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).left;
+		int expright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).right;
+		Expression exp = (Expression)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).value;
+		int incleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
+		int incright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
+		Expression inc = (Expression)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
+		RESULT = new Object[] {fi, exp, inc};
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("ForArgs",21, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-4)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 92: // WhileLoop ::= KW_WHILE TK_LPAR Expresion TK_RPAR LocalEnv 
+          case 92: // ForInitArg ::= KW_INT TK_ID TK_EQ TK_INT 
+            {
+              Sentence RESULT =null;
+		int idleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).right;
+		String id = (String)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-2)).value;
+		int ileft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
+		String i = (String)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
+		RESULT = new DeclareId(idleft, idright, new Primitive(ileft, iright, i, PrimitiveType.INT));
+              CUP$STPParser$result = parser.getSymbolFactory().newSymbol("ForInitArg",22, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-3)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
+            }
+          return CUP$STPParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 93: // ForInitArg ::= ReasignVar 
+            {
+              Sentence RESULT =null;
+		int rleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
+		int rright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
+		Expression r = (Expression)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
+		RESULT = r;
+              CUP$STPParser$result = parser.getSymbolFactory().newSymbol("ForInitArg",22, ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
+            }
+          return CUP$STPParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 94: // IncreDecre ::= TK_ID TK_INC 
+            {
+              Expression RESULT =null;
+		int idleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).right;
+		String id = (String)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).value;
+		RESULT = new IncDec(idleft, idright, "++", id);
+              CUP$STPParser$result = parser.getSymbolFactory().newSymbol("IncreDecre",4, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
+            }
+          return CUP$STPParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 95: // IncreDecre ::= TK_ID TK_DEC 
+            {
+              Expression RESULT =null;
+		int idleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).right;
+		String id = (String)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).value;
+		RESULT = new IncDec(idleft, idright, "--", id);
+              CUP$STPParser$result = parser.getSymbolFactory().newSymbol("IncreDecre",4, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
+            }
+          return CUP$STPParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 96: // WhileLoop ::= KW_WHILE TK_LPAR Expresion TK_RPAR LocalEnv 
             {
               Object RESULT =null;
 
@@ -1748,47 +1880,11 @@ class CUP$STPParser$actions {
           return CUP$STPParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 93: // DoWhileLoop ::= KW_DO LocalEnv KW_WHILE TK_LPAR Expresion TK_RPAR 
+          case 97: // DoWhileLoop ::= KW_DO LocalEnv KW_WHILE TK_LPAR Expresion TK_RPAR 
             {
               Object RESULT =null;
 
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("DoWhileLoop",24, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-5)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
-            }
-          return CUP$STPParser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 94: // ForInitArg ::= KW_INT TK_ID TK_EQ TK_INT 
-            {
-              Object RESULT =null;
-
-              CUP$STPParser$result = parser.getSymbolFactory().newSymbol("ForInitArg",22, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-3)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
-            }
-          return CUP$STPParser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 95: // ForInitArg ::= ReasignVar 
-            {
-              Object RESULT =null;
-
-              CUP$STPParser$result = parser.getSymbolFactory().newSymbol("ForInitArg",22, ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
-            }
-          return CUP$STPParser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 96: // IncreDecre ::= TK_ID TK_INC 
-            {
-              Expression RESULT =null;
-
-              CUP$STPParser$result = parser.getSymbolFactory().newSymbol("IncreDecre",4, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
-            }
-          return CUP$STPParser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 97: // IncreDecre ::= TK_ID TK_DEC 
-            {
-              Expression RESULT =null;
-
-              CUP$STPParser$result = parser.getSymbolFactory().newSymbol("IncreDecre",4, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
 

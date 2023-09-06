@@ -4,7 +4,7 @@ import gt.edu.usac.ingenieria.lang.statpy.expression.ExpType;
 import gt.edu.usac.ingenieria.lang.statpy.expression.Expression;
 
 public class ReasignId extends Sentence{
-    String id;
+    public String id;
     Expression exp;
 
     public ReasignId(int line, int column, String id, Expression exp) {

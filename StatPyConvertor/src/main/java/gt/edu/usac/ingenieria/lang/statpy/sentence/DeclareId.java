@@ -4,7 +4,7 @@ import gt.edu.usac.ingenieria.lang.statpy.expression.ExpType;
 import gt.edu.usac.ingenieria.lang.statpy.expression.Expression;
 
 public class DeclareId extends Sentence{
-    String id;
+    public String id;
     Expression expression;
     public DeclareId(int line, int column, String id, Expression expression) {
         super(line, column, SentType.DECLARE_ID);

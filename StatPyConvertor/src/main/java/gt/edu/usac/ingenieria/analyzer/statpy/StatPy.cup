@@ -86,12 +86,13 @@ non terminal ArrayList<Case> Cases;
 non terminal Case Case, Default;
 // loop structures
 non terminal Instruction ForLoop;
-non terminal ForArgs, ForInitArg;
+non terminal ForArgs;
+non terminal Sentence ForInitArg;
 non terminal WhileLoop, DoWhileLoop;
 
 // call a function
 non terminal Expression CallFunc;
-non terminal ArgsList;
+non terminal ArrayList<Expression> ArgsList;
 
 //non terminal DeclareFunc;
 
@@ -246,7 +247,7 @@ DataType        ::=
                 |   KW_STRING   {:RESULT = PrimitiveType.STRING;:}
                 ;
 
-ReasignVar      ::= TK_ID TK_EQ Expresion;
+ReasignVar      ::= TK_ID:id TK_EQ Expresion:exp {:RESULT = new ReasignId(idleft, idright, id, exp);:};
 
 //DeclareFunc     ::= KW_VOID TK_ID TK_LPAR TK_RPAR LocalEnv;
 
@@ -303,23 +304,25 @@ Default         ::=
                 ;
 
 ForLoop         ::=
-                    KW_FOR TK_LPAR ForArgs TK_RPAR LocalEnv
+                    KW_FOR:f TK_LPAR ForArgs:fa TK_RPAR LocalEnv:env {:RESULT = new For(fleft, fright, (Sentence)fa[0],(Expression) fa[1], (IncDec) fa[2],env);:}
                 ;
 
-ForArgs         ::= ForInitArg TK_SCOLON Expresion TK_SCOLON IncreDecre;
+ForArgs         ::= ForInitArg:fi TK_SCOLON Expresion:exp TK_SCOLON IncreDecre:inc {:RESULT = new Object[] {fi, exp, inc};:};
+
+
+ForInitArg      ::= KW_INT TK_ID:id TK_EQ TK_INT:i {:RESULT = new DeclareId(idleft, idright, new Primitive(ileft, iright, i, PrimitiveType.INT));:}
+                |   ReasignVar:r                   {:RESULT = r;:}
+                ;
+
+
+IncreDecre      ::=
+                    TK_ID:id TK_INC {:RESULT = new IncDec(idleft, idright, "++", id);:}
+                |   TK_ID:id TK_DEC {:RESULT = new IncDec(idleft, idright, "--", id);:}
+                ;
 
 WhileLoop       ::= KW_WHILE TK_LPAR Expresion TK_RPAR LocalEnv;
 
 DoWhileLoop     ::= KW_DO LocalEnv KW_WHILE TK_LPAR Expresion TK_RPAR;
-
-ForInitArg      ::= KW_INT TK_ID TK_EQ TK_INT
-                |   ReasignVar;
-
-
-IncreDecre      ::=
-                    TK_ID TK_INC
-                |   TK_ID TK_DEC
-                ;
 
 CallJson        ::=
                     TK_DOLL TK_LBRC JsonArg TK_COMA JsonArg TK_COMA JsonArg TK_RBRC
