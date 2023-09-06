@@ -12,4 +12,9 @@ public class ReasignId extends Sentence{
         this.id = id;
         this.exp = exp;
     }
+
+    @Override
+    public String toPython() {
+        return null;
+    }
 }

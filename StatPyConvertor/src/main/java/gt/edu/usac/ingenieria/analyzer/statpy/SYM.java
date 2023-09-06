@@ -8,68 +8,69 @@ package gt.edu.usac.ingenieria.analyzer.statpy;
 /** CUP generated interface containing symbol constants. */
 public interface SYM {
   /* terminals */
-  public static final int TK_UMINUS = 50;
-  public static final int TK_GREATER = 45;
-  public static final int TK_MINUS = 38;
-  public static final int TK_INT = 32;
-  public static final int KW_FALSE = 21;
-  public static final int TK_DOLL = 61;
-  public static final int TK_DOUBLE = 33;
+  public static final int TK_UMINUS = 51;
+  public static final int TK_GREATER = 46;
+  public static final int TK_MINUS = 39;
+  public static final int TK_INT = 33;
+  public static final int KW_FALSE = 22;
+  public static final int TK_DOLL = 62;
+  public static final int TK_DOUBLE = 34;
+  public static final int KW_PRINT = 20;
   public static final int KW_INT = 4;
-  public static final int TK_NOT = 49;
-  public static final int TK_AND = 47;
-  public static final int KW_BARGRPH = 23;
-  public static final int TK_OR = 48;
-  public static final int TK_LESS = 46;
+  public static final int TK_NOT = 50;
+  public static final int TK_AND = 48;
+  public static final int KW_BARGRPH = 24;
+  public static final int TK_OR = 49;
+  public static final int TK_LESS = 47;
   public static final int KW_FOR = 15;
   public static final int KW_DO = 16;
   public static final int KW_DOUBLE = 5;
   public static final int KW_CHAR = 6;
-  public static final int TK_INC = 35;
-  public static final int KW_DEFGLB = 22;
-  public static final int TK_RPAR = 52;
-  public static final int TK_DIV = 40;
-  public static final int TK_GEQ = 41;
-  public static final int TK_ID = 34;
+  public static final int TK_INC = 36;
+  public static final int KW_DEFGLB = 23;
+  public static final int TK_RPAR = 53;
+  public static final int TK_DIV = 41;
+  public static final int TK_GEQ = 42;
+  public static final int TK_ID = 35;
   public static final int KW_CASE = 12;
-  public static final int TK_PLUS = 37;
-  public static final int TK_RBRK = 56;
-  public static final int TK_SCOLON = 59;
-  public static final int TK_EQ = 57;
-  public static final int TK_COMA = 58;
-  public static final int TK_RBRC = 54;
+  public static final int TK_PLUS = 38;
+  public static final int TK_RBRK = 57;
+  public static final int TK_SCOLON = 60;
+  public static final int TK_EQ = 58;
+  public static final int TK_COMA = 59;
+  public static final int TK_RBRC = 55;
   public static final int KW_BOOL = 7;
   public static final int KW_CONTINUE = 18;
-  public static final int TK_COLON = 60;
-  public static final int TK_EQEQ = 43;
+  public static final int TK_COLON = 61;
+  public static final int TK_EQEQ = 44;
   public static final int KW_RETURN = 19;
   public static final int EOF = 0;
   public static final int error = 1;
   public static final int KW_MAIN = 2;
-  public static final int KW_VALUES = 27;
-  public static final int KW_TITLEY = 29;
-  public static final int KW_TITLEX = 28;
-  public static final int KW_TRUE = 20;
+  public static final int KW_VALUES = 28;
+  public static final int KW_TITLEY = 30;
+  public static final int KW_TITLEX = 29;
+  public static final int KW_TRUE = 21;
   public static final int KW_SWITCH = 11;
   public static final int KW_IF = 9;
-  public static final int TK_LEQ = 42;
+  public static final int TK_LEQ = 43;
   public static final int KW_VOID = 3;
-  public static final int TK_DEC = 36;
+  public static final int TK_DEC = 37;
   public static final int KW_BREAK = 14;
-  public static final int TK_STRING = 30;
-  public static final int TK_LPAR = 51;
-  public static final int TK_NOTEQ = 44;
+  public static final int TK_STRING = 31;
+  public static final int TK_LPAR = 52;
+  public static final int TK_NOTEQ = 45;
   public static final int KW_ELSE = 10;
   public static final int KW_STRING = 8;
-  public static final int KW_XAXIS = 26;
-  public static final int KW_TITLE = 25;
-  public static final int KW_PIEGRPH = 24;
+  public static final int KW_XAXIS = 27;
+  public static final int KW_TITLE = 26;
+  public static final int KW_PIEGRPH = 25;
   public static final int KW_DEFAULT = 13;
   public static final int KW_WHILE = 17;
-  public static final int TK_LBRK = 55;
-  public static final int TK_MULT = 39;
-  public static final int TK_LBRC = 53;
-  public static final int TK_CHAR = 31;
+  public static final int TK_LBRK = 56;
+  public static final int TK_MULT = 40;
+  public static final int TK_LBRC = 54;
+  public static final int TK_CHAR = 32;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -91,6 +92,7 @@ public interface SYM {
   "KW_WHILE",
   "KW_CONTINUE",
   "KW_RETURN",
+  "KW_PRINT",
   "KW_TRUE",
   "KW_FALSE",
   "KW_DEFGLB",

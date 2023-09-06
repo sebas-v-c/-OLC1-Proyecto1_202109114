@@ -9,4 +9,9 @@ public class CallJson extends Expression{
         super(line, column, gt.edu.usac.ingenieria.lang.statpy.expression.ExpType.CALLJSON);
         this.args = args;
     }
+
+    @Override
+    public String toPython() {
+        return null;
+    }
 }

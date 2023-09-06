@@ -11,4 +11,9 @@ public class DeclareId extends Sentence{
         this.id = id;
         this.expression = expression;
     }
+
+    @Override
+    public String toPython() {
+        return null;
+    }
 }

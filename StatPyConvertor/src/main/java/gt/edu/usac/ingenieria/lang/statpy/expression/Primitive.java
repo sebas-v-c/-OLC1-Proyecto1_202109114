@@ -11,4 +11,8 @@ public class Primitive extends Expression{
         this.object = object;
     }
 
+    @Override
+    public String toPython() {
+        return null;
+    }
 }

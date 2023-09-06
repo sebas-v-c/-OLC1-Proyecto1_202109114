@@ -9,4 +9,9 @@ public class Switch extends Structure {
     public Switch(int line, int column, Expression exp, ArrayList<Case> cases, CodeBlock deft) {
         super(line, column, StructType.SWITCH);
     }
+
+    @Override
+    public String toPython() {
+        return null;
+    }
 }

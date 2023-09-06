@@ -4,20 +4,25 @@ import java_cup.runtime.*;
 import java.util.Arrays;
 import java.util.ArrayList;
 import gt.edu.usac.ingenieria.analyzer.errors.SynError;
+import gt.edu.usac.ingenieria.lang.statpy.*;
+import gt.edu.usac.ingenieria.lang.statpy.expression.*;
+import gt.edu.usac.ingenieria.lang.statpy.graph.*;
+import gt.edu.usac.ingenieria.lang.statpy.sentence.*;
+import gt.edu.usac.ingenieria.lang.statpy.structure.*;
 
 
 // PARSER
 parser code
 {:
-    ArrayList<ErrorStpS> errors = new ArrayList<>();
+    ArrayList<SynError> errors = new ArrayList<>();
     public void syntax_error(Symbol s){
-        errors.add(new ErrorStpS(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
+        errors.add(new SynError(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
     }
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
-        errors.add(new ErrorStpS("Syntax error, impossible to recover"));
+        errors.add(new SynError("Syntax error, impossible to recover"));
     }
-    public ArrayList<ErrorStpS> getErrors() {
+    public ArrayList<SynError> getErrors() {
         return errors;
         //return errors.stream().map(Object::toString).collect(Collectors.joining("\n-> "));
     }
@@ -35,9 +40,9 @@ terminal String KW_IF, KW_ELSE, KW_SWITCH, KW_CASE, KW_DEFAULT;
 terminal String KW_BREAK, KW_FOR, KW_DO, KW_WHILE, KW_CONTINUE, KW_RETURN;
 terminal String KW_PRINT;
 // bools
-terminal boolean KW_TRUE, KW_FALSE;
+terminal String KW_TRUE, KW_FALSE;
 // graph key words
-terminal KW_DEFGLB, KW_BARGRPH, KW_PIEGRPH, KW_TITLE, KW_XAXIS, KW_VALUES, KW_TITLEX, KW_TITLEY;
+terminal String KW_DEFGLB, KW_BARGRPH, KW_PIEGRPH, KW_TITLE, KW_XAXIS, KW_VALUES, KW_TITLEX, KW_TITLEY;
 // literals
 terminal String TK_STRING, TK_CHAR, TK_INT, TK_DOUBLE, TK_ID;
 // operators
@@ -56,8 +61,8 @@ terminal String TK_COMA, TK_SCOLON, TK_COLON;
 terminal String TK_DOLL;
 
 /* NON TERMINALS */
-non terminal Init;
-non terminal Main;
+non terminal String Init;
+non terminal Main Main;
 // instructions
 non terminal Instructions;
 non terminal Instruction;

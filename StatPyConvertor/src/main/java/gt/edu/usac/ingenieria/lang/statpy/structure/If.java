@@ -15,4 +15,9 @@ public class If extends Structure{
         this.block = block;
         this.else_ = else_;
     }
+
+    @Override
+    public String toPython() {
+        return null;
+    }
 }

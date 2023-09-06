@@ -10,4 +10,9 @@ public class Math extends Expression{
         this.left = left;
         this.right = right;
     }
+
+    @Override
+    public String toPython() {
+        return null;
+    }
 }

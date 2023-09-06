@@ -12,4 +12,9 @@ public class For extends Structure{
         this.exp1 = exp1;
         this.exp2 = exp2;
     }
+
+    @Override
+    public String toPython() {
+        return null;
+    }
 }

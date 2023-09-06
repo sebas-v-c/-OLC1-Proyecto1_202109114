@@ -15,4 +15,9 @@ public class Logic extends Expression{
         this.sign = sign;
         this.right = right;
     }
+
+    @Override
+    public String toPython() {
+        return null;
+    }
 }
