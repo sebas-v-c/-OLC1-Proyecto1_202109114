@@ -10,4 +10,11 @@ public abstract class Expression extends Instruction {
         super(line, column, Type.EXPRESSION);
         this.expType = expType;
     }
+
+    public abstract Value evaluate();
+
+    @Override
+    public void execute(){
+        evaluate();
+    }
 }

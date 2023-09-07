@@ -23,8 +23,4 @@ public class Primitive extends Expression{
         };
     }
 
-    @Override
-    public void execute() {
-        //TODO
-    }
 }

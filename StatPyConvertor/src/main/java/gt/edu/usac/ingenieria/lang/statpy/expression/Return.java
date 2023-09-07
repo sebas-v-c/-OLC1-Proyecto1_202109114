@@ -9,11 +9,14 @@ public class Return extends Expression{
 
     @Override
     public String toPython() {
-        return null;
+        return "return " + exp.toPython();
     }
 
     @Override
-    public void execute() {
-
+    public Value evaluate() {
+        if (exp != null){
+            return exp.evaluate();
+        }
+        return new Value(null, null);
     }
 }
