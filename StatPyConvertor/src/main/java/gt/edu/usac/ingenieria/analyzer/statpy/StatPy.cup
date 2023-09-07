@@ -76,18 +76,20 @@ non terminal Expression Expresion;
 non terminal Expression Math;
 non terminal Expression Relation;
 non terminal Expression Logic;
-non terminal Expression ReasignVar;
+non terminal ReasignId ReasignVar;
 // Conditional structures
 non terminal Instruction IfStatement;
 non terminal Instruction SwitchStatement;
-non terminal CaseDeft;
+non terminal Object[] CaseDeft;
 non terminal ArrayList<Case> Cases;
-non terminal Case Case, Default;
+non terminal Case Case;
+non terminal CodeBlock Default;
 // loop structures
 non terminal Instruction ForLoop;
-non terminal ForArgs;
+non terminal Object[] ForArgs;
 non terminal Sentence ForInitArg;
-non terminal WhileLoop, DoWhileLoop;
+non terminal While WhileLoop;
+non terminal DoWhile DoWhileLoop;
 
 // call a function
 non terminal Expression CallFunc;
@@ -96,18 +98,21 @@ non terminal ArrayList<Expression> ArgsList;
 //non terminal DeclareFunc;
 
 non terminal Graph GlobalVarsFunc;
-non terminal GlobalVarsEnv, GlobalVarsInsts, GlobalVarsInst;
+non terminal ArrayList<Instruction> GlobalVarsEnv;
+non terminal ArrayList<Instruction> GlobalVarsInsts;
+non terminal Instruction GlobalVarsInst;
 
 non terminal Instruction GraphFuncs;
 non terminal Pie PieGraph;
 non terminal Bars BarGraph;
-non terminal PieGraphInsts, PieGraphInst;
-non terminal BarGraphInsts, BarGraphInst;
+non terminal ArrayList<Instruction> PieGraphInsts, BarGraphInsts;
+non terminal Instruction PieGraphInst, BarGraphInst;
 
-non terminal CallJson, JsonArg;
+non terminal CallJson CallJson;
+non terminal Expression JsonArg;
 // local environment
 non terminal CodeBlock LocalEnv;
-non terminal LocalEnvs;
+non terminal Object[] LocalEnvs;
 non terminal Print Print;
 
 
@@ -173,7 +178,7 @@ BarGraphInst    ::=
                 |   KW_STRING KW_TITLEY:ty TK_EQ TK_STRING:s TK_SCOLON                               {:RESULT = new DeclareId(tyleft, tyright, ty, new Primitive(sleft, sright, s, PrimitiveType.STRING));:}
                 |   KW_STRING KW_TITLEY:ty TK_EQ TK_ID:id TK_SCOLON                                  {:RESULT = new DeclareId(tyleft, tyright, ty, new AccesId(idleft, idright, id));:}
                 |   KW_STRING TK_LBRK TK_RBRK KW_XAXIS:x TK_EQ TK_LBRC ArgsList:a TK_RBRC TK_SCOLON  {:RESULT = new DeclareArr(xleft, xright, x, a);:}
-                |   KW_DOUBLE TK_LBRK TK_RBRK KW_VALUES:v TK_EQ TK_LBRC ArgsList:a TK_RBRC TK_SCOLON {:RESULT = new DeclareArr(vlevt, vright, v, a);:}
+                |   KW_DOUBLE TK_LBRK TK_RBRK KW_VALUES:v TK_EQ TK_LBRC ArgsList:a TK_RBRC TK_SCOLON {:RESULT = new DeclareArr(vleft, vright, v, a);:}
                 ;
 
 GlobalVarsFunc  ::=
@@ -181,7 +186,7 @@ GlobalVarsFunc  ::=
 
 GlobalVarsEnv   ::=
                     TK_LBRC GlobalVarsInsts:i TK_RBRC {:RESULT = i;:}
-                |   TK_LBRC TK_RBRC
+                |   TK_LBRC TK_RBRC                   {:RESULT = new ArrayList<Instruction>();:}
                 ;
 
 GlobalVarsInsts ::=
@@ -191,7 +196,7 @@ GlobalVarsInsts ::=
 
 GlobalVarsInst  ::=
                     KW_STRING TK_ID:id TK_EQ TK_STRING:str TK_SCOLON {:RESULT = new DeclareId(idleft, idright, id, new Primitive(strleft, strright, str, PrimitiveType.STRING));:}
-                |   KW_DOUBLE TK_ID:id TK_EQ TK_DOUBLE:db TK_SCOLON  {:RESULT = new DeclareId(idleft, idright, id, new Primitive(strleft, strright, db, PrimitiveType.DOUBLE));:}
+                |   KW_DOUBLE TK_ID:id TK_EQ TK_DOUBLE:db TK_SCOLON  {:RESULT = new DeclareId(idleft, idright, id, new Primitive(dbleft, dbright, db, PrimitiveType.DOUBLE));:}
                 |   KW_STRING TK_ID:id TK_EQ CallJson:js TK_SCOLON   {:RESULT = new DeclareId(idleft, idright, id, js);:}
                 |   KW_DOUBLE TK_ID:id TK_EQ CallJson:js TK_SCOLON   {:RESULT = new DeclareId(idleft, idright, id, js);:}
                 ;
@@ -230,7 +235,7 @@ DeclareArr      ::=
 
 DataType        ::=
                     KW_INT      {:RESULT = PrimitiveType.INT;:}
-                |   KW_BOOL     {:RESULT = PrimitiveType.BOOLEA;:}
+                |   KW_BOOL     {:RESULT = PrimitiveType.BOOLEAN;:}
                 |   KW_DOUBLE   {:RESULT = PrimitiveType.DOUBLE;:}
                 |   KW_CHAR     {:RESULT = PrimitiveType.CHAR;:}
                 |   KW_STRING   {:RESULT = PrimitiveType.STRING;:}
@@ -247,22 +252,22 @@ CallFunc        ::=
 
 ArgsList        ::=
                     ArgsList:l TK_COMA Expresion:e {:RESULT=l; RESULT.add(e);:}
-                |   Expresion:e                    {:RESULT= new ArrayList<>(Arrays(e));:}
+                |   Expresion:e                    {:RESULT= new ArrayList<>(Arrays.asList(e));:}
                 ;
 
 IfStatement     ::=
-                    KW_IF:f TK_LPAR Expresion:exp TK_RPAR LocalEnv:env KW_ELSE IfStatement:f2 {:RETULT = new If(fleft, fright, exp, env, f2);:}
-                |   KW_IF:f TK_LPAR Expresion:exp TK_RPAR LocalEnv:env KW_ELSE LocalEnv:env2  {:RETULT = new If(fleft, fright, exp, env, env2);:}
-                |   KW_IF:f TK_LPAR Expresion:exp TK_RPAR LocalEnv:env                        {:RETULT = new If(fleft, fright, exp, env, null);:}
+                    KW_IF:f TK_LPAR Expresion:exp TK_RPAR LocalEnv:env KW_ELSE IfStatement:f2 {:RESULT = new If(fleft, fright, exp, env, f2);:}
+                |   KW_IF:f TK_LPAR Expresion:exp TK_RPAR LocalEnv:env KW_ELSE LocalEnv:env2  {:RESULT = new If(fleft, fright, exp, env, env2);:}
+                |   KW_IF:f TK_LPAR Expresion:exp TK_RPAR LocalEnv:env                        {:RESULT = new If(fleft, fright, exp, env, null);:}
                 ;
 
 LocalEnv        ::=
-                    TK_LBRC:l Instructions:i TK_RBRC {:RETULT = new CodeBlock(lleft, lright, i);:}
-                |   TK_LBRC:l TK_RBRC                {:RETULT = new CodeBlock(lleft, lright, new ArrayList<>());:}
+                    TK_LBRC:l Instructions:i TK_RBRC {:RESULT = new CodeBlock(lleft, lright, i);:}
+                |   TK_LBRC:l TK_RBRC                {:RESULT = new CodeBlock(lleft, lright, new ArrayList<>());:}
                 ;
 
 SwitchStatement ::=
-                    KW_SWITCH:s TK_LPAR Expresion:exp TK_RPAR LocalEnvs:env {:RETULT = new Switch(sleft, sright, exp, (ArrayList<Case>) b[0], (CodeBlock)b[1]);:}
+                    KW_SWITCH:s TK_LPAR Expresion:exp TK_RPAR LocalEnvs:env {:RESULT = new Switch(sleft, sright, exp, (ArrayList<Case>) env[0], (CodeBlock)env[1]);:}
 
                 ;
 
@@ -284,12 +289,12 @@ Cases           ::=
 
 Case            ::=
                     KW_CASE:c Expresion:exp TK_COLON Instructions:i {:RESULT = new Case(cleft, cright, exp, new CodeBlock(ileft, iright, i));:}
-                |   KW_CASE:c Expresion:exp TK_COLON                {:RESULT = new Case(cleft, cright, exp, new CodeBlock<>(cleft, cright, new ArrayList<>()));:}
+                |   KW_CASE:c Expresion:exp TK_COLON                {:RESULT = new Case(cleft, cright, exp, new CodeBlock(cleft, cright, new ArrayList<>()));:}
                 ;
 
 Default         ::=
                     KW_DEFAULT:d TK_COLON Instructions:i {:RESULT = new CodeBlock(dleft, dright, i);:}
-                |   KW_DEFAULT:d TK_COLON                {:RESTUL = new CodeBlock(dleft, dright, new ArrayList<>());:}
+                |   KW_DEFAULT:d TK_COLON                {:RESULT = new CodeBlock(dleft, dright, new ArrayList<>());:}
                 ;
 
 ForLoop         ::=
@@ -299,7 +304,7 @@ ForLoop         ::=
 ForArgs         ::= ForInitArg:fi TK_SCOLON Expresion:exp TK_SCOLON IncreDecre:inc {:RESULT = new Object[] {fi, exp, inc};:};
 
 
-ForInitArg      ::= KW_INT TK_ID:id TK_EQ TK_INT:i {:RESULT = new DeclareId(idleft, idright, new Primitive(ileft, iright, i, PrimitiveType.INT));:}
+ForInitArg      ::= KW_INT TK_ID:id TK_EQ TK_INT:i {:RESULT = new DeclareId(idleft, idright, id,new Primitive(ileft, iright, i, PrimitiveType.INT));:}
                 |   ReasignVar:r                   {:RESULT = r;:}
                 ;
 
@@ -328,7 +333,7 @@ Expresion       ::=
                 |   Logic:e                     {:RESULT = e;:}
                 |   CallFunc:e                  {:RESULT = e;:}
                 |   CallJson:e                  {:RESULT = e;:}
-                |   IncreDecre                  {:RESULT = e;:}
+                |   IncreDecre:e                {:RESULT = e;:}
                 |   TK_ID:e                     {:RESULT = new AccesId(eleft, eright, e);:}
                 |   TK_STRING:e                 {:RESULT = new Primitive(eleft, eright, e, PrimitiveType.STRING);:}
                 |   TK_CHAR:e                   {:RESULT = new Primitive(eleft, eright, e, PrimitiveType.CHAR);:}
@@ -340,11 +345,11 @@ Expresion       ::=
                 ;
 
 Math            ::=
-                    Expresion:e1 TK_PLUS:s Expresion:e2  {:RESULT = new Math(e1left, e1right, e1, s, e2);:}
-                |   Expresion:e1 TK_MINUS:s Expresion:e2 {:RESULT = new Math(e1left, e1right, e1, s, e2);:}
-                |   Expresion:e1 TK_MULT:s Expresion:e2  {:RESULT = new Math(e1left, e1right, e1, s, e2);:}
-                |   Expresion:e1 TK_DIV:s Expresion:e2   {:RESULT = new Math(e1left, e1right, e1, s, e2);:}
-                |   TK_MINUS:s Expresion:e1              {:RESUTL = new Math(e1left, e1right, null, s, e1);:} %prec TK_UMINUS
+                    Expresion:e1 TK_PLUS:s Expresion:e2  {:RESULT = new gt.edu.usac.ingenieria.lang.statpy.expression.Math(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_MINUS:s Expresion:e2 {:RESULT = new gt.edu.usac.ingenieria.lang.statpy.expression.Math(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_MULT:s Expresion:e2  {:RESULT = new gt.edu.usac.ingenieria.lang.statpy.expression.Math(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_DIV:s Expresion:e2   {:RESULT = new gt.edu.usac.ingenieria.lang.statpy.expression.Math(e1left, e1right, e1, s, e2);:}
+                |   TK_MINUS:s Expresion:e1              {:RESULT = new gt.edu.usac.ingenieria.lang.statpy.expression.Math(e1left, e1right, null, s, e1);:} %prec TK_UMINUS
                 ;
 
 Relation        ::=
@@ -359,7 +364,7 @@ Relation        ::=
 Logic           ::=
                     Expresion:e1 TK_AND:s Expresion:e2 {:RESULT = new Logic(e1left, e1right, e1, s, e2);:}
                 |   Expresion:e1 TK_OR:s Expresion:e2  {:RESULT = new Logic(e1left, e1right, e1, s, e2);:}
-                |   TK_NOT:s Expresion:e               {:RESULT = new Logic(e1left, e1right, null, s, e2);:}
+                |   TK_NOT:s Expresion:e               {:RESULT = new Logic(eleft, eright, null, s, e);:}
                 ;
 
 

@@ -9,6 +9,7 @@ import gt.edu.usac.ingenieria.lang.statpy.sentence.Sentence;
 public class For extends Structure{
     String id;
     String val;
+    Sentence decid;
     Expression exp1;
     Expression exp2;
     CodeBlock block;
@@ -25,6 +26,7 @@ public class For extends Structure{
         } catch (Exception e){
             System.out.println(e);
         }
+        this.decid = decid;
         this.exp1 = exp1;
         this.exp2 = exp2;
         this.block = block;
