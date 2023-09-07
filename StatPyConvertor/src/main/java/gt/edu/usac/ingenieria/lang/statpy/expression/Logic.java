@@ -18,6 +18,11 @@ public class Logic extends Expression{
 
     @Override
     public String toPython() {
-        return null;
+        return switch (sign){
+            case "&&" -> left.toPython() + " and "  + right.toPython();
+            case "||" -> left.toPython() + " or "  + right.toPython();
+            case "!" -> " not "  + right.toPython();
+            default -> "";
+        };
     }
 }

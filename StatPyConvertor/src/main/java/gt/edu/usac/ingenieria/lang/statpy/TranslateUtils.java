@@ -7,7 +7,7 @@ public class TranslateUtils {
         StringBuilder str = new StringBuilder();
         Object[] lines = s.lines().toArray();
         for (Object line: lines){
-            str.append("\t").append((String) line).append("\n");
+            str.append("\n").append("\t").append((String) line);
         }
 
         return str.toString();

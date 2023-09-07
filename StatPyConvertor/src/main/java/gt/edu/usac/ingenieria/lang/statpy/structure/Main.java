@@ -16,16 +16,17 @@ public class Main extends Structure{
     public String toPython() {
         StringBuilder str = new StringBuilder();
 
-        str.append("def main():\n");
+        str.append("def main():");
         try{
             for (Instruction inst : instructions){
-                str.append(TranslateUtils.tabulate(inst.toPython())).append("\n");
+                str.append(TranslateUtils.tabulate(inst.toPython()));
             }
         } catch (Exception e){
+            System.out.println(e);
             str.append(TranslateUtils.tabulate("pass")).append("\n");
         }
 
-        str.append("if __name__ = \"__main__\":").append("\n").append(TranslateUtils.tabulate("main()"));
+        str.append("\nif __name__ = \"__main__\":").append("\n").append(TranslateUtils.tabulate("main()"));
 
         return str.toString();
     }

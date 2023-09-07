@@ -15,6 +15,6 @@ public class ReasignId extends Sentence{
 
     @Override
     public String toPython() {
-        return null;
+        return id + " = " + exp.toPython();
     }
 }

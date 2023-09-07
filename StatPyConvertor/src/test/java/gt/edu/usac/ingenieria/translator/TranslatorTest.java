@@ -45,7 +45,7 @@ public class TranslatorTest {
             for (Instruction inst: parser.inst) {
                 try{
                     if (((Structure) inst).structType == StructType.MAIN){
-                        System.out.println(inst.toPython());
+                        System.out.print(inst.toPython());
                     }
                     for (Instruction instruction : ((Main) inst).instructions){
                         logger.log(Level.INFO, instruction.toString());

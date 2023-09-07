@@ -5,7 +5,7 @@ import gt.edu.usac.ingenieria.lang.statpy.expression.Expression;
 
 public class DeclareId extends Sentence{
     public String id;
-    Expression expression;
+    public Expression expression;
     public DeclareId(int line, int column, String id, Expression expression) {
         super(line, column, SentType.DECLARE_ID);
         this.id = id;
@@ -15,6 +15,12 @@ public class DeclareId extends Sentence{
     @Override
     public String toPython() {
         StringBuilder str = new StringBuilder();
-        str
+        str.append(id).append(" = ");
+        if (expression != null){
+            str.append(expression.toPython());
+        } else {
+            str.append("None");
+        }
+        return  str.toString();
     }
 }

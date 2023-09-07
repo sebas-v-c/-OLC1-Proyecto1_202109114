@@ -1,7 +1,7 @@
 package gt.edu.usac.ingenieria.lang.statpy.expression;
 
 public class IncDec extends Expression{
-    String sign;
+    public String sign;
     String id;
     public IncDec(int line, int column, String sign, String id) {
         super(line, column, gt.edu.usac.ingenieria.lang.statpy.expression.ExpType.INCDEC);
@@ -11,6 +11,10 @@ public class IncDec extends Expression{
 
     @Override
     public String toPython() {
-        return null;
+        return switch (sign) {
+            case "++" -> id + " += " + "1";
+            case "--" -> id + " -= " + "1";
+            default -> "";
+        };
     }
 }

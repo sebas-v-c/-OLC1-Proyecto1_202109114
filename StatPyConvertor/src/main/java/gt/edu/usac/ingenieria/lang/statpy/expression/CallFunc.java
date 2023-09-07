@@ -13,6 +13,21 @@ public class CallFunc extends Expression{
 
     @Override
     public String toPython() {
-        return null;
+        StringBuilder str = new StringBuilder();
+
+        str.append(id).append("(");
+        try{
+            for (int i = 0; i < args.size(); i++) {
+                str.append(args.get(i));
+                if (i < args.size() - 1) {
+                    str.append(", ");
+                }
+            }
+        } catch (Exception ignored){}
+
+        str.append(")");
+
+        return str.toString();
     }
+
 }
