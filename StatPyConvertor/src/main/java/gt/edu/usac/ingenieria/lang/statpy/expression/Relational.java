@@ -4,7 +4,7 @@ public class Relational extends Expression{
     String sign;
     Expression left;
     Expression right;
-    public Relational(int line, int column, String sign, Expression left, Expression right) {
+    public Relational(int line, int column, Expression left, String sign, Expression right) {
         super(line, column, gt.edu.usac.ingenieria.lang.statpy.expression.ExpType.RELATIONAL);
         this.sign = sign;
         this.left = left;

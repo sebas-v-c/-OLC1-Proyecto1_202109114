@@ -4,7 +4,7 @@ public class Math extends Expression{
     String sign;
     Expression left;
     Expression right;
-    public Math(int line, int column, String sign, Expression left, Expression right) {
+    public Math(int line, int column, Expression left, String sign, Expression right) {
         super(line, column, gt.edu.usac.ingenieria.lang.statpy.expression.ExpType.MATH);
         this.sign = sign;
         this.left = left;

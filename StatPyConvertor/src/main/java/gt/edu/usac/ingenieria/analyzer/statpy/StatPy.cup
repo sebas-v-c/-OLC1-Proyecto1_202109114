@@ -325,43 +325,43 @@ JsonArg         ::=
                 ;
 
 Expresion       ::=
-                    Math:e
-                |   Relation:e
-                |   Logic:e
-                |   CallFunc:e
-                |   CallJson:e
-                |   IncreDecre
-                |   TK_ID
-                |   TK_STRING
-                |   TK_CHAR
-                |   TK_INT
-                |   TK_DOUBLE
-                |   KW_TRUE
-                |   KW_FALSE
-                |   TK_LPAR Expresion TK_RPAR
+                    Math:e                      {:RESULT = e;:}
+                |   Relation:e                  {:RESULT = e;:}
+                |   Logic:e                     {:RESULT = e;:}
+                |   CallFunc:e                  {:RESULT = e;:}
+                |   CallJson:e                  {:RESULT = e;:}
+                |   IncreDecre                  {:RESULT = e;:}
+                |   TK_ID:e                     {:RESULT = new AccesId(eleft, eright, e);:}
+                |   TK_STRING:e                 {:RESULT = new Primitive(eleft, eright, e, PrimitiveType.STRING);:}
+                |   TK_CHAR:e                   {:RESULT = new Primitive(eleft, eright, e, PrimitiveType.CHAR);:}
+                |   TK_INT:e                    {:RESULT = new Primitive(eleft, eright, e, PrimitiveType.INT);:}
+                |   TK_DOUBLE:e                 {:RESULT = new Primitive(eleft, eright, e, PrimitiveType.DOUBLE);:}
+                |   KW_TRUE:e                   {:RESULT = new Primitive(eleft, eright, e, PrimitiveType.BOOLEAN);:}
+                |   KW_FALSE:e                  {:RESULT = new Primitive(eleft, eright, e, PrimitiveType.BOOLEAN);:}
+                |   TK_LPAR Expresion:e TK_RPAR {:RESULT = e;:}
                 ;
 
 Math            ::=
-                    Expresion TK_PLUS Expresion
-                |   Expresion TK_MINUS Expresion
-                |   Expresion TK_MULT Expresion
-                |   Expresion TK_DIV Expresion
-                |   TK_MINUS Expresion                 %prec TK_UMINUS
+                    Expresion:e1 TK_PLUS:s Expresion:e2  {:RESULT = new Math(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_MINUS:s Expresion:e2 {:RESULT = new Math(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_MULT:s Expresion:e2  {:RESULT = new Math(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_DIV:s Expresion:e2   {:RESULT = new Math(e1left, e1right, e1, s, e2);:}
+                |   TK_MINUS:s Expresion:e1              {:RESUTL = new Math(e1left, e1right, null, s, e1);:} %prec TK_UMINUS
                 ;
 
 Relation        ::=
-                    Expresion TK_GEQ Expresion
-                |   Expresion TK_LEQ Expresion
-                |   Expresion TK_EQEQ Expresion
-                |   Expresion TK_NOTEQ Expresion
-                |   Expresion TK_GREATER Expresion
-                |   Expresion TK_LESS Expresion
+                    Expresion:e1 TK_GEQ:s Expresion:e2     {:RESULT = new Relational(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_LEQ:s Expresion:e2     {:RESULT = new Relational(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_EQEQ:s Expresion:e2    {:RESULT = new Relational(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_NOTEQ:s Expresion:e2   {:RESULT = new Relational(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_GREATER:s Expresion:e2 {:RESULT = new Relational(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_LESS:s Expresion:e2    {:RESULT = new Relational(e1left, e1right, e1, s, e2);:}
                 ;
 
 Logic           ::=
-                    Expresion TK_AND Expresion
-                |   Expresion TK_OR Expresion
-                |   TK_NOT Expresion
+                    Expresion:e1 TK_AND:s Expresion:e2 {:RESULT = new Logic(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_OR:s Expresion:e2  {:RESULT = new Logic(e1left, e1right, e1, s, e2);:}
+                |   TK_NOT:s Expresion:e               {:RESULT = new Logic(e1left, e1right, null, s, e2);:}
                 ;
 
 
