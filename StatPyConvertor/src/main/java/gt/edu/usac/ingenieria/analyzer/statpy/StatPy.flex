@@ -87,6 +87,7 @@ COMMENTML=[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
     "TituloX"         {return symbol(SYM.KW_TITLEX,       yytext());}
     "TituloY"         {return symbol(SYM.KW_TITLEY,       yytext());}
     "Valores"         {return symbol(SYM.KW_VALUES,       yytext());}
+    "NewValor"        {return symbol(SYM.KW_NVAL,         yytext());}
     "Console.Write"   {return symbol(SYM.KW_PRINT,        yytext());}
     // values
     {STRING}          {return symbol(SYM.TK_STRING,       yytext());}
