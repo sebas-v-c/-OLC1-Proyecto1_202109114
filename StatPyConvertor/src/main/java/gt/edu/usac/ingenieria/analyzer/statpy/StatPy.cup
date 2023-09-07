@@ -70,7 +70,6 @@ non terminal Instruction Instruction;
 non terminal Expression IncreDecre;
 // variable declaration
 non terminal Sentence DeclareVar, DeclareArr;
-non terminal Expression ArrArgs;
 non terminal PrimitiveType DataType;
 // expresion control
 non terminal Expression Expresion;
@@ -104,11 +103,10 @@ non terminal Pie PieGraph;
 non terminal Bars BarGraph;
 non terminal PieGraphInsts, PieGraphInst;
 non terminal BarGraphInsts, BarGraphInst;
-non terminal ArrArgsX, ArrArgsV;
 
 non terminal CallJson, JsonArg;
 // local environment
-non terminal LocalEnv;
+non terminal CodeBlock LocalEnv;
 non terminal LocalEnvs;
 non terminal Print Print;
 
@@ -151,7 +149,7 @@ BarGraph        ::= KW_VOID KW_BARGRPH:b TK_LPAR TK_RPAR TK_LBRC BarGraphInsts:i
 
 PieGraphInsts   ::=
                     PieGraphInsts:s PieGraphInst:i {:RESULT = s; RESULT.add(i);:}
-                |   PieGraphInst:i                 {:RESULT = new ArrayList<>(Arrays.asList(i));:}
+                |   PieGraphInst:i                 {:RESULT = new ArrayList<Instruction>(Arrays.asList(i));:}
                 ;
 
 PieGraphInst    ::=
