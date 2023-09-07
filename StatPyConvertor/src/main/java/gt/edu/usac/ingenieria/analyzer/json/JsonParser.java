@@ -5,10 +5,13 @@
 
 package gt.edu.usac.ingenieria.analyzer.json;
 
-import gt.edu.usac.ingenieria.analyzer.errors.SynError;
+import java.util.stream.Collectors;
 import java_cup.runtime.*;
-
+import java.util.Arrays;
 import java.util.ArrayList;
+import gt.edu.usac.ingenieria.analyzer.errors.SynError;
+import gt.edu.usac.ingenieria.lang.json.*;
+import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
   */
@@ -33,11 +36,11 @@ public class JsonParser extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\016\000\002\002\004\000\002\002\003\000\002\003" +
+    "\000\015\000\002\002\004\000\002\002\003\000\002\003" +
     "\004\000\002\003\005\000\002\004\004\000\002\004\003" +
     "\000\002\005\006\000\002\005\005\000\002\006\003\000" +
     "\002\006\003\000\002\006\003\000\002\006\004\000\002" +
-    "\006\004\000\002\006\003" });
+    "\006\004" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -45,21 +48,19 @@ public class JsonParser extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\025\000\004\004\006\001\002\000\004\002\000\001" +
-    "\002\000\004\002\027\001\002\000\006\005\007\010\012" +
-    "\001\002\000\012\002\uffff\005\uffff\007\uffff\010\uffff\001" +
-    "\002\000\006\005\ufffc\010\ufffc\001\002\000\006\005\025" +
-    "\010\012\001\002\000\004\006\013\001\002\000\014\004" +
-    "\006\010\017\011\015\012\020\013\016\001\002\000\010" +
-    "\005\ufff4\007\ufff4\010\ufff4\001\002\000\010\005\ufff7\007" +
-    "\ufff7\010\ufff7\001\002\000\006\011\023\012\024\001\002" +
-    "\000\010\005\ufff9\007\ufff9\010\ufff9\001\002\000\010\005" +
-    "\ufff8\007\ufff8\010\ufff8\001\002\000\010\005\ufffa\007\022" +
-    "\010\ufffa\001\002\000\006\005\ufffb\010\ufffb\001\002\000" +
-    "\010\005\ufff6\007\ufff6\010\ufff6\001\002\000\010\005\ufff5" +
-    "\007\ufff5\010\ufff5\001\002\000\012\002\ufffe\005\ufffe\007" +
-    "\ufffe\010\ufffe\001\002\000\006\005\ufffd\010\ufffd\001\002" +
-    "\000\004\002\001\001\002" });
+    "\000\024\000\004\004\006\001\002\000\004\002\000\001" +
+    "\002\000\004\002\026\001\002\000\006\005\007\010\012" +
+    "\001\002\000\004\002\uffff\001\002\000\006\005\ufffc\010" +
+    "\ufffc\001\002\000\006\005\024\010\012\001\002\000\004" +
+    "\006\013\001\002\000\012\010\016\011\015\012\017\013" +
+    "\014\001\002\000\006\011\022\012\023\001\002\000\010" +
+    "\005\ufff7\007\ufff7\010\ufff7\001\002\000\010\005\ufff9\007" +
+    "\ufff9\010\ufff9\001\002\000\010\005\ufff8\007\ufff8\010\ufff8" +
+    "\001\002\000\010\005\ufffa\007\021\010\ufffa\001\002\000" +
+    "\006\005\ufffb\010\ufffb\001\002\000\010\005\ufff6\007\ufff6" +
+    "\010\ufff6\001\002\000\010\005\ufff5\007\ufff5\010\ufff5\001" +
+    "\002\000\004\002\ufffe\001\002\000\006\005\ufffd\010\ufffd" +
+    "\001\002\000\004\002\001\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -67,14 +68,14 @@ public class JsonParser extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\025\000\006\002\004\003\003\001\001\000\002\001" +
+    "\000\024\000\006\002\004\003\003\001\001\000\002\001" +
     "\001\000\002\001\001\000\006\004\010\005\007\001\001" +
-    "\000\002\001\001\000\002\001\001\000\004\005\025\001" +
-    "\001\000\002\001\001\000\006\003\013\006\020\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\000\002\001\001\000\002\001\001\000\004\005\024\001" +
+    "\001\000\002\001\001\000\004\006\017\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001" });
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -114,6 +115,7 @@ public class JsonParser extends java_cup.runtime.lr_parser {
 
 
     ArrayList<SynError> errors = new ArrayList<>();
+    ArrayList<KeyVal> content = new ArrayList<>();
     public void syntax_error(Symbol s){
         errors.add(new SynError(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
     }
@@ -190,7 +192,10 @@ class CUP$JsonParser$actions {
           case 3: // Object ::= TK_LBRC Contents TK_RBRC 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)).right;
+		ArrayList<KeyVal> c = (ArrayList<KeyVal>)((java_cup.runtime.Symbol) CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)).value;
+		content = c;
               CUP$JsonParser$result = parser.getSymbolFactory().newSymbol("Object",1, ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-2)), ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), RESULT);
             }
           return CUP$JsonParser$result;
@@ -198,8 +203,14 @@ class CUP$JsonParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 4: // Contents ::= Contents Content 
             {
-              Object RESULT =null;
-
+              ArrayList<KeyVal> RESULT =null;
+		int lleft = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)).left;
+		int lright = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)).right;
+		ArrayList<KeyVal> l = (ArrayList<KeyVal>)((java_cup.runtime.Symbol) CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)).value;
+		int cleft = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()).right;
+		KeyVal c = (KeyVal)((java_cup.runtime.Symbol) CUP$JsonParser$stack.peek()).value;
+		RESULT = l; RESULT.add(c);
               CUP$JsonParser$result = parser.getSymbolFactory().newSymbol("Contents",2, ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)), ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), RESULT);
             }
           return CUP$JsonParser$result;
@@ -207,8 +218,11 @@ class CUP$JsonParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 5: // Contents ::= Content 
             {
-              Object RESULT =null;
-
+              ArrayList<KeyVal> RESULT =null;
+		int cleft = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()).right;
+		KeyVal c = (KeyVal)((java_cup.runtime.Symbol) CUP$JsonParser$stack.peek()).value;
+		RESULT = new ArrayList<>(Arrays.asList(c));
               CUP$JsonParser$result = parser.getSymbolFactory().newSymbol("Contents",2, ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), RESULT);
             }
           return CUP$JsonParser$result;
@@ -216,8 +230,14 @@ class CUP$JsonParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 6: // Content ::= TK_STRING TK_COLON ValueType TK_COMA 
             {
-              Object RESULT =null;
-
+              KeyVal RESULT =null;
+		int idleft = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-3)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-3)).right;
+		String id = (String)((java_cup.runtime.Symbol) CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-3)).value;
+		int vleft = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)).left;
+		int vright = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)).right;
+		Value v = (Value)((java_cup.runtime.Symbol) CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)).value;
+		RESULT = new KeyVal(idleft, idright, id, v);
               CUP$JsonParser$result = parser.getSymbolFactory().newSymbol("Content",3, ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-3)), ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), RESULT);
             }
           return CUP$JsonParser$result;
@@ -225,8 +245,14 @@ class CUP$JsonParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 7: // Content ::= TK_STRING TK_COLON ValueType 
             {
-              Object RESULT =null;
-
+              KeyVal RESULT =null;
+		int idleft = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-2)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-2)).right;
+		String id = (String)((java_cup.runtime.Symbol) CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-2)).value;
+		int vleft = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()).left;
+		int vright = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()).right;
+		Value v = (Value)((java_cup.runtime.Symbol) CUP$JsonParser$stack.peek()).value;
+		RESULT = new KeyVal(idleft, idright, id, v);
               CUP$JsonParser$result = parser.getSymbolFactory().newSymbol("Content",3, ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-2)), ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), RESULT);
             }
           return CUP$JsonParser$result;
@@ -234,8 +260,11 @@ class CUP$JsonParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 8: // ValueType ::= TK_STRING 
             {
-              Object RESULT =null;
-
+              Value RESULT =null;
+		int vleft = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()).left;
+		int vright = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()).right;
+		String v = (String)((java_cup.runtime.Symbol) CUP$JsonParser$stack.peek()).value;
+		RESULT = new Value(vleft, vright, v, Type.STRING);
               CUP$JsonParser$result = parser.getSymbolFactory().newSymbol("ValueType",4, ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), RESULT);
             }
           return CUP$JsonParser$result;
@@ -243,8 +272,11 @@ class CUP$JsonParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 9: // ValueType ::= TK_DOUBLE 
             {
-              Object RESULT =null;
-
+              Value RESULT =null;
+		int vleft = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()).left;
+		int vright = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()).right;
+		String v = (String)((java_cup.runtime.Symbol) CUP$JsonParser$stack.peek()).value;
+		RESULT = new Value(vleft, vright, v, Type.DOUBLE);
               CUP$JsonParser$result = parser.getSymbolFactory().newSymbol("ValueType",4, ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), RESULT);
             }
           return CUP$JsonParser$result;
@@ -252,8 +284,11 @@ class CUP$JsonParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 10: // ValueType ::= TK_INT 
             {
-              Object RESULT =null;
-
+              Value RESULT =null;
+		int vleft = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()).left;
+		int vright = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()).right;
+		String v = (String)((java_cup.runtime.Symbol) CUP$JsonParser$stack.peek()).value;
+		RESULT = new Value(vleft, vright, v, Type.INT);
               CUP$JsonParser$result = parser.getSymbolFactory().newSymbol("ValueType",4, ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), RESULT);
             }
           return CUP$JsonParser$result;
@@ -261,8 +296,14 @@ class CUP$JsonParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 11: // ValueType ::= TK_MINUS TK_INT 
             {
-              Object RESULT =null;
-
+              Value RESULT =null;
+		int sleft = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)).left;
+		int sright = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)).right;
+		String s = (String)((java_cup.runtime.Symbol) CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)).value;
+		int vleft = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()).left;
+		int vright = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()).right;
+		String v = (String)((java_cup.runtime.Symbol) CUP$JsonParser$stack.peek()).value;
+		RESULT = new Value(sleft, sright, s + v, Type.INT);
               CUP$JsonParser$result = parser.getSymbolFactory().newSymbol("ValueType",4, ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)), ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), RESULT);
             }
           return CUP$JsonParser$result;
@@ -270,18 +311,15 @@ class CUP$JsonParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 12: // ValueType ::= TK_MINUS TK_DOUBLE 
             {
-              Object RESULT =null;
-
+              Value RESULT =null;
+		int sleft = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)).left;
+		int sright = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)).right;
+		String s = (String)((java_cup.runtime.Symbol) CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)).value;
+		int vleft = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()).left;
+		int vright = ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()).right;
+		String v = (String)((java_cup.runtime.Symbol) CUP$JsonParser$stack.peek()).value;
+		RESULT = new Value(sleft, sright, s + v, Type.DOUBLE);
               CUP$JsonParser$result = parser.getSymbolFactory().newSymbol("ValueType",4, ((java_cup.runtime.Symbol)CUP$JsonParser$stack.elementAt(CUP$JsonParser$top-1)), ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), RESULT);
-            }
-          return CUP$JsonParser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // ValueType ::= Object 
-            {
-              Object RESULT =null;
-
-              CUP$JsonParser$result = parser.getSymbolFactory().newSymbol("ValueType",4, ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$JsonParser$stack.peek()), RESULT);
             }
           return CUP$JsonParser$result;
 

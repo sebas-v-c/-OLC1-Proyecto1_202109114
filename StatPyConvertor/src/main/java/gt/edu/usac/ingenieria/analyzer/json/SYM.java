@@ -11,6 +11,7 @@ public interface SYM {
   public static final int TK_DOUBLE = 8;
   public static final int TK_LBRC = 2;
   public static final int TK_COMA = 5;
+  public static final int TK_UMINUS = 10;
   public static final int EOF = 0;
   public static final int TK_INT = 7;
   public static final int error = 1;
@@ -28,7 +29,8 @@ public interface SYM {
   "TK_STRING",
   "TK_INT",
   "TK_DOUBLE",
-  "TK_MINUS"
+  "TK_MINUS",
+  "TK_UMINUS"
   };
 }
 
