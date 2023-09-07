@@ -10,6 +10,4 @@ public abstract class Expression extends Instruction {
         super(line, column, Type.EXPRESSION);
         this.ExpType = expType;
     }
-
-    public abstract String toPython();
 }

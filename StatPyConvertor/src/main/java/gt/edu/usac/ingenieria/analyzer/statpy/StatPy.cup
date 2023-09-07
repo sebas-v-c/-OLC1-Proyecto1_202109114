@@ -63,7 +63,7 @@ terminal String TK_DOLL;
 
 /* NON TERMINALS */
 non terminal String Init;
-non terminal Main;
+non terminal Main Main;
 // instructions
 non terminal ArrayList<Instruction> Instructions;
 non terminal Instruction Instruction;
@@ -132,9 +132,9 @@ precedence right TK_DOLL;
 start with Init;
 
 // beginnig
-Init            ::= Main;
+Init            ::= Main:m {:ArrayList<Instruction> arr= new ArrayList<Instruction>(); arr.add(m); inst=arr;:};
 
-Main            ::= KW_VOID KW_MAIN TK_LPAR TK_RPAR TK_LBRC Instructions:i TK_RBRC {:inst=i;:};
+Main            ::= KW_VOID KW_MAIN:m TK_LPAR TK_RPAR TK_LBRC Instructions:i TK_RBRC {:RESULT = new Main(mleft, mright, i);:};
 
 
 
