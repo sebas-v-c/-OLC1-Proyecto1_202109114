@@ -1,5 +1,9 @@
 package gt.edu.usac.ingenieria.lang.statpy.expression;
 
+import gt.edu.usac.ingenieria.lang.statpy.PrimitiveType;
+
+import java.util.Objects;
+
 public class Math extends Expression{
     String sign;
     Expression left;
@@ -23,7 +27,38 @@ public class Math extends Expression{
     }
 
     @Override
-    public void execute() {
-        // TODO
+    public Value evaluate() {
+        Value leftVal = left.evaluate();
+        Value rightval = right.evaluate();
+        if ((leftVal.value() instanceof Number) && (rightval.value() instanceof Number)){
+            Double n = processNum((Number) leftVal.value(), (Number) rightval.value());
+            if ((leftVal.type() == PrimitiveType.DOUBLE) || (rightval.type() == PrimitiveType.DOUBLE)){
+                return new Value(n, PrimitiveType.DOUBLE);
+            } else {
+                return new Value(n.intValue(), PrimitiveType.INT);
+            }
+        }
+        if ((leftVal.type() == PrimitiveType.STRING) || (rightval.type() == PrimitiveType.STRING)){
+            if (sign.equals("+")){
+                String s = String.valueOf(leftVal.value()) + String.valueOf(rightval.value());
+                return new Value(s, PrimitiveType.STRING);
+            } else {
+                throw new IllegalArgumentException("Cant operate a String like that");
+            }
+        }
+
+        throw new IllegalArgumentException("Cant do math");
+    }
+
+    private Double processNum(Number n1, Number n2){
+        Double db1 = Double.valueOf((Double) n1);
+        Double db2 = Double.valueOf((Double) n2);
+        return switch (sign){
+            case "+" -> db1 + db2;
+            case "-" -> db1 - db2;
+            case "*" -> db1 * db2;
+            case "/" -> db1 / db2;
+            default -> throw new IllegalStateException("Unexpected value: " + sign);
+        };
     }
 }

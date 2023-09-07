@@ -1,5 +1,8 @@
 package gt.edu.usac.ingenieria.lang.statpy.expression;
 
+import gt.edu.usac.ingenieria.Variables;
+import gt.edu.usac.ingenieria.lang.statpy.PrimitiveType;
+
 import java.util.ArrayList;
 
 public class CallJson extends Expression{
@@ -19,7 +22,12 @@ public class CallJson extends Expression{
     }
 
     @Override
-    public void execute() {
-        //TODO
+    public Value evaluate() {
+        Object obj = Variables.getInstance().jsonVars.get((String) file.evaluate().value()).getValue((String) key.evaluate().value());
+        if (obj instanceof String){
+            return new Value((String) obj, PrimitiveType.STRING);
+        } else {
+            return new Value((Double) obj, PrimitiveType.DOUBLE);
+        }
     }
 }

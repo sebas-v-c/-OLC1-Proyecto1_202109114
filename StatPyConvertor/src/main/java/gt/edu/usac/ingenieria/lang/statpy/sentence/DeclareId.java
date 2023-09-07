@@ -6,6 +6,7 @@ import gt.edu.usac.ingenieria.lang.statpy.expression.Expression;
 public class DeclareId extends Sentence{
     public String id;
     public Expression expression;
+    public Object varVal;
     public DeclareId(int line, int column, String id, Expression expression) {
         super(line, column, SentType.DECLARE_ID);
         this.id = id;
@@ -26,6 +27,6 @@ public class DeclareId extends Sentence{
 
     @Override
     public void execute() {
-        // TODO
+        varVal = expression.evaluate();
     }
 }

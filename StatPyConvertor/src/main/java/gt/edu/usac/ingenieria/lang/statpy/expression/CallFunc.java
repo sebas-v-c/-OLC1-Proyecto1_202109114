@@ -31,9 +31,9 @@ public class CallFunc extends Expression{
     }
 
     @Override
-    public void execute() {
-
-
+    public Value evaluate() {
+        return null;
     }
+
 
 }

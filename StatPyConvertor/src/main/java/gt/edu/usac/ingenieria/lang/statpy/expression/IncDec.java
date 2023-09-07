@@ -1,5 +1,7 @@
 package gt.edu.usac.ingenieria.lang.statpy.expression;
 
+import gt.edu.usac.ingenieria.Variables;
+
 public class IncDec extends Expression{
     public String sign;
     String id;
@@ -19,7 +21,7 @@ public class IncDec extends Expression{
     }
 
     @Override
-    public void execute() {
-        //TODO
+    public Value evaluate() {
+        return null;
     }
 }

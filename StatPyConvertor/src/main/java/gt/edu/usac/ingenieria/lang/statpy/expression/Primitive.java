@@ -23,4 +23,15 @@ public class Primitive extends Expression{
         };
     }
 
+    @Override
+    public Value evaluate() {
+        return new Value(
+                switch (primitiveType){
+                    case INT -> Integer.valueOf((String) object);
+                    case DOUBLE -> Double.valueOf((String) object);
+                    case BOOLEAN -> Boolean.valueOf((String) object);
+                    case CHAR -> (Character) object;
+                    case STRING -> (String) object;
+                }, primitiveType);
+    }
 }

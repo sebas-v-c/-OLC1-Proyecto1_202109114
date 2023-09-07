@@ -13,7 +13,6 @@ public class Pie extends Graph{
 
     @Override
     public void execute() {
-        // TODO
         for (Instruction inst : instructions){
             inst.execute();
         }

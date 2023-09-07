@@ -1,5 +1,7 @@
 package gt.edu.usac.ingenieria.lang.statpy.expression;
 
+import gt.edu.usac.ingenieria.lang.statpy.PrimitiveType;
+
 public class Logic extends Expression{
     String sign;
     Expression left;
@@ -27,7 +29,16 @@ public class Logic extends Expression{
     }
 
     @Override
-    public void execute() {
-        //TODO
+    public Value evaluate() {
+        return new Value(
+                switch (sign){
+                    case "&&" -> ((Boolean) left.evaluate().value()) && ((Boolean) right.evaluate().value());
+                    case "||" -> ((Boolean) left.evaluate().value()) || ((Boolean) right.evaluate().value());
+                    case "!" -> !((Boolean) right.evaluate().value());
+                    default -> throw new IllegalStateException("Cant operate a boolean");
+                },
+                PrimitiveType.BOOLEAN
+        );
     }
+
 }
