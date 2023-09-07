@@ -71,7 +71,7 @@ ValueType       ::=
                     TK_STRING:v            {:RESULT = new Value(vleft, vright, v, Type.STRING);:}
                 |   TK_DOUBLE:v            {:RESULT = new Value(vleft, vright, v, Type.DOUBLE);:}
                 |   TK_INT:v               {:RESULT = new Value(vleft, vright, v, Type.INT);:}
-                |   TK_MINUS:s TK_INT:v    {:RESULT = new Value(sleft, sright, s + v, Type.INT);:}   %prec TK_UMINUS
+                |   TK_MINUS:s TK_INT:v    {:RESULT = new Value(sleft, sright, s + v, Type.INT);:}    %prec TK_UMINUS
                 |   TK_MINUS:s TK_DOUBLE:v {:RESULT = new Value(sleft, sright, s + v, Type.DOUBLE);:} %prec TK_UMINUS
 //                |   Object
                 ;
