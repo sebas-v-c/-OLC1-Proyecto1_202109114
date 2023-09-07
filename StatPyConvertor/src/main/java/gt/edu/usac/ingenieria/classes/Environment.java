@@ -3,7 +3,7 @@ package gt.edu.usac.ingenieria.classes;
 import java.util.HashMap;
 
 public class Environment {
-    HashMap<String, Object> globals;
+    public HashMap<String, Object> globals;
     HashMap<String, Object> pie;
     HashMap<String, Object> bars;
 

@@ -14,8 +14,8 @@ public class KeyVal {
 
     public Object getVal(){
         return switch (val.type){
-            case DOUBLE -> (Double) val.obj;
-            case INT -> (Integer) val.obj;
+            case DOUBLE -> Double.valueOf((String) val.obj);
+            case INT -> Integer.valueOf((String) val.obj);
             case STRING -> (String) val.obj;
         };
     }

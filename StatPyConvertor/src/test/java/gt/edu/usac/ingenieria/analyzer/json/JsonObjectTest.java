@@ -38,15 +38,18 @@ public class JsonObjectTest {
             parser = new JsonParser(scanner);
             //parseSymbol = parser.debug_parse();
             parseSymbol = parser.parse();
+            /*
             System.out.println("------------------------------------------------------");
             System.out.println("       I N S T R U C T I O N S  I N  F I L E");
             System.out.println("------------------------------------------------------");
+
             for (KeyVal cont: parser.content) {
-                    System.out.println(cont);
+                    System.out.println(cont.getVal());
             }
             System.out.println("------------------------------------------------------");
             System.out.println("                  F I N I S H E D");
             System.out.println("------------------------------------------------------");
+             */
         } catch (IOException e){
             logger.log(Level.SEVERE, null, e);
         } catch (Exception e) {
