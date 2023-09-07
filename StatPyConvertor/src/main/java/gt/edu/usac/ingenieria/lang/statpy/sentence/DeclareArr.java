@@ -17,4 +17,9 @@ public class DeclareArr extends Sentence{
     public String toPython() {
         return null;
     }
+
+    @Override
+    public void execute() {
+        // TODO
+    }
 }

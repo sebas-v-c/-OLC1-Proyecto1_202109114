@@ -41,4 +41,9 @@ public class If extends Structure{
 
         return str.toString();
     }
+
+    @Override
+    public void execute() {
+
+    }
 }

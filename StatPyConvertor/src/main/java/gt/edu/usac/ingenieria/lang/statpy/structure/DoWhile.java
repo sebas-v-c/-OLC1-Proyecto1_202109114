@@ -24,4 +24,9 @@ public class DoWhile extends Structure{
 
         return str.toString();
     }
+
+    @Override
+    public void execute() {
+
+    }
 }

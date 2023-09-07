@@ -22,4 +22,9 @@ public class While extends Structure{
         str.append(TranslateUtils.tabulate(block.toPython()));
         return str.append("\n\n").toString();
     }
+
+    @Override
+    public void execute() {
+
+    }
 }

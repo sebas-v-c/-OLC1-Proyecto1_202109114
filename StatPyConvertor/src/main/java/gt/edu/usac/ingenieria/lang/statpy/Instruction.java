@@ -12,4 +12,5 @@ public abstract class Instruction {
     }
 
     public abstract String toPython();
+    public abstract void execute();
 }

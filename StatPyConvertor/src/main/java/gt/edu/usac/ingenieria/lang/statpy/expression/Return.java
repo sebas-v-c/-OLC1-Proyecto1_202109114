@@ -11,4 +11,9 @@ public class Return extends Expression{
     public String toPython() {
         return null;
     }
+
+    @Override
+    public void execute() {
+
+    }
 }

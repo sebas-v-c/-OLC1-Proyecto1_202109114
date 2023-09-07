@@ -11,4 +11,9 @@ public class ControlRW extends Sentence{
     public String toPython() {
         return crw;
     }
+
+    @Override
+    public void execute() {
+
+    }
 }

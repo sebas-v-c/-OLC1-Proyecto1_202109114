@@ -10,4 +10,12 @@ public class Pie extends Graph{
         super(line, column, GraphType.PIE);
         this.instructions = instructions;
     }
+
+    @Override
+    public void execute() {
+        // TODO
+        for (Instruction inst : instructions){
+            inst.execute();
+        }
+    }
 }

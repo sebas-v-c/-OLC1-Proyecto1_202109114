@@ -25,4 +25,9 @@ public class Logic extends Expression{
             default -> "";
         };
     }
+
+    @Override
+    public void execute() {
+        //TODO
+    }
 }

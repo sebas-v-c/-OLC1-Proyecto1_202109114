@@ -10,4 +10,12 @@ public class Global extends Graph{
         super(line, column, GraphType.GLOBAL);
         this.instructions = instructions;
     }
+
+    @Override
+    public void execute() {
+        //TODO
+        for (Instruction inst : instructions){
+            inst.execute();
+        }
+    }
 }

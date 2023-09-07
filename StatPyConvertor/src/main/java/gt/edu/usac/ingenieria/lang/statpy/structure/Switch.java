@@ -35,4 +35,9 @@ public class Switch extends Structure {
 
         return str.append("\n\n").toString();
     }
+
+    @Override
+    public void execute() {
+
+    }
 }

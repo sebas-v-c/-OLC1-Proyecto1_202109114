@@ -17,4 +17,10 @@ public class ReasignId extends Sentence{
     public String toPython() {
         return id + " = " + exp.toPython();
     }
+
+    @Override
+    public void execute() {
+        //TODO
+
+    }
 }

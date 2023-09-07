@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class CallJson extends Expression{
     Expression file;
     Expression key;
+    Object jsonConten;
 
     public CallJson(int line, int column, Expression file, Expression key) {
         super(line, column, gt.edu.usac.ingenieria.lang.statpy.expression.ExpType.CALLJSON);
@@ -15,5 +16,10 @@ public class CallJson extends Expression{
     @Override
     public String toPython() {
         return null;
+    }
+
+    @Override
+    public void execute() {
+        //TODO
     }
 }

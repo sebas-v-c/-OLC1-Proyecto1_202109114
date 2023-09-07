@@ -22,4 +22,9 @@ public class Primitive extends Expression{
             default -> "";
         };
     }
+
+    @Override
+    public void execute() {
+        //TODO
+    }
 }

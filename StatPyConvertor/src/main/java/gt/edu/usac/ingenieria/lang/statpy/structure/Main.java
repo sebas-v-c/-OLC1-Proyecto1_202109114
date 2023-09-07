@@ -31,4 +31,9 @@ public class Main extends Structure{
 
         return str.toString();
     }
+
+    @Override
+    public void execute() {
+
+    }
 }

@@ -17,4 +17,9 @@ public class IncDec extends Expression{
             default -> "";
         };
     }
+
+    @Override
+    public void execute() {
+        //TODO
+    }
 }

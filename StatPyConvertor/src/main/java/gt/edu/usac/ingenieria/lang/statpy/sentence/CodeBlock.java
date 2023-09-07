@@ -20,4 +20,13 @@ public class CodeBlock extends Sentence{
         }
         return str.toString();
     }
+
+    @Override
+    public void execute() {
+        /*
+        for (Instruction inst : instructions){
+            inst.execute();
+        }
+         */
+    }
 }

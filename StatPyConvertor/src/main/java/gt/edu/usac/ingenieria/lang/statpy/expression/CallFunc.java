@@ -30,4 +30,10 @@ public class CallFunc extends Expression{
         return str.toString();
     }
 
+    @Override
+    public void execute() {
+
+
+    }
+
 }

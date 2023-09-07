@@ -23,4 +23,9 @@ public class DeclareId extends Sentence{
         }
         return  str.toString();
     }
+
+    @Override
+    public void execute() {
+        // TODO
+    }
 }

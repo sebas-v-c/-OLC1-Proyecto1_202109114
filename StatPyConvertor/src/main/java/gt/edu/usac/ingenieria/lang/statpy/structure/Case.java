@@ -29,6 +29,11 @@ public class Case extends Structure{
         return str.toString();
     }
 
+    @Override
+    public void execute() {
+
+    }
+
     public void cleanBlock(){
         ArrayList<Instruction> toEliminate = new ArrayList<Instruction>();
         for(Instruction instruction : this.block.instructions){

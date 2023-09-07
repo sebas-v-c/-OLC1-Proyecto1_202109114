@@ -56,4 +56,9 @@ public class For extends Structure{
 
         return str.append("\n\n").toString();
     }
+
+    @Override
+    public void execute() {
+
+    }
 }

@@ -13,4 +13,8 @@ public class Print extends Sentence {
     public String toPython() {
         return "print(" + exp.toPython() + ")";
     }
+
+    @Override
+    public void execute() {
+    }
 }

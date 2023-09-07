@@ -11,4 +11,11 @@ public class Bars extends Graph{
         super(line, column, GraphType.BARS);
         this.instructions = instructions;
     }
+
+    @Override
+    public void execute() {
+        for (Instruction inst : instructions){
+            inst.execute();
+        }
+    }
 }

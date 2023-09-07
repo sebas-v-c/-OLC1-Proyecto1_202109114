@@ -21,4 +21,9 @@ public class Math extends Expression{
 
         return str.toString();
     }
+
+    @Override
+    public void execute() {
+        // TODO
+    }
 }
