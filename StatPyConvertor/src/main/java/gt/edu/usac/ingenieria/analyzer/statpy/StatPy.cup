@@ -4,20 +4,26 @@ import java_cup.runtime.*;
 import java.util.Arrays;
 import java.util.ArrayList;
 import gt.edu.usac.ingenieria.analyzer.errors.SynError;
+import gt.edu.usac.ingenieria.lang.statpy.*;
+import gt.edu.usac.ingenieria.lang.statpy.expression.*;
+import gt.edu.usac.ingenieria.lang.statpy.graph.*;
+import gt.edu.usac.ingenieria.lang.statpy.sentence.*;
+import gt.edu.usac.ingenieria.lang.statpy.structure.*;
 
 
 // PARSER
 parser code
 {:
-    ArrayList<ErrorStpS> errors = new ArrayList<>();
+    public ArrayList<Instruction> inst;
+    ArrayList<SynError> errors = new ArrayList<>();
     public void syntax_error(Symbol s){
-        errors.add(new ErrorStpS(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
+        errors.add(new SynError(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
     }
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
-        errors.add(new ErrorStpS("Syntax error, impossible to recover"));
+        errors.add(new SynError("Syntax error, impossible to recover"));
     }
-    public ArrayList<ErrorStpS> getErrors() {
+    public ArrayList<SynError> getErrors() {
         return errors;
         //return errors.stream().map(Object::toString).collect(Collectors.joining("\n-> "));
     }
@@ -33,11 +39,11 @@ terminal String KW_VOID, KW_INT, KW_DOUBLE, KW_CHAR, KW_BOOL, KW_STRING;
 // control structures
 terminal String KW_IF, KW_ELSE, KW_SWITCH, KW_CASE, KW_DEFAULT;
 terminal String KW_BREAK, KW_FOR, KW_DO, KW_WHILE, KW_CONTINUE, KW_RETURN;
-terminal String KW_PRINT;
+terminal String KW_NVAL, KW_PRINT;
 // bools
-terminal boolean KW_TRUE, KW_FALSE;
+terminal String KW_TRUE, KW_FALSE;
 // graph key words
-terminal KW_DEFGLB, KW_BARGRPH, KW_PIEGRPH, KW_TITLE, KW_XAXIS, KW_VALUES, KW_TITLEX, KW_TITLEY;
+terminal String KW_DEFGLB, KW_BARGRPH, KW_PIEGRPH, KW_TITLE, KW_XAXIS, KW_VALUES, KW_TITLEX, KW_TITLEY;
 // literals
 terminal String TK_STRING, TK_CHAR, TK_INT, TK_DOUBLE, TK_ID;
 // operators
@@ -56,45 +62,58 @@ terminal String TK_COMA, TK_SCOLON, TK_COLON;
 terminal String TK_DOLL;
 
 /* NON TERMINALS */
-non terminal Init;
+non terminal String Init;
 non terminal Main;
 // instructions
-non terminal Instructions;
-non terminal Instruction;
-non terminal IncreDecre;
+non terminal ArrayList<Instruction> Instructions;
+non terminal Instruction Instruction;
+non terminal Expression IncreDecre;
 // variable declaration
-non terminal DeclareVar, DeclareArr, ArrArgs, DataType;
+non terminal Sentence DeclareVar, DeclareArr;
+non terminal PrimitiveType DataType;
 // expresion control
-non terminal Expresion;
-non terminal Math;
-non terminal Relation;
-non terminal Logic;
-non terminal ReasignVar;
+non terminal Expression Expresion;
+non terminal Expression Math;
+non terminal Expression Relation;
+non terminal Expression Logic;
+non terminal ReasignId ReasignVar;
 // Conditional structures
-non terminal IfStatement;
-non terminal SwitchStatement, CaseDeft, Cases, Case, Default;
+non terminal Instruction IfStatement;
+non terminal Instruction SwitchStatement;
+non terminal Object[] CaseDeft;
+non terminal ArrayList<Case> Cases;
+non terminal Case Case;
+non terminal CodeBlock Default;
 // loop structures
-non terminal ForLoop, ForArgs, ForInitArg;
-non terminal WhileLoop, DoWhileLoop;
+non terminal Instruction ForLoop;
+non terminal Object[] ForArgs;
+non terminal Sentence ForInitArg;
+non terminal While WhileLoop;
+non terminal DoWhile DoWhileLoop;
 
 // call a function
-non terminal CallFunc;
-non terminal ArgsList;
+non terminal Expression CallFunc;
+non terminal ArrayList<Expression> ArgsList;
 
 //non terminal DeclareFunc;
 
-non terminal GlobalVarsFunc, GlobalVarsEnv, GlobalVarsInsts, GlobalVarsInst;
+non terminal Graph GlobalVarsFunc;
+non terminal ArrayList<Instruction> GlobalVarsEnv;
+non terminal ArrayList<Instruction> GlobalVarsInsts;
+non terminal Instruction GlobalVarsInst;
 
-non terminal GraphFuncs;
-non terminal PieGraphInsts, PieGraphInst;
-non terminal BarGraphInsts, BarGraphInst;
-non terminal ArrArgsX, ArrArgsV;
+non terminal Instruction GraphFuncs;
+non terminal Pie PieGraph;
+non terminal Bars BarGraph;
+non terminal ArrayList<Instruction> PieGraphInsts, BarGraphInsts;
+non terminal Instruction PieGraphInst, BarGraphInst;
 
-non terminal CallJson, JsonArg;
+non terminal CallJson CallJson;
+non terminal Expression JsonArg;
 // local environment
-non terminal LocalEnv;
-non terminal LocalEnvs;
-non terminal Print;
+non terminal CodeBlock LocalEnv;
+non terminal Object[] LocalEnvs;
+non terminal Print Print;
 
 
 /*PRECEDENCES*/
@@ -115,253 +134,241 @@ start with Init;
 // beginnig
 Init            ::= Main;
 
-Main            ::= KW_VOID KW_MAIN TK_LPAR TK_RPAR TK_LBRC Instructions TK_RBRC;
+Main            ::= KW_VOID KW_MAIN TK_LPAR TK_RPAR TK_LBRC Instructions:i TK_RBRC {:inst=i;:};
 
 
 
 Instructions    ::=
-                    Instructions Instruction
-                |   Instruction
+                    Instructions:s Instruction:i    {:RESULT = s; RESULT.add(i);:}
+                |   Instruction:i                   {:RESULT = new ArrayList<>(Arrays.asList(i));:}
                 ;
 
 GraphFuncs      ::=
-                    KW_VOID KW_BARGRPH TK_LPAR TK_RPAR TK_LBRC BarGraphInsts TK_RBRC
-                |   KW_VOID KW_PIEGRPH TK_LPAR TK_RPAR TK_LBRC PieGraphInsts TK_RBRC
+                    BarGraph:b {:RESULT = b;:}
+                |   PieGraph:b {:RESULT = b;:}
                 ;
 
+PieGraph        ::= KW_VOID KW_PIEGRPH:p TK_LPAR TK_RPAR TK_LBRC PieGraphInsts:i TK_RBRC {:RESULT = new Pie(pleft, pright, i);:};
+
+BarGraph        ::= KW_VOID KW_BARGRPH:b TK_LPAR TK_RPAR TK_LBRC BarGraphInsts:i TK_RBRC {:RESULT = new Bars(bleft, bright, i);:};
+
 PieGraphInsts   ::=
-                    PieGraphInsts PieGraphInst
-                |   PieGraphInst
+                    PieGraphInsts:s PieGraphInst:i {:RESULT = s; RESULT.add(i);:}
+                |   PieGraphInst:i                 {:RESULT = new ArrayList<Instruction>(Arrays.asList(i));:}
                 ;
 
 PieGraphInst    ::=
-                    KW_STRING KW_TITLE TK_EQ TK_ID TK_SCOLON
-                |   KW_STRING KW_TITLE TK_EQ TK_STRING TK_SCOLON
-                |   KW_STRING TK_LBRC TK_RBRC KW_XAXIS TK_EQ TK_LBRC ArrArgsX TK_RBRC TK_SCOLON
-                |   KW_DOUBLE TK_LBRC TK_RBRC KW_VALUES TK_EQ TK_LBRC ArrArgsV TK_RBRC TK_SCOLON
+                    KW_STRING KW_TITLE:t TK_EQ TK_ID:v TK_SCOLON                                     {:RESULT = new DeclareId(tleft, tright, t, new AccesId(vleft, vright, v));:}
+                |   KW_STRING KW_TITLE:t TK_EQ TK_STRING:v TK_SCOLON                                 {:RESULT = new DeclareId(tleft, tright, t, new Primitive(vleft, vright, v, PrimitiveType.STRING));:}
+                |   KW_STRING TK_LBRC TK_RBRC KW_XAXIS:x TK_EQ TK_LBRC ArgsList:a TK_RBRC TK_SCOLON  {:RESULT = new DeclareArr(xleft, xright, x, a);:}
+                |   KW_DOUBLE TK_LBRC TK_RBRC KW_VALUES:v TK_EQ TK_LBRC ArgsList:a TK_RBRC TK_SCOLON {:RESULT = new DeclareArr(vleft, vright, v, a);:}
                 ;
 
 
 BarGraphInsts   ::=
-                    BarGraphInsts BarGraphInst
-                |   BarGraphInst
+                    BarGraphInsts:s BarGraphInst:i {:RESULT = s; RESULT.add(i);:}
+                |   BarGraphInst:i                 {:RESULT = new ArrayList<>(Arrays.asList(i));:}
                 ;
 
 BarGraphInst    ::=
-                    KW_STRING KW_TITLE TK_EQ TK_ID TK_SCOLON
-                |   KW_STRING KW_TITLE TK_EQ TK_STRING TK_SCOLON
-                |   KW_STRING KW_TITLEX TK_EQ TK_STRING TK_SCOLON
-                |   KW_STRING KW_TITLEX TK_EQ TK_ID TK_SCOLON
-                |   KW_STRING KW_TITLEY TK_EQ TK_STRING TK_SCOLON
-                |   KW_STRING KW_TITLEY TK_EQ TK_ID TK_SCOLON
-                |   KW_STRING TK_LBRK TK_RBRK KW_XAXIS TK_EQ TK_LBRC ArrArgsX TK_RBRC TK_SCOLON
-                |   KW_DOUBLE TK_LBRK TK_RBRK KW_VALUES TK_EQ TK_LBRC ArrArgsV TK_RBRC TK_SCOLON
+                    KW_STRING KW_TITLE:t TK_EQ TK_ID:id TK_SCOLON                                    {:RESULT = new DeclareId(tleft, tright, t, new AccesId(idleft, idright, id));:}
+                |   KW_STRING KW_TITLE:t TK_EQ TK_STRING:s TK_SCOLON                                 {:RESULT = new DeclareId(tleft, tright, t, new Primitive(sleft, sright, s, PrimitiveType.STRING));:}
+                |   KW_STRING KW_TITLEX:tx TK_EQ TK_STRING:s TK_SCOLON                               {:RESULT = new DeclareId(txleft, txright, tx, new Primitive(sleft, sright, s, PrimitiveType.STRING));:}
+                |   KW_STRING KW_TITLEX:tx TK_EQ TK_ID:id TK_SCOLON                                  {:RESULT = new DeclareId(txleft, txright, tx, new AccesId(idleft, idright, id));:}
+                |   KW_STRING KW_TITLEY:ty TK_EQ TK_STRING:s TK_SCOLON                               {:RESULT = new DeclareId(tyleft, tyright, ty, new Primitive(sleft, sright, s, PrimitiveType.STRING));:}
+                |   KW_STRING KW_TITLEY:ty TK_EQ TK_ID:id TK_SCOLON                                  {:RESULT = new DeclareId(tyleft, tyright, ty, new AccesId(idleft, idright, id));:}
+                |   KW_STRING TK_LBRK TK_RBRK KW_XAXIS:x TK_EQ TK_LBRC ArgsList:a TK_RBRC TK_SCOLON  {:RESULT = new DeclareArr(xleft, xright, x, a);:}
+                |   KW_DOUBLE TK_LBRK TK_RBRK KW_VALUES:v TK_EQ TK_LBRC ArgsList:a TK_RBRC TK_SCOLON {:RESULT = new DeclareArr(vleft, vright, v, a);:}
                 ;
-
-ArrArgsX        ::=
-                    ArrArgsX TK_COMA TK_STRING
-                |   ArrArgsX TK_COMA TK_ID
-                |   TK_STRING
-                |   TK_ID
-                ;
-
-ArrArgsV        ::=
-                    ArrArgsV TK_COMA TK_DOUBLE
-                |   ArrArgsV TK_COMA TK_ID
-                |   ArrArgsV TK_COMA CallJson
-                |   TK_DOUBLE
-                |   TK_ID
-                |   CallJson
-                ;
-
 
 GlobalVarsFunc  ::=
-                    KW_VOID KW_DEFGLB TK_LPAR TK_RPAR GlobalVarsEnv;
+                    KW_VOID KW_DEFGLB:g TK_LPAR TK_RPAR GlobalVarsEnv:genv {:RESULT = new Global(gleft, gright, genv);:};
 
 GlobalVarsEnv   ::=
-                    TK_LBRC GlobalVarsInsts TK_RBRC
-                |   TK_LBRC TK_RBRC
+                    TK_LBRC GlobalVarsInsts:i TK_RBRC {:RESULT = i;:}
+                |   TK_LBRC TK_RBRC                   {:RESULT = new ArrayList<Instruction>();:}
                 ;
 
-GlobalVarsInsts ::= GlobalVarsInsts GlobalVarsInst
-                |   GlobalVarsInst
+GlobalVarsInsts ::=
+                    GlobalVarsInsts:s GlobalVarsInst:i {:RESULT = s; RESULT.add(i);:}
+                |   GlobalVarsInst:i                   {:RESULT = new ArrayList<>(Arrays.asList(i));:}
                 ;
 
 GlobalVarsInst  ::=
-                    KW_STRING TK_ID TK_EQ TK_STRING TK_SCOLON
-                |   KW_DOUBLE TK_ID TK_EQ TK_DOUBLE TK_SCOLON
-                |   KW_STRING TK_ID TK_EQ CallJson TK_SCOLON
-                |   KW_DOUBLE TK_ID TK_EQ CallJson TK_SCOLON
+                    KW_STRING TK_ID:id TK_EQ TK_STRING:str TK_SCOLON {:RESULT = new DeclareId(idleft, idright, id, new Primitive(strleft, strright, str, PrimitiveType.STRING));:}
+                |   KW_DOUBLE TK_ID:id TK_EQ TK_DOUBLE:db TK_SCOLON  {:RESULT = new DeclareId(idleft, idright, id, new Primitive(dbleft, dbright, db, PrimitiveType.DOUBLE));:}
+                |   KW_STRING TK_ID:id TK_EQ CallJson:js TK_SCOLON   {:RESULT = new DeclareId(idleft, idright, id, js);:}
+                |   KW_DOUBLE TK_ID:id TK_EQ CallJson:js TK_SCOLON   {:RESULT = new DeclareId(idleft, idright, id, js);:}
                 ;
 
 
 Instruction     ::=
-                    DeclareVar TK_SCOLON
-                |   DeclareArr TK_SCOLON
-                |   CallFunc TK_SCOLON
-                |   IfStatement
-                |   SwitchStatement
-                |   ForLoop
-                |   WhileLoop
-                |   Print
-                |   DoWhileLoop TK_SCOLON
-                |   ReasignVar TK_SCOLON
-                |   IncreDecre TK_SCOLON
-                |   KW_BREAK TK_SCOLON
-                |   KW_RETURN TK_SCOLON
-                |   KW_RETURN Expresion TK_SCOLON
-                |   KW_CONTINUE TK_SCOLON
-                |   GlobalVarsFunc
-                |   GraphFuncs
+                    DeclareVar:i TK_SCOLON                  {:RESULT=i;:}
+                |   DeclareArr:i TK_SCOLON                  {:RESULT=i;:}
+                |   CallFunc:i TK_SCOLON                    {:RESULT=i;:}
+                |   IfStatement:i                           {:RESULT=i;:}
+                |   SwitchStatement:i                       {:RESULT=i;:}
+                |   ForLoop:i                               {:RESULT=i;:}
+                |   WhileLoop:i                             {:RESULT=i;:}
+                |   Print:i                                 {:RESULT=i;:}
+                |   DoWhileLoop:i TK_SCOLON                 {:RESULT=i;:}
+                |   ReasignVar:i TK_SCOLON                  {:RESULT=i;:}
+                |   IncreDecre:i TK_SCOLON                  {:RESULT=i;:}
+                |   KW_BREAK:i TK_SCOLON                    {:RESULT= new ControlRW(ileft, iright, i);:}
+                |   KW_RETURN:i TK_SCOLON                   {:RESULT= new Return(ileft, iright, null);:}
+                |   KW_RETURN:i Expresion:exp TK_SCOLON     {:RESULT= new Return(ileft, iright, exp);:}
+                |   KW_CONTINUE:i TK_SCOLON                 {:RESULT= new ControlRW(ileft, iright, i);:}
+                |   GlobalVarsFunc:i                        {:RESULT=i;:}
+                |   GraphFuncs:i                            {:RESULT=i;:}
                 |   error
-                ;
-
-Print           ::=
-                    KW_PRINT TK_LPAR Expresion TK_RPAR TK_SCOLON
-                |   KW_PRINT TK_LPAR TK_RPAR TK_SCOLON
                 ;
 
 
 DeclareVar      ::=
-                    DataType TK_ID TK_EQ Expresion
-                |   DataType TK_ID
+                    DataType TK_ID:id TK_EQ Expresion:exp  {:RESULT = new DeclareId(idleft, idright, id, exp);:}
+                |   DataType TK_ID:id                      {:RESULT = new DeclareId(idleft, idright, id, null);:}
                 ;
 
 DeclareArr      ::=
-                    DataType TK_LBRK TK_RBRK TK_ID TK_EQ TK_LBRC ArrArgs TK_RBRC
-                ;
-
-ArrArgs         ::=
-                    ArrArgs TK_COMA Expresion
-                |   Expresion
+                    DataType TK_LBRK TK_RBRK TK_ID:id TK_EQ TK_LBRC ArgsList:arg TK_RBRC {:RESULT = new DeclareArr(idleft, idright, id, arg);:}
                 ;
 
 DataType        ::=
-                    KW_INT
-                |   KW_BOOL
-                |   KW_DOUBLE
-                |   KW_CHAR
-                |   KW_STRING
+                    KW_INT      {:RESULT = PrimitiveType.INT;:}
+                |   KW_BOOL     {:RESULT = PrimitiveType.BOOLEAN;:}
+                |   KW_DOUBLE   {:RESULT = PrimitiveType.DOUBLE;:}
+                |   KW_CHAR     {:RESULT = PrimitiveType.CHAR;:}
+                |   KW_STRING   {:RESULT = PrimitiveType.STRING;:}
                 ;
 
-ReasignVar      ::= TK_ID TK_EQ Expresion;
+ReasignVar      ::= TK_ID:id TK_EQ Expresion:exp {:RESULT = new ReasignId(idleft, idright, id, exp);:};
 
 //DeclareFunc     ::= KW_VOID TK_ID TK_LPAR TK_RPAR LocalEnv;
 
 CallFunc        ::=
-                    TK_ID TK_LPAR ArgsList TK_RPAR
-                |   TK_ID TK_LPAR TK_RPAR
+                    TK_ID:id TK_LPAR ArgsList:args TK_RPAR {:RESULT = new CallFunc(idleft, idright, id, args);:}
+                |   TK_ID:id TK_LPAR TK_RPAR               {:RESULT = new CallFunc(idleft, idright, id, null);:}
                 ;
 
 ArgsList        ::=
-                    ArgsList TK_COMA Expresion
-                |   Expresion
+                    ArgsList:l TK_COMA Expresion:e {:RESULT=l; RESULT.add(e);:}
+                |   Expresion:e                    {:RESULT= new ArrayList<>(Arrays.asList(e));:}
                 ;
 
 IfStatement     ::=
-                    KW_IF TK_LPAR Expresion TK_RPAR LocalEnv KW_ELSE IfStatement
-                |   KW_IF TK_LPAR Expresion TK_RPAR LocalEnv KW_ELSE LocalEnv
-                |   KW_IF TK_LPAR Expresion TK_RPAR LocalEnv
+                    KW_IF:f TK_LPAR Expresion:exp TK_RPAR LocalEnv:env KW_ELSE IfStatement:f2 {:RESULT = new If(fleft, fright, exp, env, f2);:}
+                |   KW_IF:f TK_LPAR Expresion:exp TK_RPAR LocalEnv:env KW_ELSE LocalEnv:env2  {:RESULT = new If(fleft, fright, exp, env, env2);:}
+                |   KW_IF:f TK_LPAR Expresion:exp TK_RPAR LocalEnv:env                        {:RESULT = new If(fleft, fright, exp, env, null);:}
                 ;
 
 LocalEnv        ::=
-                    TK_LBRC Instructions TK_RBRC
-                |   TK_LBRC TK_RBRC
+                    TK_LBRC:l Instructions:i TK_RBRC {:RESULT = new CodeBlock(lleft, lright, i);:}
+                |   TK_LBRC:l TK_RBRC                {:RESULT = new CodeBlock(lleft, lright, new ArrayList<>());:}
                 ;
 
 SwitchStatement ::=
-                    KW_SWITCH TK_LPAR Expresion TK_RPAR LocalEnvs;
+                    KW_SWITCH:s TK_LPAR Expresion:exp TK_RPAR LocalEnvs:env {:RESULT = new Switch(sleft, sright, exp, (ArrayList<Case>) env[0], (CodeBlock)env[1]);:}
+
+                ;
 
 LocalEnvs       ::=
-                    TK_LBRC CaseDeft TK_RBRC
-                |   TK_LBRC TK_RBRC
+                    TK_LBRC CaseDeft:cd TK_RBRC {:RESULT = cd;:}
+                |   TK_LBRC TK_RBRC             {:RESULT = new Object[]{null, null};:}
                 ;
 
 CaseDeft        ::=
-                    Cases Default
-                |   Cases
-                |   Default
+                    Cases:c Default:d {:RESULT = new Object[] {c, d};:}
+                |   Cases:c           {:RESULT = new Object[] {c, null};:}
+                |   Default:d         {:RESULT = new Object[] {null, d};:}
                 ;
 
 Cases           ::=
-                    Cases Case
-                |   Case
+                    Cases:cs Case:c {:RESULT = cs; RESULT.add(c);:}
+                |   Case:c          {:RESULT = new ArrayList<>(Arrays.asList(c));:}
                 ;
 
 Case            ::=
-                    KW_CASE Expresion TK_COLON Instructions
-                |   KW_CASE Expresion TK_COLON
+                    KW_CASE:c Expresion:exp TK_COLON Instructions:i {:RESULT = new Case(cleft, cright, exp, new CodeBlock(ileft, iright, i));:}
+                |   KW_CASE:c Expresion:exp TK_COLON                {:RESULT = new Case(cleft, cright, exp, new CodeBlock(cleft, cright, new ArrayList<>()));:}
                 ;
 
 Default         ::=
-                    KW_DEFAULT TK_COLON Instructions
-                |   KW_DEFAULT TK_COLON
+                    KW_DEFAULT:d TK_COLON Instructions:i {:RESULT = new CodeBlock(dleft, dright, i);:}
+                |   KW_DEFAULT:d TK_COLON                {:RESULT = new CodeBlock(dleft, dright, new ArrayList<>());:}
                 ;
 
 ForLoop         ::=
-                    KW_FOR TK_LPAR ForArgs TK_RPAR LocalEnv
+                    KW_FOR:f TK_LPAR ForArgs:fa TK_RPAR LocalEnv:env {:RESULT = new For(fleft, fright, (Sentence)fa[0],(Expression) fa[1], (IncDec) fa[2],env);:}
                 ;
 
-ForArgs         ::= ForInitArg TK_SCOLON Expresion TK_SCOLON IncreDecre;
+ForArgs         ::= ForInitArg:fi TK_SCOLON Expresion:exp TK_SCOLON IncreDecre:inc {:RESULT = new Object[] {fi, exp, inc};:};
 
-WhileLoop       ::= KW_WHILE TK_LPAR Expresion TK_RPAR LocalEnv;
 
-DoWhileLoop     ::= KW_DO LocalEnv KW_WHILE TK_LPAR Expresion TK_RPAR;
-
-ForInitArg      ::= KW_INT TK_ID TK_EQ TK_INT
-                |   ReasignVar;
+ForInitArg      ::= KW_INT TK_ID:id TK_EQ TK_INT:i {:RESULT = new DeclareId(idleft, idright, id,new Primitive(ileft, iright, i, PrimitiveType.INT));:}
+                |   ReasignVar:r                   {:RESULT = r;:}
+                ;
 
 
 IncreDecre      ::=
-                    TK_ID TK_INC
-                |   TK_ID TK_DEC
+                    TK_ID:id TK_INC {:RESULT = new IncDec(idleft, idright, "++", id);:}
+                |   TK_ID:id TK_DEC {:RESULT = new IncDec(idleft, idright, "--", id);:}
                 ;
 
+WhileLoop       ::= KW_WHILE:w TK_LPAR Expresion:exp TK_RPAR LocalEnv:env {:RESULT = new While(wleft, wright, exp, env);:};
+
+DoWhileLoop     ::= KW_DO:d LocalEnv:env KW_WHILE:w TK_LPAR Expresion:exp TK_RPAR {:RESULT = new DoWhile(dleft, dright, env, exp);:};
+
 CallJson        ::=
-                    TK_DOLL TK_LBRC JsonArg TK_COMA JsonArg TK_COMA JsonArg TK_RBRC
+                    TK_DOLL:d TK_LBRC KW_NVAL TK_COMA JsonArg:f TK_COMA JsonArg:k TK_RBRC {:RESULT = new CallJson(dleft, dright, f, k);:}
                 ;
 
 JsonArg         ::=
-                    TK_ID
-                |   TK_STRING
+                    TK_ID:id    {:RESULT = new AccesId(idleft, idright, id);:}
+                |   TK_STRING:s {:RESULT = new Primitive(sleft, sright, s, PrimitiveType.STRING);:}
                 ;
 
 Expresion       ::=
-                    Math
-                |   Relation
-                |   Logic
-                |   CallFunc
-                |   CallJson
-                |   IncreDecre
-                |   TK_ID
-                |   TK_STRING
-                |   TK_CHAR
-                |   TK_INT
-                |   TK_DOUBLE
-                |   KW_TRUE
-                |   KW_FALSE
-                |   TK_LPAR Expresion TK_RPAR
+                    Math:e                      {:RESULT = e;:}
+                |   Relation:e                  {:RESULT = e;:}
+                |   Logic:e                     {:RESULT = e;:}
+                |   CallFunc:e                  {:RESULT = e;:}
+                |   CallJson:e                  {:RESULT = e;:}
+                |   IncreDecre:e                {:RESULT = e;:}
+                |   TK_ID:e                     {:RESULT = new AccesId(eleft, eright, e);:}
+                |   TK_STRING:e                 {:RESULT = new Primitive(eleft, eright, e, PrimitiveType.STRING);:}
+                |   TK_CHAR:e                   {:RESULT = new Primitive(eleft, eright, e, PrimitiveType.CHAR);:}
+                |   TK_INT:e                    {:RESULT = new Primitive(eleft, eright, e, PrimitiveType.INT);:}
+                |   TK_DOUBLE:e                 {:RESULT = new Primitive(eleft, eright, e, PrimitiveType.DOUBLE);:}
+                |   KW_TRUE:e                   {:RESULT = new Primitive(eleft, eright, e, PrimitiveType.BOOLEAN);:}
+                |   KW_FALSE:e                  {:RESULT = new Primitive(eleft, eright, e, PrimitiveType.BOOLEAN);:}
+                |   TK_LPAR Expresion:e TK_RPAR {:RESULT = e;:}
                 ;
 
 Math            ::=
-                    Expresion TK_PLUS Expresion
-                |   Expresion TK_MINUS Expresion
-                |   Expresion TK_MULT Expresion
-                |   Expresion TK_DIV Expresion
-                |   TK_MINUS Expresion                 %prec TK_UMINUS
+                    Expresion:e1 TK_PLUS:s Expresion:e2  {:RESULT = new gt.edu.usac.ingenieria.lang.statpy.expression.Math(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_MINUS:s Expresion:e2 {:RESULT = new gt.edu.usac.ingenieria.lang.statpy.expression.Math(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_MULT:s Expresion:e2  {:RESULT = new gt.edu.usac.ingenieria.lang.statpy.expression.Math(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_DIV:s Expresion:e2   {:RESULT = new gt.edu.usac.ingenieria.lang.statpy.expression.Math(e1left, e1right, e1, s, e2);:}
+                |   TK_MINUS:s Expresion:e1              {:RESULT = new gt.edu.usac.ingenieria.lang.statpy.expression.Math(e1left, e1right, null, s, e1);:} %prec TK_UMINUS
                 ;
 
 Relation        ::=
-                    Expresion TK_GEQ Expresion
-                |   Expresion TK_LEQ Expresion
-                |   Expresion TK_EQEQ Expresion
-                |   Expresion TK_NOTEQ Expresion
-                |   Expresion TK_GREATER Expresion
-                |   Expresion TK_LESS Expresion
+                    Expresion:e1 TK_GEQ:s Expresion:e2     {:RESULT = new Relational(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_LEQ:s Expresion:e2     {:RESULT = new Relational(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_EQEQ:s Expresion:e2    {:RESULT = new Relational(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_NOTEQ:s Expresion:e2   {:RESULT = new Relational(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_GREATER:s Expresion:e2 {:RESULT = new Relational(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_LESS:s Expresion:e2    {:RESULT = new Relational(e1left, e1right, e1, s, e2);:}
                 ;
 
 Logic           ::=
-                    Expresion TK_AND Expresion
-                |   Expresion TK_OR Expresion
-                |   TK_NOT Expresion
+                    Expresion:e1 TK_AND:s Expresion:e2 {:RESULT = new Logic(e1left, e1right, e1, s, e2);:}
+                |   Expresion:e1 TK_OR:s Expresion:e2  {:RESULT = new Logic(e1left, e1right, e1, s, e2);:}
+                |   TK_NOT:s Expresion:e               {:RESULT = new Logic(eleft, eright, null, s, e);:}
+                ;
+
+
+Print           ::=
+                    KW_PRINT:p TK_LPAR Expresion:exp TK_RPAR TK_SCOLON {:RESULT= new Print(pleft, pright, exp);:}
+                |   KW_PRINT:p TK_LPAR TK_RPAR TK_SCOLON               {:RESULT= new Print(pleft, pright, null);:}
                 ;

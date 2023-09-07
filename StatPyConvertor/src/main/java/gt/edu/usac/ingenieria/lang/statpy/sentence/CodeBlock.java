@@ -10,4 +10,9 @@ public class CodeBlock extends Sentence{
         super(line, column, SentType.CODE_BLOCK);
         this.instructions = instructions;
     }
+
+    @Override
+    public String toPython() {
+        return null;
+    }
 }

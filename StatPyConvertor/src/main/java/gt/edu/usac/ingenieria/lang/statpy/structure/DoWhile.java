@@ -11,4 +11,9 @@ public class DoWhile extends Structure{
         this.block = block;
         this.exp = exp;
     }
+
+    @Override
+    public String toPython() {
+        return null;
+    }
 }

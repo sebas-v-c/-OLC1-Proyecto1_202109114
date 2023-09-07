@@ -10,4 +10,9 @@ public class CallFunc extends Expression{
         this.id = id;
         this.args = args;
     }
+
+    @Override
+    public String toPython() {
+        return null;
+    }
 }

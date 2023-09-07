@@ -12,4 +12,9 @@ public class DeclareArr extends Sentence{
         this.id = id;
         this.expressions = expressions;
     }
+
+    @Override
+    public String toPython() {
+        return null;
+    }
 }

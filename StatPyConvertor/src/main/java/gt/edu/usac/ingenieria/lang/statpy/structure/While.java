@@ -12,4 +12,9 @@ public class While extends Structure{
         this.exp = exp;
         this.block = block;
     }
+
+    @Override
+    public String toPython() {
+        return null;
+    }
 }

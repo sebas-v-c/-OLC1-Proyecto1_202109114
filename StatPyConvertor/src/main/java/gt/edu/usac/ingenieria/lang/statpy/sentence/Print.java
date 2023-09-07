@@ -8,4 +8,9 @@ public class Print extends Sentence {
         super(line, column, SentType.PRINT);
         this.exp = exp;
     }
+
+    @Override
+    public String toPython() {
+        return "print(" + exp.toPython() + ")";
+    }
 }

@@ -6,4 +6,9 @@ public class Return extends Expression{
         super(line, column, gt.edu.usac.ingenieria.lang.statpy.expression.ExpType.RETURN);
         this.exp = exp;
     }
+
+    @Override
+    public String toPython() {
+        return null;
+    }
 }
