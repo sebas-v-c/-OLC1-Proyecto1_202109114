@@ -13,6 +13,12 @@ public class Math extends Expression{
 
     @Override
     public String toPython() {
-        return null;
+        StringBuilder str = new StringBuilder();
+        try {
+            str.append(left.toPython()).append(" ");
+        } catch (Exception ignored){}
+        str.append(sign).append(" ").append(right.toPython());
+
+        return str.toString();
     }
 }

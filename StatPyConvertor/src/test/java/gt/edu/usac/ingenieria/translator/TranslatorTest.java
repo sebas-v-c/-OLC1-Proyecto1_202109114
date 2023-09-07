@@ -30,7 +30,7 @@ public class TranslatorTest {
         STPParser parser = null;
         Symbol parseSymbol = null;
         // switch for test file
-        boolean testFile = true;
+        boolean testFile = false;
         String fileName = "src/main/resources/" + (testFile ? "dummy" : "ejemplo") + ".sp";
 
         try {
@@ -47,14 +47,15 @@ public class TranslatorTest {
                     if (((Structure) inst).structType == StructType.MAIN){
                         System.out.print(inst.toPython());
                     }
+                    /*
                     for (Instruction instruction : ((Main) inst).instructions){
-                        logger.log(Level.INFO, instruction.toString());
+                        logger.log(Level.OFF, instruction.toString());
                     }
+                     */
                 } catch (Exception e){
                     System.out.println(e);
-                    System.out.println("Un erro qlerisimo we");
+                    System.out.println("Un error qlerisimo we");
                 }
-                System.out.println(inst);
             }
             System.out.println("------------------------------------------------------");
             System.out.println("                  F I N I S H E D");

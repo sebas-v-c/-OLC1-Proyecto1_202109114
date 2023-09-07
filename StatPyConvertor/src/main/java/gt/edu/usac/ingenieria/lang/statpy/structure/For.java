@@ -41,18 +41,19 @@ public class For extends Structure{
         StringBuilder str = new StringBuilder();
         str.append("for ").append(((DeclareId) decid).id).append(" in range(").append(((DeclareId) decid).expression.toPython()).append(", ");
         Relational rel = (Relational) exp1;
+        System.out.println(Integer.valueOf((String)((Primitive)rel.right).object) + 1);
         switch (rel.relType){
             case LEQ -> str.append(Integer.parseInt(((String)(((Primitive)rel.right).object)))+1);
             case GEQ -> str.append(Integer.parseInt(((String)(((Primitive)rel.right).object)))-1);
-            case GREATER, LESS -> str.append(((int)((Primitive)rel.right).object));
+            case GREATER, LESS -> str.append((((Primitive)rel.right).object));
         }
         switch (((IncDec) exp2).sign) {
-            case "++" -> str.append(", 1):\n");
-            case "--" -> str.append(", -1):\n");
+            case "++" -> str.append(", 1):");
+            case "--" -> str.append(", -1):");
         }
 
         str.append(TranslateUtils.tabulate(block.toPython()));
 
-        return str.append("\n").toString();
+        return str.append("\n\n").toString();
     }
 }

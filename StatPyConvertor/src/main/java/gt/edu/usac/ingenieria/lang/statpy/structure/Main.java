@@ -23,10 +23,11 @@ public class Main extends Structure{
             }
         } catch (Exception e){
             System.out.println(e);
-            str.append(TranslateUtils.tabulate("pass")).append("\n");
+            str.append(TranslateUtils.tabulate("pass"));
         }
+        str.append("\n\n");
 
-        str.append("\nif __name__ = \"__main__\":").append("\n").append(TranslateUtils.tabulate("main()"));
+        str.append("\nif __name__ = \"__main__\":").append(TranslateUtils.tabulate("main()\n"));
 
         return str.toString();
     }

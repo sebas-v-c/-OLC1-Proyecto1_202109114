@@ -1,5 +1,6 @@
 package gt.edu.usac.ingenieria.lang.statpy.structure;
 
+import gt.edu.usac.ingenieria.lang.statpy.TranslateUtils;
 import gt.edu.usac.ingenieria.lang.statpy.Type;
 import gt.edu.usac.ingenieria.lang.statpy.expression.Expression;
 import gt.edu.usac.ingenieria.lang.statpy.sentence.CodeBlock;
@@ -15,6 +16,10 @@ public class While extends Structure{
 
     @Override
     public String toPython() {
-        return null;
+        StringBuilder str = new StringBuilder();
+
+        str.append("while ").append(exp.toPython()).append(":");
+        str.append(TranslateUtils.tabulate(block.toPython()));
+        return str.append("\n\n").toString();
     }
 }

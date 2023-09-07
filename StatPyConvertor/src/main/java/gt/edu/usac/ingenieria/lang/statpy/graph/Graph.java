@@ -12,6 +12,6 @@ public class Graph extends Instruction {
 
     @Override
     public String toPython() {
-        return null;
+        return "";
     }
 }

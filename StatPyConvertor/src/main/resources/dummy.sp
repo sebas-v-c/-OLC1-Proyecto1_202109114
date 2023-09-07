@@ -39,7 +39,7 @@ void main (){
     }
 
     while(a < 10){
-        Console.Write("El valor sexo");
+        Console.Write("El valor sexo" + a);
     }
 
     int a = -1;
