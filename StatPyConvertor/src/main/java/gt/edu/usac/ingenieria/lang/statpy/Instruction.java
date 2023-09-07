@@ -1,6 +1,6 @@
 package gt.edu.usac.ingenieria.lang.statpy;
 
-public class Instruction {
+public abstract class Instruction {
     public int line;
     public int column;
     public Type type;
@@ -10,4 +10,6 @@ public class Instruction {
         this.column = column;
         this.type = type;
     }
+
+    public abstract String toPython();
 }

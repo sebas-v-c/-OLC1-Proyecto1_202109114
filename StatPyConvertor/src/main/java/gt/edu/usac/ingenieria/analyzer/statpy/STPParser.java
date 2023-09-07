@@ -787,7 +787,10 @@ class CUP$STPParser$actions {
           case 1: // Init ::= Main 
             {
               String RESULT =null;
-
+		int mleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
+		int mright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
+		Main m = (Main)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
+		ArrayList<Instruction> arr= new ArrayList<Instruction>(); arr.add(m); inst=arr;
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("Init",0, ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -795,11 +798,14 @@ class CUP$STPParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 2: // Main ::= KW_VOID KW_MAIN TK_LPAR TK_RPAR TK_LBRC Instructions TK_RBRC 
             {
-              Object RESULT =null;
+              Main RESULT =null;
+		int mleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-5)).left;
+		int mright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-5)).right;
+		String m = (String)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-5)).value;
 		int ileft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).right;
 		ArrayList<Instruction> i = (ArrayList<Instruction>)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-1)).value;
-		inst=i;
+		RESULT = new Main(mleft, mright, i);
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("Main",1, ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-6)), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;

@@ -9,6 +9,4 @@ public abstract class Sentence extends Instruction {
         super(line, column, Type.SENTENCE);
         this.sentType = sentType;
     }
-
-    public abstract String toPython();
 }

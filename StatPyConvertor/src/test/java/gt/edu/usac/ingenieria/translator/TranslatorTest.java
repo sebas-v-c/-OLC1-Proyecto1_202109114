@@ -5,6 +5,12 @@ import gt.edu.usac.ingenieria.analyzer.statpy.SPTParserTest;
 import gt.edu.usac.ingenieria.analyzer.statpy.STPLexer;
 import gt.edu.usac.ingenieria.analyzer.statpy.STPParser;
 import gt.edu.usac.ingenieria.lang.statpy.Instruction;
+import gt.edu.usac.ingenieria.lang.statpy.structure.StructType;
+import gt.edu.usac.ingenieria.lang.statpy.*;
+import gt.edu.usac.ingenieria.lang.statpy.expression.*;
+import gt.edu.usac.ingenieria.lang.statpy.graph.*;
+import gt.edu.usac.ingenieria.lang.statpy.sentence.*;
+import gt.edu.usac.ingenieria.lang.statpy.structure.*;
 import java_cup.runtime.Symbol;
 import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
@@ -33,10 +39,26 @@ public class TranslatorTest {
             parser = new STPParser(scanner);
             //parseSymbol = parser.debug_parse();
             parseSymbol = parser.parse();
-            System.out.println("INSTRUCTIONS IN FILE");
+            System.out.println("------------------------------------------------------");
+            System.out.println("       I N S T R U C T I O N S  I N  F I L E");
+            System.out.println("------------------------------------------------------");
             for (Instruction inst: parser.inst) {
+                try{
+                    if (((Structure) inst).structType == StructType.MAIN){
+                        System.out.println(inst.toPython());
+                    }
+                    for (Instruction instruction : ((Main) inst).instructions){
+                        logger.log(Level.INFO, instruction.toString());
+                    }
+                } catch (Exception e){
+                    System.out.println(e);
+                    System.out.println("Un erro qlerisimo we");
+                }
                 System.out.println(inst);
             }
+            System.out.println("------------------------------------------------------");
+            System.out.println("                  F I N I S H E D");
+            System.out.println("------------------------------------------------------");
         } catch (IOException e){
             logger.log(Level.SEVERE, null, e);
         } catch (Exception e) {

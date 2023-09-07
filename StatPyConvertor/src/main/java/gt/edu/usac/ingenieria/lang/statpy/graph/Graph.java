@@ -9,4 +9,9 @@ public class Graph extends Instruction {
         super(line, column, Type.GRAPH);
         this.graphType = graphType;
     }
+
+    @Override
+    public String toPython() {
+        return null;
+    }
 }

@@ -14,6 +14,7 @@ public class DeclareId extends Sentence{
 
     @Override
     public String toPython() {
-        return null;
+        StringBuilder str = new StringBuilder();
+        str
     }
 }
