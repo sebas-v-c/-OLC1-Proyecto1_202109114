@@ -12,11 +12,10 @@ import org.junit.jupiter.api.Test;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Translator {
+public class TranslatorTest {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
     @Test
@@ -36,7 +35,7 @@ public class Translator {
             parseSymbol = parser.parse();
             System.out.println("INSTRUCTIONS IN FILE");
             for (Instruction inst: parser.inst) {
-                System.out.println();
+                System.out.println(inst);
             }
         } catch (IOException e){
             logger.log(Level.SEVERE, null, e);
