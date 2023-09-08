@@ -155,16 +155,15 @@ BarGraph        ::= KW_VOID KW_BARGRPH:b TK_LPAR TK_RPAR TK_LBRC BarGraphInsts:i
 
 PieGraphInsts   ::=
                     PieGraphInsts:s PieGraphInst:i {:RESULT = s; RESULT.add(i);:}
-                |   PieGraphInst:i                 {:RESULT = new ArrayList<Instruction>(Arrays.asList(i));:}
+                |   PieGraphInst:i                 {:RESULT = new ArrayList<>(Arrays.asList(i));:}
                 ;
 
 PieGraphInst    ::=
                     KW_STRING KW_TITLE:t TK_EQ TK_ID:v TK_SCOLON                                     {:RESULT = new DeclareId(tleft, tright, t, new AccesId(vleft, vright, v));:}
                 |   KW_STRING KW_TITLE:t TK_EQ TK_STRING:v TK_SCOLON                                 {:RESULT = new DeclareId(tleft, tright, t, new Primitive(vleft, vright, v, PrimitiveType.STRING));:}
-                |   KW_STRING TK_LBRC TK_RBRC KW_XAXIS:x TK_EQ TK_LBRC ArgsList:a TK_RBRC TK_SCOLON  {:RESULT = new DeclareArr(xleft, xright, x, a);:}
-                |   KW_DOUBLE TK_LBRC TK_RBRC KW_VALUES:v TK_EQ TK_LBRC ArgsList:a TK_RBRC TK_SCOLON {:RESULT = new DeclareArr(vleft, vright, v, a);:}
+                |   KW_STRING TK_LBRK TK_RBRK KW_XAXIS:x TK_EQ TK_LBRC ArgsList:a TK_RBRC TK_SCOLON  {:RESULT = new DeclareArr(xleft, xright, x, a);:}
+                |   KW_DOUBLE TK_LBRK TK_RBRK KW_VALUES:v TK_EQ TK_LBRC ArgsList:a TK_RBRC TK_SCOLON {:RESULT = new DeclareArr(vleft, vright, v, a);:}
                 ;
-
 
 BarGraphInsts   ::=
                     BarGraphInsts:s BarGraphInst:i {:RESULT = s; RESULT.add(i);:}

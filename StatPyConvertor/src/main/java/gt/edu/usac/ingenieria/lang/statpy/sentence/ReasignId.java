@@ -23,7 +23,7 @@ public class ReasignId extends Sentence{
     @Override
     public void execute() {
         try {
-            Variables.getInstance().graphVars.updateVar(id, exp.evaluate());
+            Variables.getInstance().graphVars.updateVar(id.toLowerCase(), exp.evaluate());
         } catch (Environment.IDNotFoundException e) {
             //System.out.println(e);
         }

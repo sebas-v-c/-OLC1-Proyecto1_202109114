@@ -12,6 +12,7 @@ import gt.edu.usac.ingenieria.editor.chart.ChartFrame;
 import gt.edu.usac.ingenieria.lang.json.KeyVal;
 import gt.edu.usac.ingenieria.lang.statpy.Instruction;
 import gt.edu.usac.ingenieria.lang.statpy.Type;
+import gt.edu.usac.ingenieria.lang.statpy.expression.Value;
 import gt.edu.usac.ingenieria.lang.statpy.graph.*;
 import gt.edu.usac.ingenieria.lang.statpy.sentence.DeclareArr;
 import gt.edu.usac.ingenieria.lang.statpy.sentence.DeclareId;
@@ -197,6 +198,7 @@ public class EditorController {
             switch (analyzer) {
                 case STATPY -> {
                     executeStatPy();
+                    Variables.getInstance().graphVars.clearEnv();
                     view.setSelectedStatPy(true);
                 }
                 case JSON -> {
@@ -249,17 +251,9 @@ public class EditorController {
             }
 
             try{
-                for (HashMap<String, Object> hs : Variables.getInstance().graphVars.getBars()){
-                    ChartFrame chartFrame = new ChartFrame((String) hs.get("Titulo"));
-                    chartFrame.buildBarChart(
-                            (String) hs.get("titulo"),
-                            (String[]) hs.get("ejex"),
-                            (Double[]) hs.get("valores"),
-                            (String) hs.get("titulox"),
-                            (String) hs.get("Puntaje")
-                    );
-                }
+                generateCharts();
             } catch (Exception e){
+                System.out.println(e);
 
             }
 
@@ -271,16 +265,73 @@ public class EditorController {
             }
         }
 
+        private void generateCharts(){
+            for (HashMap<String, Object> hs : Variables.getInstance().graphVars.getBars()){
+                ArrayList<Value> tempArr = (ArrayList<Value>) hs.get("ejex");
+                String [] xAxisArr = new String[tempArr.size()];
+                for (int i = 0; i < tempArr.size(); i++){
+                    xAxisArr[i] = (String) tempArr.get(i).value();
+
+                }
+                tempArr = (ArrayList<Value>) hs.get("valores");
+                Double [] values = new Double[tempArr.size()];
+                for (int i = 0; i < tempArr.size(); i++){
+                    values[i] = (Double) tempArr.get(i).value();
+                }
+
+                ChartFrame chartFrame = new ChartFrame(
+                        (String) ((Value) hs.get("titulo")).value(),
+                        xAxisArr,
+                        values,
+                        (String) ((Value) hs.get("titulox")).value(),
+                        (String) ((Value) hs.get("tituloy")).value()
+                );
+                chartFrame.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        chartFrame.dispose();
+                    }
+                });
+            }
+
+            for (HashMap<String, Object> hs : Variables.getInstance().graphVars.getPie()){
+                ArrayList<Value> tempArr = (ArrayList<Value>) hs.get("ejex");
+                String [] xAxisArr = new String[tempArr.size()];
+                for (int i = 0; i < tempArr.size(); i++){
+                    xAxisArr[i] = (String) tempArr.get(i).value();
+
+                }
+
+                tempArr = (ArrayList<Value>) hs.get("valores");
+                Double [] values = new Double[tempArr.size()];
+                for (int i = 0; i < tempArr.size(); i++){
+                    values[i] = (Double) tempArr.get(i).value();
+                }
+
+                ChartFrame ch = new ChartFrame(
+                        (String) ((Value) hs.get("titulo")).value(),
+                        xAxisArr,
+                        values
+                );
+                ch.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ch.dispose();
+                    }
+                });
+            }
+        }
+
         private void traverseGlobalMethod(ArrayList<Instruction> instructions){
             for (Instruction ins: instructions){
                 ins.execute();
                 if (ins.type == Type.SENTENCE){
                     if (((Sentence) ins).sentType == SentType.DECLARE_ID){
                         DeclareId dcId = ((DeclareId) ins);
-                        Variables.getInstance().graphVars.updateGlobalsValue(dcId.id, dcId.varVal);
+                        Variables.getInstance().graphVars.updateGlobalsValue(dcId.id.toLowerCase(), dcId.varVal);
                     } else if (((Sentence) ins).sentType == SentType.DECLARE_ARR) {
                         DeclareArr dcArr = ((DeclareArr) ins);
-                        Variables.getInstance().graphVars.updateGlobalsValue(dcArr.id, dcArr.arrVals);
+                        Variables.getInstance().graphVars.updateGlobalsValue(dcArr.id.toLowerCase(), dcArr.arrVals);
                     }
                 }
             }
@@ -293,10 +344,10 @@ public class EditorController {
                 if (ins.type == Type.SENTENCE){
                     if (((Sentence) ins).sentType == SentType.DECLARE_ID){
                         DeclareId dcId = ((DeclareId) ins);
-                        Variables.getInstance().graphVars.updateBarsValue(dcId.id, dcId.varVal);
+                        Variables.getInstance().graphVars.updateBarsValue(dcId.id.toLowerCase(), dcId.varVal);
                     } else if (((Sentence) ins).sentType == SentType.DECLARE_ARR) {
                         DeclareArr dcArr = ((DeclareArr) ins);
-                        Variables.getInstance().graphVars.updateBarsValue(dcArr.id, dcArr.arrVals);
+                        Variables.getInstance().graphVars.updateBarsValue(dcArr.id.toLowerCase(), dcArr.arrVals);
                     }
                 }
             }
@@ -309,10 +360,10 @@ public class EditorController {
                 if (ins.type == Type.SENTENCE){
                     if (((Sentence) ins).sentType == SentType.DECLARE_ID){
                         DeclareId dcId = ((DeclareId) ins);
-                        Variables.getInstance().graphVars.updatePieValue(dcId.id, dcId.varVal);
+                        Variables.getInstance().graphVars.updatePieValue(dcId.id.toLowerCase(), dcId.varVal);
                     } else if (((Sentence) ins).sentType == SentType.DECLARE_ARR) {
                         DeclareArr dcArr = ((DeclareArr) ins);
-                        Variables.getInstance().graphVars.updatePieValue(dcArr.id, dcArr.arrVals);
+                        Variables.getInstance().graphVars.updatePieValue(dcArr.id.toLowerCase(), dcArr.arrVals);
                     }
                 }
             }

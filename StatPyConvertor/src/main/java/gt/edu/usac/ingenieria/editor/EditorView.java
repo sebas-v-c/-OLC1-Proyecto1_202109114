@@ -127,6 +127,9 @@ public class EditorView extends JFrame{
             return null;
         }
     }
+
+
+
     private void createUIComponents() {
         statPyRadioButton = new JRadioButton();
         statPyRadioButton.setDisabledSelectedIcon(loadImageFromResources("check-mark.png"));
@@ -134,5 +137,7 @@ public class EditorView extends JFrame{
         statPyRadioButton.setSelectedIcon(loadImageFromResources("check-mark.png"));
         statPyRadioButton.setIcon(loadImageFromResources("not-mark.png"));
     }
+
+
 
 }

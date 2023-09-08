@@ -29,6 +29,15 @@ void main ( ){
 		string TituloX= "Atributo";
 		string TituloY= "Puntaje";
 	}
+
+	Console.Write("hola");
+
+	void GraficaPie(){
+		string Titulo = reporte1;
+		string [] Ejex = {"Probabilidad 1", "Probabilidad 2", vart, var2, var22, var3};
+		double [] Valores = {pe1, po1, pe2, po2, pe3, ${NewValor, "ejemploJSON.json", "valor2"}};
+	}
+
 	while(a < 10){
 		Console.Write("el valor de a es: " + a);
 	}

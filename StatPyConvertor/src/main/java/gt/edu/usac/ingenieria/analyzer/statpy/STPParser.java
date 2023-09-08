@@ -379,10 +379,10 @@ public class STPParser extends java_cup.runtime.lr_parser {
     "\072\273\076\156\001\002\000\004\077\274\001\002\000" +
     "\010\007\uffe9\012\uffe9\072\uffe9\001\002\000\004\070\276" +
     "\001\002\000\004\071\277\001\002\000\006\007\300\012" +
-    "\303\001\002\000\004\071\324\001\002\000\010\007\ufff7" +
+    "\303\001\002\000\004\073\324\001\002\000\010\007\ufff7" +
     "\012\ufff7\072\ufff7\001\002\000\010\007\300\012\303\072" +
-    "\322\001\002\000\006\035\304\071\305\001\002\000\004" +
-    "\075\315\001\002\000\004\072\306\001\002\000\004\036" +
+    "\322\001\002\000\006\035\304\073\305\001\002\000\004" +
+    "\075\315\001\002\000\004\074\306\001\002\000\004\036" +
     "\307\001\002\000\004\075\310\001\002\000\004\071\311" +
     "\001\002\000\030\030\067\031\065\042\072\043\077\044" +
     "\101\045\070\046\104\052\103\065\102\067\071\101\074" +
@@ -395,7 +395,7 @@ public class STPParser extends java_cup.runtime.lr_parser {
     "\011\ufffa\012\ufffa\013\ufffa\015\ufffa\016\ufffa\017\ufffa\020" +
     "\ufffa\021\ufffa\022\ufffa\023\ufffa\024\ufffa\025\ufffa\027\ufffa" +
     "\046\ufffa\072\ufffa\001\002\000\010\007\ufff8\012\ufff8\072" +
-    "\ufff8\001\002\000\004\072\325\001\002\000\004\037\326" +
+    "\ufff8\001\002\000\004\074\325\001\002\000\004\037\326" +
     "\001\002\000\004\075\327\001\002\000\004\071\330\001" +
     "\002\000\030\030\067\031\065\042\072\043\077\044\101" +
     "\045\070\046\104\052\103\065\102\067\071\101\074\001" +
@@ -914,7 +914,7 @@ class CUP$STPParser$actions {
 		int ileft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
 		Instruction i = (Instruction)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
-		RESULT = new ArrayList<Instruction>(Arrays.asList(i));
+		RESULT = new ArrayList<>(Arrays.asList(i));
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("PieGraphInsts",33, ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -950,7 +950,7 @@ class CUP$STPParser$actions {
           return CUP$STPParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // PieGraphInst ::= KW_STRING TK_LBRC TK_RBRC KW_XAXIS TK_EQ TK_LBRC ArgsList TK_RBRC TK_SCOLON 
+          case 13: // PieGraphInst ::= KW_STRING TK_LBRK TK_RBRK KW_XAXIS TK_EQ TK_LBRC ArgsList TK_RBRC TK_SCOLON 
             {
               Instruction RESULT =null;
 		int xleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-5)).left;
@@ -965,7 +965,7 @@ class CUP$STPParser$actions {
           return CUP$STPParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // PieGraphInst ::= KW_DOUBLE TK_LBRC TK_RBRC KW_VALUES TK_EQ TK_LBRC ArgsList TK_RBRC TK_SCOLON 
+          case 14: // PieGraphInst ::= KW_DOUBLE TK_LBRK TK_RBRK KW_VALUES TK_EQ TK_LBRC ArgsList TK_RBRC TK_SCOLON 
             {
               Instruction RESULT =null;
 		int vleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-5)).left;

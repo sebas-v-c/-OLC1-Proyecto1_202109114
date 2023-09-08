@@ -52,6 +52,7 @@ public class Environment {
     }
 
     public Object findVar(String id) {
+        id = id.toLowerCase();
         Object glob = ((Value)getGlobalsValue(id)).value();
         if (glob != null) {
             return glob;
@@ -60,7 +61,7 @@ public class Environment {
         if (pie != null){
             return pie;
         }
-        Object bars = ((Value)getBarsValue(id, this.pie.size()-1)).value();
+        Object bars = ((Value)getBarsValue(id, this.bars.size()-1)).value();
         if (bars != null){
             return bars;
         }
@@ -69,28 +70,33 @@ public class Environment {
     }
 
     public Object getGlobalsValue(String id){
+        id = id.toLowerCase();
         return globals.get(id);
     }
 
     public void updateGlobalsValue(String id, Object val){
+        id = id.toLowerCase();
         globals.put(id, val);
     }
 
     public Object getPieValue(String id, int pos){
+        id = id.toLowerCase();
         return pie.get(pos).get(id);
     }
 
     public void updatePieValue(String id, Object val){
+        id = id.toLowerCase();
         updateGraphs(id, val, pie);
     }
 
     private void updateGraphs(String id, Object val, ArrayList<HashMap<String, Object>> graph) {
-        if (pie.isEmpty()){
-            pie.add(new HashMap<>());
-            pie.get(0).put(id, val);
+        id = id.toLowerCase();
+        if (graph.isEmpty()){
+            graph.add(new HashMap<>());
+            graph.get(0).put(id, val);
             return;
         }
-        HashMap<String, Object> current = pie.get(pie.size()-1);
+        HashMap<String, Object> current = graph.get(graph.size()-1);
         current.put(id, val);
     }
 
@@ -99,11 +105,12 @@ public class Environment {
     }
 
     public Object getBarsValue(String id, int pos){
-
+        id = id.toLowerCase();
         return bars.get(pos).get(id);
     }
 
     public void updateBarsValue(String id, Object val){
+        id = id.toLowerCase();
         updateGraphs(id, val, bars);
     }
 
