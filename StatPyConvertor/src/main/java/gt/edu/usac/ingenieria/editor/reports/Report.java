@@ -2,6 +2,7 @@ package gt.edu.usac.ingenieria.editor.reports;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 public abstract class Report {
+    protected String filePath;
     public abstract void generateReport() throws Exception;
 
     protected void saveReport(String s){
@@ -26,6 +28,7 @@ public abstract class Report {
         if (returnval == JFileChooser.APPROVE_OPTION){
             File file = chooser.getSelectedFile();
             String filepath = chooser.getSelectedFile().getAbsolutePath();
+            this.filePath = filepath;
             if (!filepath.endsWith("." + extension)){
                 filepath += "." + extension;
                 file = new File(filepath);
@@ -36,6 +39,17 @@ public abstract class Report {
                 Files.write(path, s.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
+            }
+        }
+    }
+
+    public static void openHTMLFile(String filePath){
+        File htmlFile = new File(filePath);
+        if (Desktop.isDesktopSupported() && htmlFile.exists()) {
+            try {
+                Desktop.getDesktop().browse(htmlFile.toURI());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
