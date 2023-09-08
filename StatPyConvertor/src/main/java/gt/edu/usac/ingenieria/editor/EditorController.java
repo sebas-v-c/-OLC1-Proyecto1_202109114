@@ -238,24 +238,15 @@ public class EditorController {
                 /*
                 CODE TO LOAD A GRAPH
                  */
-                for (Instruction inst: parserstp.inst) {
-                    try{
-                        if (((Structure) inst).structType == StructType.MAIN){
-                            String result = inst.toPython();
-                            for (Instruction in: ((Main) inst).instructions){
-                                if (in.type == Type.GRAPH){
-                                    if (((Graph) in).graphType == GraphType.GLOBAL){
-                                        traverseGlobalMethod(((Global) in).instructions);
-                                    } else if (((Graph) in).graphType == GraphType.BARS){
-                                        traverseBarsMethod(((Bars) in).instructions);
-                                    } else if (((Graph) in).graphType == GraphType.PIE){
-                                        traversePieMethod(((Pie) in).instructions);
-                                    }
-                                }
-                            }
+                for (Graph graph: parserstp.graphs){
+                    try {
+                        switch (graph.graphType){
+                            case GLOBAL -> traverseGlobalMethod(((Global) graph).instructions);
+                            case BARS -> traverseBarsMethod(((Bars) graph).instructions);
+                            case PIE -> traversePieMethod(((Pie) graph).instructions);
                         }
                     } catch (Exception e){
-                        // TODO display error message
+                        // TODO display an error message
                     }
                 }
             } catch (IOException e){
