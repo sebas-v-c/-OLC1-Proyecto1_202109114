@@ -41,6 +41,7 @@ public class EditorController {
     private final EditorView view;
     private Mode analyzer = Mode.STATPY;
     private String filePath;
+    private String currentStatpyS = "";
     private ArrayList<LexError> lexJsonErrors;
     private ArrayList<LexError> lexStpErrors;
     private ArrayList<SynError> synJsonErrors;
@@ -60,6 +61,7 @@ public class EditorController {
                 view.cleanTextAreas();
             }
             analyzer = Mode.STATPY;
+            view.setEntryTextArea(currentStatpyS);
             view.setExecButtonText("Ejecutar");
             view.setAnalysisLabelText("StatPy");
         });
@@ -89,9 +91,12 @@ public class EditorController {
                     BufferedReader br = new BufferedReader(new FileReader(filepath));
                     String line;
                     view.cleanTextAreas();
+                    //StringBuilder str = new StringBuilder();
                     while ((line = br.readLine()) != null){
                         view.appendEntryTextArea(line + "\n");
+                        //str.append(line).append("\n");
                     }
+                    //currentStatpyS = str.toString();
                     br.close();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
@@ -211,14 +216,13 @@ public class EditorController {
             STPLexer scannerstp = null;
             STPParser parserstp = null;
             Symbol parseSymbolstp = null;
+            currentStatpyS = view.getEntryTextArea();
             try {
-                String fileName = Path.of(filePath).getFileName().toString();
-                BufferedReader br = new BufferedReader(new FileReader(filePath));
+                BufferedReader br = new BufferedReader(new StringReader(view.getEntryTextArea()));
                 scannerstp = new STPLexer(br);
                 parserstp = new STPParser(scannerstp);
                 //parseSymbol = parser.debug_parse();
                 parseSymbolstp = parserstp.parse();
-                int i = 1;
                 /*
                 CODE TO TRADUCE TO PYTHON
                  */
@@ -320,7 +324,7 @@ public class EditorController {
             Symbol parseSymbol = null;
             try {
                 String fileName = Path.of(filePath).getFileName().toString();
-                BufferedReader br = new BufferedReader(new FileReader(filePath));
+                BufferedReader br = new BufferedReader(new StringReader(view.getEntryTextArea()));
                 scanner = new JsonLexer(br);
                 parser = new JsonParser(scanner);
                 parseSymbol = parser.parse();
@@ -363,6 +367,7 @@ public class EditorController {
             view.setSelectedStatPy(false);
             Variables.getInstance().jsonVars = new HashMap<>();
             view.setLoadedJsonsText(String.valueOf(0));
+            currentStatpyS = "";
         }
     }
 }
