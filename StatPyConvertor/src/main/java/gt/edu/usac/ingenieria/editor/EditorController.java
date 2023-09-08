@@ -8,6 +8,7 @@ import gt.edu.usac.ingenieria.analyzer.json.JsonParser;
 import gt.edu.usac.ingenieria.analyzer.statpy.STPLexer;
 import gt.edu.usac.ingenieria.analyzer.statpy.STPParser;
 import gt.edu.usac.ingenieria.classes.Json;
+import gt.edu.usac.ingenieria.editor.chart.ChartFrame;
 import gt.edu.usac.ingenieria.lang.json.KeyVal;
 import gt.edu.usac.ingenieria.lang.statpy.Instruction;
 import gt.edu.usac.ingenieria.lang.statpy.Type;
@@ -16,11 +17,9 @@ import gt.edu.usac.ingenieria.lang.statpy.sentence.DeclareArr;
 import gt.edu.usac.ingenieria.lang.statpy.sentence.DeclareId;
 import gt.edu.usac.ingenieria.lang.statpy.sentence.SentType;
 import gt.edu.usac.ingenieria.lang.statpy.sentence.Sentence;
-import gt.edu.usac.ingenieria.lang.statpy.structure.Main;
 import gt.edu.usac.ingenieria.lang.statpy.structure.StructType;
 import gt.edu.usac.ingenieria.lang.statpy.structure.Structure;
 import java_cup.runtime.Symbol;
-import junit.framework.Assert;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -32,9 +31,6 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class EditorController {
@@ -250,6 +246,21 @@ public class EditorController {
                 }
             } catch (IOException e){
             } catch (Exception e) {
+            }
+
+            try{
+                for (HashMap<String, Object> hs : Variables.getInstance().graphVars.getBars()){
+                    ChartFrame chartFrame = new ChartFrame((String) hs.get("Titulo"));
+                    chartFrame.buildBarChart(
+                            (String) hs.get("titulo"),
+                            (String[]) hs.get("ejex"),
+                            (Double[]) hs.get("valores"),
+                            (String) hs.get("titulox"),
+                            (String) hs.get("Puntaje")
+                    );
+                }
+            } catch (Exception e){
+
             }
 
             if (!parserstp.getErrors().isEmpty()) {

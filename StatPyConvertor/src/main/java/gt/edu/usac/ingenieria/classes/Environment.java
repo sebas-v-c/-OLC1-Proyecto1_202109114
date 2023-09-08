@@ -8,6 +8,15 @@ import java.util.HashMap;
 public class Environment {
     private HashMap<String, Object> globals;
     private ArrayList<HashMap<String, Object>> pie = new ArrayList<>();
+
+    public ArrayList<HashMap<String, Object>> getPie() {
+        return pie;
+    }
+
+    public ArrayList<HashMap<String, Object>> getBars() {
+        return bars;
+    }
+
     private ArrayList<HashMap<String, Object>> bars = new ArrayList<>();
 
     public Environment(){
@@ -101,4 +110,5 @@ public class Environment {
     public void addNewBars(){
         bars.add(new HashMap<>());
     }
+
 }
