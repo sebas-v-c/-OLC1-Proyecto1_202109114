@@ -23,8 +23,10 @@ public class CallJson extends Expression{
 
     @Override
     public Value evaluate() {
-        System.out.println((String) file.evaluate().value());
+        //System.out.println((String) file.evaluate().value());
         Object obj = Variables.getInstance().jsonVars.get((String) file.evaluate().value()).getValue((String) key.evaluate().value());
+        System.out.println(key.evaluate().value());
+        System.out.println(Variables.getInstance().jsonVars.get(((String) file.evaluate().value())));
         if (obj instanceof String){
             return new Value((String) obj, PrimitiveType.STRING);
         } else {

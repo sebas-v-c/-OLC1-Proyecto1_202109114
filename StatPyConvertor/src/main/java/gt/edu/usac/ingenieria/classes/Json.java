@@ -25,6 +25,10 @@ public class Json {
         return content.get(key);
     }
 
+    public ArrayList<String> getKeys(){
+        return new ArrayList<String>(content.keySet());
+    }
+
     public ArrayList<Object> getValues(){
         return new ArrayList<Object>(content.values());
     }

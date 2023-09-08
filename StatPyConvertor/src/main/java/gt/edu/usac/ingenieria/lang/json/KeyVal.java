@@ -8,8 +8,9 @@ public class KeyVal {
     public KeyVal(int line, int column, String id, Value val){
         this.line = line;
         this.column = column;
-        this.id = id;
         this.val = val;
+
+        this.id = id.substring(1, id.length()-1);
     }
 
     public Object getVal(){

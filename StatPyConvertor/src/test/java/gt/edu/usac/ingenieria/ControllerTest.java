@@ -58,6 +58,10 @@ public class ControllerTest {
             for (Json json : Variables.getInstance().jsonVars.values()){
                 System.out.println("VALORES DEL JSON CARGADOS:\n" + json.getValues());
             }
+            System.out.println("LLAVES DEL JSON CARGADAS:");
+            for (String keys : Variables.getInstance().jsonVars.get(file).getKeys()){
+                System.out.println(keys);
+            }
         } catch (Exception e){
             Logger.getLogger(ControllerTest.class.getName()).log(Level.SEVERE, null, e);
         }

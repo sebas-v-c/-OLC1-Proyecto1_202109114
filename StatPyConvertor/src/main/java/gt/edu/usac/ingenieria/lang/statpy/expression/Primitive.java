@@ -9,6 +9,10 @@ public class Primitive extends Expression{
         super(line, column, gt.edu.usac.ingenieria.lang.statpy.expression.ExpType.PRIMITIVE);
         this.primitiveType = primitiveType;
         this.object = object;
+
+        if (primitiveType == PrimitiveType.STRING){
+            this.object = ((String) object).substring(1, ((String) object).length()-1);
+        }
     }
 
     @Override
@@ -17,8 +21,8 @@ public class Primitive extends Expression{
             case INT -> (String) object;
             case DOUBLE -> (String) object;
             case BOOLEAN -> ((String) object).equals("true") ? "True" : "False";
-            case CHAR -> (String) object;
-            case STRING -> ((String) object);
+            case CHAR -> "'"+(String) object+"'";
+            case STRING -> "\""+((String) object)+"\"";
             default -> "";
         };
     }
@@ -31,7 +35,8 @@ public class Primitive extends Expression{
                     case DOUBLE -> Double.valueOf((String) object);
                     case BOOLEAN -> Boolean.valueOf((String) object);
                     case CHAR -> (Character) object;
-                    case STRING -> ((String) object).substring(1,((String) object).length() -1);
+                    //case STRING -> ((String) object).substring(1,((String) object).length() -1);
+                    case STRING -> ((String) object);
                 }, primitiveType);
     }
 }
