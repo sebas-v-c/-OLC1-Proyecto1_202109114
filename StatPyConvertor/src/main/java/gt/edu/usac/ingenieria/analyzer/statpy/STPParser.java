@@ -728,7 +728,7 @@ public class STPParser extends java_cup.runtime.lr_parser {
 
 
     public ArrayList<Instruction> inst;
-    ArrayList<SynError> errors = new ArrayList<>();
+    public ArrayList<SynError> errors = new ArrayList<>();
     public void syntax_error(Symbol s){
         errors.add(new SynError(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
     }

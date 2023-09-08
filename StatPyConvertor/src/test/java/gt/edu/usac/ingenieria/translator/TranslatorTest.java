@@ -68,9 +68,12 @@ public class TranslatorTest {
                 }
             }
 
+            /*
             for (Map.Entry<String, Object> entry: Variables.getInstance().graphVars.globals.entrySet()){
                 System.out.println("KEY: "+ entry.getKey() + " Value: " + entry.getValue());
             }
+
+             */
 
             /*
             System.out.println("------------------------------------------------------");
@@ -81,7 +84,7 @@ public class TranslatorTest {
         } catch (IOException e){
             logger.log(Level.SEVERE, null, e);
         } catch (Exception e) {
-            Logger.getLogger(SPTParserTest.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(TranslatorTest.class.getName()).log(Level.SEVERE, null, e);
         }
 
         if (!parser.getErrors().isEmpty()){

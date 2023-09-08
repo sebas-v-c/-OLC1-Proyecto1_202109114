@@ -31,7 +31,7 @@ public class Primitive extends Expression{
                     case DOUBLE -> Double.valueOf((String) object);
                     case BOOLEAN -> Boolean.valueOf((String) object);
                     case CHAR -> (Character) object;
-                    case STRING -> (String) object;
+                    case STRING -> ((String) object).substring(1,((String) object).length() -1);
                 }, primitiveType);
     }
 }

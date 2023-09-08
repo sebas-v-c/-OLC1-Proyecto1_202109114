@@ -114,8 +114,8 @@ public class JsonParser extends java_cup.runtime.lr_parser {
 
 
 
-    ArrayList<SynError> errors = new ArrayList<>();
-    ArrayList<KeyVal> content = new ArrayList<>();
+    public ArrayList<SynError> errors = new ArrayList<>();
+    public ArrayList<KeyVal> content = new ArrayList<>();
     public void syntax_error(Symbol s){
         errors.add(new SynError(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
     }

@@ -10,8 +10,8 @@ import gt.edu.usac.ingenieria.lang.json.*;
 // PARSER
 parser code
 {:
-    ArrayList<SynError> errors = new ArrayList<>();
-    ArrayList<KeyVal> content = new ArrayList<>();
+    public ArrayList<SynError> errors = new ArrayList<>();
+    public ArrayList<KeyVal> content = new ArrayList<>();
     public void syntax_error(Symbol s){
         errors.add(new SynError(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
     }

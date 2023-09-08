@@ -1,9 +1,13 @@
 package gt.edu.usac.ingenieria;
 
 import gt.edu.usac.ingenieria.analyzer.errors.SynError;
+import gt.edu.usac.ingenieria.analyzer.json.JsonLexer;
+import gt.edu.usac.ingenieria.analyzer.json.JsonParser;
 import gt.edu.usac.ingenieria.analyzer.statpy.SPTParserTest;
 import gt.edu.usac.ingenieria.analyzer.statpy.STPLexer;
 import gt.edu.usac.ingenieria.analyzer.statpy.STPParser;
+import gt.edu.usac.ingenieria.classes.Json;
+import gt.edu.usac.ingenieria.lang.json.KeyVal;
 import gt.edu.usac.ingenieria.lang.statpy.Instruction;
 import gt.edu.usac.ingenieria.lang.statpy.Type;
 import gt.edu.usac.ingenieria.lang.statpy.graph.*;
@@ -30,59 +34,33 @@ public class ControllerTest {
     Logger logger = Logger.getLogger(this.getClass().getName());
     @Test
     public void TestController(){
-        STPLexer scanner;
-        STPParser parser = null;
-        Symbol parseSymbol = null;
         // switch for test file
-        boolean testFile = false;
-        String fileName = "src/main/resources/" + (testFile ? "dummy" : "ejemplo") + ".sp";
+        String fileName = "src/main/resources/ejemploJSON.json";
+        String file = "ejemplo.json";
 
-        try {
+        JsonLexer scanner;
+        JsonParser parser = null;
+        Symbol parseSymbol = null;
+        try{
             BufferedReader br = new BufferedReader(new FileReader(fileName));
-            scanner = new STPLexer(br);
-            parser = new STPParser(scanner);
+            scanner = new JsonLexer(br);
+            parser = new JsonParser(scanner);
             //parseSymbol = parser.debug_parse();
             parseSymbol = parser.parse();
             System.out.println("------------------------------------------------------");
             System.out.println("       I N S T R U C T I O N S  I N  F I L E");
             System.out.println("------------------------------------------------------");
 
-            for (Instruction inst: parser.inst) {
-                try{
-                    if (((Structure) inst).structType == StructType.MAIN){
-                        String result = inst.toPython();
-                        for (Instruction in: ((Main) inst).instructions){
-                            if (in.type == Type.GRAPH){
-                                if (((Graph) in).graphType == GraphType.GLOBAL){
-                                    traverseGlobalMethod(((Global) in).instructions);
-                                } else if (((Graph) in).graphType == GraphType.BARS){
-                                    traverseBarsMethod(((Bars) in).instructions);
-                                } else if (((Graph) in).graphType == GraphType.PIE){
-                                    traversePieMethod(((Pie) in).instructions);
-                                }
-                            }
-                        }
-                    }
-                } catch (Exception e){
-                    System.out.println(e);
-                    System.out.println("Un error qlerisimo we");
-                }
+            Variables.getInstance().jsonVars.put(file, new Json());
+            for (KeyVal cont: parser.content) {
+                Variables.getInstance().jsonVars.get(file).addKeyValue(cont.id, cont.getVal());
             }
-
-            for (Map.Entry<String, Object> entry: Variables.getInstance().graphVars.globals.entrySet()){
-                System.out.println("KEY: "+ entry.getKey() + " Value: " + entry.getValue());
+            for (Json json : Variables.getInstance().jsonVars.values()){
+                System.out.println("VALORES DEL JSON CARGADOS:\n" + json.getValues());
             }
-
-            System.out.println("------------------------------------------------------");
-            System.out.println("                  F I N I S H E D");
-            System.out.println("------------------------------------------------------");
-
-        } catch (IOException e){
-            logger.log(Level.SEVERE, null, e);
-        } catch (Exception e) {
-            Logger.getLogger(SPTParserTest.class.getName()).log(Level.SEVERE, null, e);
+        } catch (Exception e){
+            Logger.getLogger(ControllerTest.class.getName()).log(Level.SEVERE, null, e);
         }
-
         if (!parser.getErrors().isEmpty()){
             logger.log(Level.INFO, "Errors founded in the parser");
             for (SynError error : parser.getErrors()) {
@@ -96,6 +74,77 @@ public class ControllerTest {
         } else {
             Assert.assertEquals(0, parseSymbol.sym);
         }
+
+        boolean testFile = false;
+        fileName = "src/main/resources/" + (testFile ? "dummy" : "ejemplo") + ".sp";
+
+        STPLexer scannerstp;
+        STPParser parserstp = null;
+        Symbol parseSymbolstp = null;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            scannerstp = new STPLexer(br);
+            parserstp = new STPParser(scannerstp);
+            //parseSymbol = parser.debug_parse();
+            parseSymbolstp = parserstp.parse();
+
+            for (Instruction inst: parserstp.inst) {
+                try{
+                    if (((Structure) inst).structType == StructType.MAIN){
+                        System.out.println("Aun no hay errores 1");
+                        String result = inst.toPython();
+                        for (Instruction in: ((Main) inst).instructions){
+                            System.out.println("Aun no hay errores 2");
+                            if (in.type == Type.GRAPH){
+                                System.out.println("Aun no hay errores 3");
+                                if (((Graph) in).graphType == GraphType.GLOBAL){
+                                    System.out.println("Aun no hay errores 4");
+                                    traverseGlobalMethod(((Global) in).instructions);
+                                } else if (((Graph) in).graphType == GraphType.BARS){
+                                    System.out.println("Aun no hay errores 5");
+                                    traverseBarsMethod(((Bars) in).instructions);
+                                } else if (((Graph) in).graphType == GraphType.PIE){
+                                    System.out.println("Aun no hay errores 6");
+                                    traversePieMethod(((Pie) in).instructions);
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception e){
+                    System.out.println(e);
+                    System.out.println("Un error qlerisimo we");
+                    //Assert.assertFalse(true);
+                }
+            }
+
+            for (Map.Entry<String, Object> entry: Variables.getInstance().graphVars.globals.entrySet()){
+                System.out.println("KEY: "+ entry.getKey() + " Value: " + entry.getValue().toString());
+            }
+
+            System.out.println("------------------------------------------------------");
+            System.out.println("                  F I N I S H E D");
+            System.out.println("------------------------------------------------------");
+
+        } catch (IOException e){
+            logger.log(Level.SEVERE, null, e);
+        } catch (Exception e) {
+            Logger.getLogger(ControllerTest.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        if (!parserstp.getErrors().isEmpty()){
+            logger.log(Level.INFO, "Errors founded in the parser");
+            for (SynError error : parserstp.getErrors()) {
+                error.print();
+            }
+            Assert.assertFalse(true);
+        }
+
+        if (parseSymbolstp == null){
+            Assert.assertFalse(true);
+        } else {
+            Assert.assertEquals(0, parseSymbolstp.sym);
+        }
+
     }
 
     private void traverseGlobalMethod(ArrayList<Instruction> instructions){

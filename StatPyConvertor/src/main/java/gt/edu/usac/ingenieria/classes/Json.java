@@ -2,6 +2,7 @@ package gt.edu.usac.ingenieria.classes;
 
 import gt.edu.usac.ingenieria.lang.json.KeyVal;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Json {
@@ -23,6 +24,11 @@ public class Json {
     public Object getValue(String key){
         return content.get(key);
     }
+
+    public ArrayList<Object> getValues(){
+        return new ArrayList<Object>(content.values());
+    }
+
 
 
 }
