@@ -5,8 +5,20 @@ import gt.edu.usac.ingenieria.analyzer.errors.LexError;
 import gt.edu.usac.ingenieria.analyzer.errors.SynError;
 import gt.edu.usac.ingenieria.analyzer.json.JsonLexer;
 import gt.edu.usac.ingenieria.analyzer.json.JsonParser;
+import gt.edu.usac.ingenieria.analyzer.statpy.STPLexer;
+import gt.edu.usac.ingenieria.analyzer.statpy.STPParser;
 import gt.edu.usac.ingenieria.classes.Json;
 import gt.edu.usac.ingenieria.lang.json.KeyVal;
+import gt.edu.usac.ingenieria.lang.statpy.Instruction;
+import gt.edu.usac.ingenieria.lang.statpy.Type;
+import gt.edu.usac.ingenieria.lang.statpy.graph.*;
+import gt.edu.usac.ingenieria.lang.statpy.sentence.DeclareArr;
+import gt.edu.usac.ingenieria.lang.statpy.sentence.DeclareId;
+import gt.edu.usac.ingenieria.lang.statpy.sentence.SentType;
+import gt.edu.usac.ingenieria.lang.statpy.sentence.Sentence;
+import gt.edu.usac.ingenieria.lang.statpy.structure.Main;
+import gt.edu.usac.ingenieria.lang.statpy.structure.StructType;
+import gt.edu.usac.ingenieria.lang.statpy.structure.Structure;
 import java_cup.runtime.Symbol;
 import junit.framework.Assert;
 
@@ -22,6 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class EditorController {
@@ -195,9 +208,110 @@ public class EditorController {
 
         // This should thow an exception
         private void executeStatPy() {
+            STPLexer scannerstp = null;
+            STPParser parserstp = null;
+            Symbol parseSymbolstp = null;
+            try {
+                String fileName = Path.of(filePath).getFileName().toString();
+                BufferedReader br = new BufferedReader(new FileReader(filePath));
+                scannerstp = new STPLexer(br);
+                parserstp = new STPParser(scannerstp);
+                //parseSymbol = parser.debug_parse();
+                parseSymbolstp = parserstp.parse();
+                int i = 1;
+                /*
+                CODE TO TRADUCE TO PYTHON
+                 */
+                for (Instruction inst: parserstp.inst) {
+                    try{
+                        if (((Structure) inst).structType == StructType.MAIN){
+                            view.setOutTextArea(inst.toPython());
+                        }
+                    } catch (Exception e){
+                        // TODO display an error message
+                    }
+                }
+                /*
+                CODE TO LOAD A GRAPH
+                 */
+                for (Instruction inst: parserstp.inst) {
+                    try{
+                        if (((Structure) inst).structType == StructType.MAIN){
+                            String result = inst.toPython();
+                            for (Instruction in: ((Main) inst).instructions){
+                                if (in.type == Type.GRAPH){
+                                    if (((Graph) in).graphType == GraphType.GLOBAL){
+                                        traverseGlobalMethod(((Global) in).instructions);
+                                    } else if (((Graph) in).graphType == GraphType.BARS){
+                                        traverseBarsMethod(((Bars) in).instructions);
+                                    } else if (((Graph) in).graphType == GraphType.PIE){
+                                        traversePieMethod(((Pie) in).instructions);
+                                    }
+                                }
+                            }
+                        }
+                    } catch (Exception e){
+                        // TODO display error message
+                    }
+                }
+            } catch (IOException e){
+            } catch (Exception e) {
+            }
 
-
+            if (!parserstp.getErrors().isEmpty()) {
+                synStpErrors = parserstp.getErrors();
+            }
+            if (!scannerstp.getErrors().isEmpty()) {
+                lexJsonErrors = scannerstp.getErrors();
+            }
         }
+
+        private void traverseGlobalMethod(ArrayList<Instruction> instructions){
+            for (Instruction ins: instructions){
+                ins.execute();
+                if (ins.type == Type.SENTENCE){
+                    if (((Sentence) ins).sentType == SentType.DECLARE_ID){
+                        DeclareId dcId = ((DeclareId) ins);
+                        Variables.getInstance().graphVars.updateGlobalsValue(dcId.id, dcId.varVal);
+                    } else if (((Sentence) ins).sentType == SentType.DECLARE_ARR) {
+                        DeclareArr dcArr = ((DeclareArr) ins);
+                        Variables.getInstance().graphVars.updateGlobalsValue(dcArr.id, dcArr.arrVals);
+                    }
+                }
+            }
+        }
+
+        private void traverseBarsMethod(ArrayList<Instruction> instructions){
+            for (Instruction ins: instructions){
+                ins.execute();
+                if (ins.type == Type.SENTENCE){
+                    if (((Sentence) ins).sentType == SentType.DECLARE_ID){
+                        DeclareId dcId = ((DeclareId) ins);
+                        Variables.getInstance().graphVars.updateBarsValue(dcId.id, dcId.varVal);
+                    } else if (((Sentence) ins).sentType == SentType.DECLARE_ARR) {
+                        DeclareArr dcArr = ((DeclareArr) ins);
+                        Variables.getInstance().graphVars.updateBarsValue(dcArr.id, dcArr.arrVals);
+                    }
+                }
+            }
+        }
+
+        private void traversePieMethod(ArrayList<Instruction> instructions){
+            for (Instruction ins: instructions){
+                ins.execute();
+                if (ins.type == Type.SENTENCE){
+                    if (((Sentence) ins).sentType == SentType.DECLARE_ID){
+                        DeclareId dcId = ((DeclareId) ins);
+                        Variables.getInstance().graphVars.updatePieValue(dcId.id, dcId.varVal);
+                    } else if (((Sentence) ins).sentType == SentType.DECLARE_ARR) {
+                        DeclareArr dcArr = ((DeclareArr) ins);
+                        Variables.getInstance().graphVars.updatePieValue(dcArr.id, dcArr.arrVals);
+                    }
+                }
+            }
+        }
+
+
 
         // This should thow an exception
         private void loadJson() {
