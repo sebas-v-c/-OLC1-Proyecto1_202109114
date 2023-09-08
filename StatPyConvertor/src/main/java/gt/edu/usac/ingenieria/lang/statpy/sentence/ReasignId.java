@@ -25,8 +25,7 @@ public class ReasignId extends Sentence{
         try {
             Variables.getInstance().graphVars.updateVar(id, exp.evaluate());
         } catch (Environment.IDNotFoundException e) {
-            System.out.println("Variable not yet declared");
-            System.out.println(e);
+            //System.out.println(e);
         }
     }
 }

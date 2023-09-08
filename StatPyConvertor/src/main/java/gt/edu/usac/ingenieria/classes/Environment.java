@@ -43,7 +43,6 @@ public class Environment {
     }
 
     public Object findVar(String id) {
-        System.out.println(id);
         Object glob = ((Value)getGlobalsValue(id)).value();
         if (glob != null) {
             return glob;

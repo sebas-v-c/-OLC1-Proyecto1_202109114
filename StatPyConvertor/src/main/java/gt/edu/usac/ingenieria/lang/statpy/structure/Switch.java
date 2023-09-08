@@ -22,14 +22,14 @@ public class Switch extends Structure {
     public String toPython() {
         StringBuilder str = new StringBuilder();
         Case firstCase = cases.remove(0);
-        str.append("\nif ").append(firstCase.exp.toPython()).append(":");
+        str.append("\nif ").append(exp.toPython() + " == ").append(firstCase.exp.toPython()).append(":");
         firstCase.cleanBlock();
         str.append(TranslateUtils.tabulate(firstCase.block.toPython()));
         for(Case case_ : cases){
-            str.append(case_.toPython());
+            str.append("\nelif ").append(exp.toPython() + " == ").append(case_.toPython());
         }
         if (deft != null){
-            str.append("\ndefault:");
+            str.append("\nelse:");
             str.append("\t").append(TranslateUtils.tabulate(deft.toPython()));
         }
 

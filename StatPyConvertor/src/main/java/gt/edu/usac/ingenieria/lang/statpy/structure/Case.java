@@ -23,7 +23,7 @@ public class Case extends Structure{
     @Override
     public String toPython() {
         StringBuilder str = new StringBuilder();
-        str.append("\nelif ").append(exp.toPython());
+        str.append(exp.toPython());
         cleanBlock();
         str.append(TranslateUtils.tabulate(block.toPython()));
         return str.toString();
