@@ -174,9 +174,10 @@
                                 <constraints/>
                                 <properties>
                                   <editable value="false"/>
-                                  <enabled value="false"/>
+                                  <enabled value="true"/>
                                   <font name="JetBrains Mono" size="14" style="0"/>
                                   <minimumSize width="350" height="20"/>
+                                  <opaque value="false"/>
                                 </properties>
                               </component>
                             </children>
