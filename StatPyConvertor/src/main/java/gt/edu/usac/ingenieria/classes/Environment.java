@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class Environment {
     private HashMap<String, Object> globals;
-    private ArrayList<HashMap<String, Object>> pie = new ArrayList<>();
+    private final ArrayList<HashMap<String, Object>> pie = new ArrayList<>();
 
     public ArrayList<HashMap<String, Object>> getPie() {
         return pie;
@@ -17,7 +17,7 @@ public class Environment {
         return bars;
     }
 
-    private ArrayList<HashMap<String, Object>> bars = new ArrayList<>();
+    private final ArrayList<HashMap<String, Object>> bars = new ArrayList<>();
 
     public Environment(){
         globals = new HashMap<>();
@@ -62,11 +62,7 @@ public class Environment {
             return pie;
         }
         Object bars = ((Value)getBarsValue(id, this.bars.size()-1)).value();
-        if (bars != null){
-            return bars;
-        }
-
-        return null;
+        return bars;
     }
 
     public Object getGlobalsValue(String id){

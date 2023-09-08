@@ -135,7 +135,9 @@ start with Init;
 // beginnig
 Init            ::= Main:m {:ArrayList<Instruction> arr= new ArrayList<Instruction>(); arr.add(m); inst=arr;:};
 
-Main            ::= KW_VOID KW_MAIN:m TK_LPAR TK_RPAR TK_LBRC Instructions:i TK_RBRC {:RESULT = new Main(mleft, mright, i);:};
+Main            ::= KW_VOID KW_MAIN:m TK_LPAR TK_RPAR TK_LBRC Instructions:i TK_RBRC {:RESULT = new Main(mleft, mright, i);:}
+                |   KW_VOID KW_MAIN:m TK_LPAR TK_RPAR TK_LBRC TK_RBRC                {:RESULT = new Main(mleft, mright, null);:}
+                ;
 
 
 

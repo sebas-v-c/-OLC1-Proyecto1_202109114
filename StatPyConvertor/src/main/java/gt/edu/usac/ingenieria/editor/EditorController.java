@@ -244,19 +244,21 @@ public class EditorController {
                             case PIE -> traversePieMethod(((Pie) graph).instructions);
                         }
                     } catch (Exception e){
-                        view.showErrorMessage("Ha habido un error evaluando las Graficas");
+                        /*
+                        switch (graph.graphType){
+                            case GLOBAL -> view.showWarningMessage("Ha habido un error en la definicion de variables Globales");
+                            case BARS -> view.showWarningMessage("Ha habido un error evaluando la Grafica de Barras");
+                            case PIE -> view.showWarningMessage("Ha habido un error evaluando la Grafica de Pie");
+                        }
+
+                         */
                     }
                 }
             } catch (Exception e) {
                 view.showErrorMessage("Ha ocurrido un error");
             }
 
-            try{
-                generateCharts();
-            } catch (Exception e){
-                System.out.println(e);
-                view.showErrorMessage("Ha habido un error generando las Graficas");
-            }
+            generateCharts();
 
             if (!parserstp.getErrors().isEmpty()) {
                 synStpErrors = parserstp.getErrors();
@@ -269,59 +271,67 @@ public class EditorController {
         }
 
         private void generateCharts(){
-            for (HashMap<String, Object> hs : Variables.getInstance().graphVars.getBars()){
-                ArrayList<Value> tempArr = (ArrayList<Value>) hs.get("ejex");
-                String [] xAxisArr = new String[tempArr.size()];
-                for (int i = 0; i < tempArr.size(); i++){
-                    xAxisArr[i] = (String) tempArr.get(i).value();
+            try {
+                for (HashMap<String, Object> hs : Variables.getInstance().graphVars.getBars()) {
+                    ArrayList<Value> tempArr = (ArrayList<Value>) hs.get("ejex");
+                    String[] xAxisArr = new String[tempArr.size()];
+                    for (int i = 0; i < tempArr.size(); i++) {
+                        xAxisArr[i] = (String) tempArr.get(i).value();
 
-                }
-                tempArr = (ArrayList<Value>) hs.get("valores");
-                Double [] values = new Double[tempArr.size()];
-                for (int i = 0; i < tempArr.size(); i++){
-                    values[i] = (Double) tempArr.get(i).value();
-                }
-
-                ChartFrame chartFrame = new ChartFrame(
-                        (String) ((Value) hs.get("titulo")).value(),
-                        xAxisArr,
-                        values,
-                        (String) ((Value) hs.get("titulox")).value(),
-                        (String) ((Value) hs.get("tituloy")).value()
-                );
-                chartFrame.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        chartFrame.dispose();
                     }
-                });
+                    tempArr = (ArrayList<Value>) hs.get("valores");
+                    Double[] values = new Double[tempArr.size()];
+                    for (int i = 0; i < tempArr.size(); i++) {
+                        values[i] = (Double) tempArr.get(i).value();
+                    }
+
+                    ChartFrame chartFrame = new ChartFrame(
+                            (String) ((Value) hs.get("titulo")).value(),
+                            xAxisArr,
+                            values,
+                            (String) ((Value) hs.get("titulox")).value(),
+                            (String) ((Value) hs.get("tituloy")).value()
+                    );
+                    chartFrame.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            chartFrame.dispose();
+                        }
+                    });
+                }
+            } catch (Exception e){
+                view.showErrorMessage("No se pudo generar la grafica de Barras");
             }
 
-            for (HashMap<String, Object> hs : Variables.getInstance().graphVars.getPie()){
-                ArrayList<Value> tempArr = (ArrayList<Value>) hs.get("ejex");
-                String [] xAxisArr = new String[tempArr.size()];
-                for (int i = 0; i < tempArr.size(); i++){
-                    xAxisArr[i] = (String) tempArr.get(i).value();
+            try {
+                for (HashMap<String, Object> hs : Variables.getInstance().graphVars.getPie()) {
+                    ArrayList<Value> tempArr = (ArrayList<Value>) hs.get("ejex");
+                    String[] xAxisArr = new String[tempArr.size()];
+                    for (int i = 0; i < tempArr.size(); i++) {
+                        xAxisArr[i] = (String) tempArr.get(i).value();
 
-                }
-
-                tempArr = (ArrayList<Value>) hs.get("valores");
-                Double [] values = new Double[tempArr.size()];
-                for (int i = 0; i < tempArr.size(); i++){
-                    values[i] = (Double) tempArr.get(i).value();
-                }
-
-                ChartFrame ch = new ChartFrame(
-                        (String) ((Value) hs.get("titulo")).value(),
-                        xAxisArr,
-                        values
-                );
-                ch.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        ch.dispose();
                     }
-                });
+
+                    tempArr = (ArrayList<Value>) hs.get("valores");
+                    Double[] values = new Double[tempArr.size()];
+                    for (int i = 0; i < tempArr.size(); i++) {
+                        values[i] = (Double) tempArr.get(i).value();
+                    }
+
+                    ChartFrame ch = new ChartFrame(
+                            (String) ((Value) hs.get("titulo")).value(),
+                            xAxisArr,
+                            values
+                    );
+                    ch.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            ch.dispose();
+                        }
+                    });
+                }
+            } catch (Exception e){
+                view.showErrorMessage("No se pudo generar la grafica de Pie");
             }
         }
 

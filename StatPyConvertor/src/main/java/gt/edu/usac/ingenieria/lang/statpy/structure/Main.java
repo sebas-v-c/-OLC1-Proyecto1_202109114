@@ -19,6 +19,9 @@ public class Main extends Structure{
         str.append("def main():");
         try{
             for (Instruction inst : instructions){
+                if (inst == null){
+                    continue;
+                }
                 str.append(TranslateUtils.tabulate(inst.toPython()));
             }
         } catch (Exception e){
