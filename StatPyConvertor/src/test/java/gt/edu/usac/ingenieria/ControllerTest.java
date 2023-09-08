@@ -47,9 +47,12 @@ public class ControllerTest {
             parser = new JsonParser(scanner);
             //parseSymbol = parser.debug_parse();
             parseSymbol = parser.parse();
+            /*
             System.out.println("------------------------------------------------------");
             System.out.println("       I N S T R U C T I O N S  I N  F I L E");
             System.out.println("------------------------------------------------------");
+
+             */
 
             Variables.getInstance().jsonVars.put(file, new Json());
             for (KeyVal cont: parser.content) {
@@ -88,20 +91,14 @@ public class ControllerTest {
             for (Instruction inst: parserstp.inst) {
                 try{
                     if (((Structure) inst).structType == StructType.MAIN){
-                        System.out.println("Aun no hay errores 1");
                         String result = inst.toPython();
                         for (Instruction in: ((Main) inst).instructions){
-                            System.out.println("Aun no hay errores 2");
                             if (in.type == Type.GRAPH){
-                                System.out.println("Aun no hay errores 3");
                                 if (((Graph) in).graphType == GraphType.GLOBAL){
-                                    System.out.println("Aun no hay errores 4");
                                     traverseGlobalMethod(((Global) in).instructions);
                                 } else if (((Graph) in).graphType == GraphType.BARS){
-                                    System.out.println("Aun no hay errores 5");
                                     traverseBarsMethod(((Bars) in).instructions);
                                 } else if (((Graph) in).graphType == GraphType.PIE){
-                                    System.out.println("Aun no hay errores 6");
                                     traversePieMethod(((Pie) in).instructions);
                                 }
                             }
@@ -109,11 +106,11 @@ public class ControllerTest {
                     }
                 } catch (Exception e){
                     System.out.println(e);
-                    System.out.println("Un error qlerisimo we");
-                    //Assert.assertFalse(true);
+                    Assert.assertFalse(true);
                 }
             }
 
+            /*
             System.out.println("VARIABLES GLOBALES");
             for (Map.Entry<String, Object> entry: Variables.getInstance().graphVars.globals.entrySet()){
                 System.out.println("KEY: "+ entry.getKey() + " Value: " + entry.getValue().toString());
@@ -127,10 +124,12 @@ public class ControllerTest {
                 System.out.println("KEY: "+ entry.getKey() + " Value: " + entry.getValue().toString());
             }
 
+
             System.out.println("------------------------------------------------------");
             System.out.println("                  F I N I S H E D");
             System.out.println("------------------------------------------------------");
 
+             */
         } catch (IOException e){
             logger.log(Level.SEVERE, null, e);
         } catch (Exception e) {
@@ -169,11 +168,8 @@ public class ControllerTest {
     }
 
     private void traverseBarsMethod(ArrayList<Instruction> instructions){
-        int i = 0;
         for (Instruction ins: instructions){
             ins.execute();
-            i++;
-            System.out.println("Error en la instruccion " + i);
             if (ins.type == Type.SENTENCE){
                 if (((Sentence) ins).sentType == SentType.DECLARE_ID){
                     DeclareId dcId = ((DeclareId) ins);

@@ -1,5 +1,7 @@
 package gt.edu.usac.ingenieria.editor;
 
+import gt.edu.usac.ingenieria.Variables;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
@@ -163,15 +165,15 @@ public class EditorController {
     private class ExecuteListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            switch (analyzer){
-                case STATPY:
+            switch (analyzer) {
+                case STATPY -> {
                     executeStatPy();
                     view.setSelectedStatPy(true);
-                    break;
-                case JSON:
+                }
+                case JSON -> {
                     loadJson();
                     view.setLoadedJsonsText(String.valueOf(view.getLoadedJsonsNum() + 1));
-                    break;
+                }
             }
 
         }
@@ -203,7 +205,6 @@ public class EditorController {
     private class ClearListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
         }
     }
 }

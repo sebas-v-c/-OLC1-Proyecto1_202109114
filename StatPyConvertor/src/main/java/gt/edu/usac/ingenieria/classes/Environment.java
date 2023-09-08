@@ -5,9 +5,9 @@ import gt.edu.usac.ingenieria.lang.statpy.expression.Value;
 import java.util.HashMap;
 
 public class Environment {
-    public HashMap<String, Object> globals;
-    public HashMap<String, Object> pie;
-    public HashMap<String, Object> bars;
+    private HashMap<String, Object> globals;
+    private HashMap<String, Object> pie;
+    private HashMap<String, Object> bars;
 
     public Environment(){
         globals = new HashMap<>();
@@ -15,6 +15,11 @@ public class Environment {
         bars = new HashMap<>();
     }
 
+    public void clearEnv(){
+        globals = new HashMap<>();
+        pie = new HashMap<>();
+        bars = new HashMap<>();
+    }
     public void updateVar(String id, Object val) throws IDNotFoundException {
         Object glob = getGlobalsValue(id);
         if (glob != null) {
