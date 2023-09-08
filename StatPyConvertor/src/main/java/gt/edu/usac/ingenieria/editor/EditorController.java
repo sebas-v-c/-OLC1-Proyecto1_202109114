@@ -1,6 +1,14 @@
 package gt.edu.usac.ingenieria.editor;
 
 import gt.edu.usac.ingenieria.Variables;
+import gt.edu.usac.ingenieria.analyzer.errors.LexError;
+import gt.edu.usac.ingenieria.analyzer.errors.SynError;
+import gt.edu.usac.ingenieria.analyzer.json.JsonLexer;
+import gt.edu.usac.ingenieria.analyzer.json.JsonParser;
+import gt.edu.usac.ingenieria.classes.Json;
+import gt.edu.usac.ingenieria.lang.json.KeyVal;
+import java_cup.runtime.Symbol;
+import junit.framework.Assert;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -10,14 +18,20 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.logging.Level;
 
 
 public class EditorController {
     private final EditorView view;
     private Mode analyzer = Mode.STATPY;
     private String filePath;
+    private ArrayList<LexError> lexJsonErrors;
+    private ArrayList<LexError> lexStpErrors;
+    private ArrayList<SynError> synJsonErrors;
+    private ArrayList<SynError> synStpErrors;
     public EditorController(EditorView view) {
         this.view = view;
 
@@ -173,17 +187,43 @@ public class EditorController {
                 }
                 case JSON -> {
                     loadJson();
-                    view.setLoadedJsonsText(String.valueOf(view.getLoadedJsonsNum() + 1));
+                    view.setLoadedJsonsText(String.valueOf(Variables.getInstance().jsonVars.size()));
                 }
             }
 
         }
+
         // This should thow an exception
-        private void executeStatPy(){
+        private void executeStatPy() {
+
 
         }
+
         // This should thow an exception
         private void loadJson() {
+            JsonLexer scanner;
+            JsonParser parser = null;
+            Symbol parseSymbol = null;
+            try {
+                String fileName = Path.of(filePath).getFileName().toString();
+                BufferedReader br = new BufferedReader(new FileReader(filePath));
+                scanner = new JsonLexer(br);
+                parser = new JsonParser(scanner);
+                parseSymbol = parser.parse();
+                Variables.getInstance().jsonVars.put(fileName, new Json());
+                for (KeyVal cont : parser.content) {
+                    Variables.getInstance().jsonVars.get(fileName).addKeyValue(cont.id, cont.getVal());
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            if (!parser.getErrors().isEmpty()) {
+                synJsonErrors = parser.getErrors();
+            }
+            if (!scanner.getErrors().isEmpty()) {
+                lexJsonErrors = scanner.getErrors();
+            }
         }
     }
 
