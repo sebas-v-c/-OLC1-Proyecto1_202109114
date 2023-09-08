@@ -453,35 +453,24 @@ public class EditorController {
     private class ReportErrorsListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            ErrorReport report = new ErrorReport(lexJsonErrors, synJsonErrors);
+            report.buildReport("Json Errors");
+            report.setErrors(lexStpErrors, synStpErrors);
+            report.buildReport("StatPy Errors");
 
-            try {
-                ErrorReport report = new ErrorReport(lexJsonErrors, synJsonErrors);
-                report.generateReport();
-            } catch (Exception exception){
-                //TODO show exception
-            }
-
-            try {
-                ErrorReport report = new ErrorReport(lexStpErrors, synStpErrors);
-                report.generateReport();
-            } catch (Exception exception){}
+            report.generateReport();
         }
     }
     // TODO generate tokens report
     private class ReportTokensListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            try {
-                TokenReport report = new TokenReport(jsonSymbols);
-                report.generateReport();
-            } catch (Exception exception){
-                //TODO show exception
-            }
+            TokenReport report = new TokenReport(jsonSymbols);
+            report.buildReport("Json Tokens");
+            report.setSymbols(stpSymbols);
+            report.buildReport("StatPy Tokens");
 
-            try {
-                TokenReport report = new TokenReport(stpSymbols);
-                report.generateReport();
-            } catch (Exception exception){}
+            report.generateReport();
         }
     }
 

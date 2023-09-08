@@ -8,11 +8,28 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Report {
     protected String filePath;
-    public abstract void generateReport() throws Exception;
+    protected HashMap<String, String> reports;
 
+    public Report(){
+        reports = new HashMap<>();
+    }
+    public void generateReport(){
+        StringBuilder report = new StringBuilder();
+        for (Map.Entry<String, String> entry: reports.entrySet()){
+            report.append("<H1>").append(entry.getKey()).append("</H1>").append("\n");
+            report.append(entry.getValue()).append("\n");
+        }
+
+        saveReport(report.toString());
+        openHTMLFile(filePath);
+    };
+
+    public abstract void buildReport(String reportName);
     protected void saveReport(String s){
         UIManager.put("FileChooser.openButtonText", "Save");
         String currentDir = System.getProperty("user.dir");
@@ -20,7 +37,7 @@ public abstract class Report {
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         FileNameExtensionFilter filter;
         String extension = "html";
-        filter = new FileNameExtensionFilter("Archivos StatPy (*.stp)", extension);
+        filter = new FileNameExtensionFilter("Archivos HTML", extension);
 
         chooser.setFileFilter(filter);
 
