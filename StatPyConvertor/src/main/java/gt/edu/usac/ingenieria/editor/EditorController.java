@@ -10,6 +10,7 @@ import gt.edu.usac.ingenieria.analyzer.statpy.STPParser;
 import gt.edu.usac.ingenieria.classes.Json;
 import gt.edu.usac.ingenieria.editor.chart.ChartFrame;
 import gt.edu.usac.ingenieria.editor.reports.ErrorReport;
+import gt.edu.usac.ingenieria.editor.reports.TokenReport;
 import gt.edu.usac.ingenieria.lang.json.KeyVal;
 import gt.edu.usac.ingenieria.lang.statpy.Instruction;
 import gt.edu.usac.ingenieria.lang.statpy.Type;
@@ -33,6 +34,8 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class EditorController {
@@ -44,6 +47,8 @@ public class EditorController {
     private ArrayList<LexError> lexStpErrors = new ArrayList<>();
     private ArrayList<SynError> synJsonErrors = new ArrayList<>();
     private ArrayList<SynError> synStpErrors = new ArrayList<>();
+    private ArrayList<Symbol> stpSymbols = new ArrayList<>();
+    private ArrayList<Symbol> jsonSymbols = new ArrayList<>();
     public EditorController(EditorView view) {
         this.view = view;
 
@@ -197,18 +202,44 @@ public class EditorController {
         public void actionPerformed(ActionEvent e) {
             switch (analyzer) {
                 case STATPY -> {
+                    scanStatPy();
                     executeStatPy();
                     Variables.getInstance().graphVars.clearEnv();
                     lexStpErrors.clear(); synStpErrors.clear();
                     view.setSelectedStatPy(true);
                 }
                 case JSON -> {
+                    scanJson();
                     loadJson();
                     lexJsonErrors.clear(); synJsonErrors.clear();
                     view.setLoadedJsonsText(String.valueOf(Variables.getInstance().jsonVars.size()));
                 }
             }
 
+        }
+        private void scanJson(){
+            JsonLexer scanner = null;
+            Symbol parseSymbol = null;
+            try{
+                BufferedReader br = new BufferedReader(new StringReader(view.getEntryTextArea()));
+                scanner = new JsonLexer(br);
+                do {
+                    parseSymbol = scanner.next_token();
+                    jsonSymbols.add(parseSymbol);
+                } while (parseSymbol.value != null);
+            } catch (Exception e) {}
+        }
+        private void scanStatPy(){
+            STPLexer scanner = null;
+            Symbol parseSymbol = null;
+            try{
+                BufferedReader br = new BufferedReader(new StringReader(view.getEntryTextArea()));
+                scanner = new STPLexer(br);
+                do {
+                    parseSymbol = scanner.next_token();
+                    stpSymbols.add(parseSymbol);
+                } while (parseSymbol.value != null);
+            } catch (Exception e) {}
         }
 
         // This should thow an exception
@@ -440,7 +471,17 @@ public class EditorController {
     private class ReportTokensListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            try {
+                TokenReport report = new TokenReport(jsonSymbols);
+                report.generateReport();
+            } catch (Exception exception){
+                //TODO show exception
+            }
 
+            try {
+                TokenReport report = new TokenReport(stpSymbols);
+                report.generateReport();
+            } catch (Exception exception){}
         }
     }
 

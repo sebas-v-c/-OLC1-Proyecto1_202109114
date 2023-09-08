@@ -26,7 +26,7 @@ import gt.edu.usac.ingenieria.analyzer.errors.LexError;
         private Symbol symbol(int type, Object value){
             return new Symbol(type, yyline, yycolumn, value);
         }
-    %}
+%}
 
 
 // directives
