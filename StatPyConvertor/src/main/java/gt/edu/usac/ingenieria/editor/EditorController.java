@@ -9,6 +9,7 @@ import gt.edu.usac.ingenieria.analyzer.statpy.STPLexer;
 import gt.edu.usac.ingenieria.analyzer.statpy.STPParser;
 import gt.edu.usac.ingenieria.classes.Json;
 import gt.edu.usac.ingenieria.editor.chart.ChartFrame;
+import gt.edu.usac.ingenieria.editor.reports.ErrorReport;
 import gt.edu.usac.ingenieria.lang.json.KeyVal;
 import gt.edu.usac.ingenieria.lang.statpy.Instruction;
 import gt.edu.usac.ingenieria.lang.statpy.Type;
@@ -422,6 +423,17 @@ public class EditorController {
         @Override
         public void actionPerformed(ActionEvent e) {
 
+            try {
+                ErrorReport report = new ErrorReport(lexJsonErrors, synJsonErrors);
+                report.generateReport();
+            } catch (Exception exception){
+                //TODO show exception
+            }
+
+            try {
+                ErrorReport report = new ErrorReport(lexStpErrors, synStpErrors);
+                report.generateReport();
+            } catch (Exception exception){}
         }
     }
     // TODO generate tokens report
