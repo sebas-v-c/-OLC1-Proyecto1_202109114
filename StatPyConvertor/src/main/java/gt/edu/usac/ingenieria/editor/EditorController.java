@@ -221,7 +221,6 @@ public class EditorController {
                 BufferedReader br = new BufferedReader(new StringReader(view.getEntryTextArea()));
                 scannerstp = new STPLexer(br);
                 parserstp = new STPParser(scannerstp);
-                //parseSymbol = parser.debug_parse();
                 parseSymbolstp = parserstp.parse();
                 /*
                 CODE TO TRADUCE TO PYTHON
@@ -277,6 +276,7 @@ public class EditorController {
         }
 
         private void traverseBarsMethod(ArrayList<Instruction> instructions){
+            Variables.getInstance().graphVars.addNewBars();
             for (Instruction ins: instructions){
                 ins.execute();
                 if (ins.type == Type.SENTENCE){
@@ -292,6 +292,7 @@ public class EditorController {
         }
 
         private void traversePieMethod(ArrayList<Instruction> instructions){
+            Variables.getInstance().graphVars.addNewPie();
             for (Instruction ins: instructions){
                 ins.execute();
                 if (ins.type == Type.SENTENCE){
