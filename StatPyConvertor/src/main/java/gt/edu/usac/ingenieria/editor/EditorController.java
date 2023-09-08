@@ -39,10 +39,10 @@ public class EditorController {
     private Mode analyzer = Mode.STATPY;
     private String filePath;
     private String currentStatpyS = "";
-    private ArrayList<LexError> lexJsonErrors;
-    private ArrayList<LexError> lexStpErrors;
-    private ArrayList<SynError> synJsonErrors;
-    private ArrayList<SynError> synStpErrors;
+    private ArrayList<LexError> lexJsonErrors = new ArrayList<>();
+    private ArrayList<LexError> lexStpErrors = new ArrayList<>();
+    private ArrayList<SynError> synJsonErrors = new ArrayList<>();
+    private ArrayList<SynError> synStpErrors = new ArrayList<>();
     public EditorController(EditorView view) {
         this.view = view;
 
@@ -190,7 +190,6 @@ public class EditorController {
         }
     }
 
-    // TODO create execute method
     // the execute either traduce or analyze only
     private class ExecuteListener implements ActionListener {
         @Override
@@ -199,10 +198,12 @@ public class EditorController {
                 case STATPY -> {
                     executeStatPy();
                     Variables.getInstance().graphVars.clearEnv();
+                    lexStpErrors.clear(); synStpErrors.clear();
                     view.setSelectedStatPy(true);
                 }
                 case JSON -> {
                     loadJson();
+                    lexJsonErrors.clear(); synJsonErrors.clear();
                     view.setLoadedJsonsText(String.valueOf(Variables.getInstance().jsonVars.size()));
                 }
             }
@@ -229,7 +230,7 @@ public class EditorController {
                             view.setOutTextArea(inst.toPython());
                         }
                     } catch (Exception e){
-                        // TODO display an error message
+                        view.showErrorMessage("Ha habido un error traduciendo el archivo");
                     }
                 }
                 /*
@@ -243,25 +244,27 @@ public class EditorController {
                             case PIE -> traversePieMethod(((Pie) graph).instructions);
                         }
                     } catch (Exception e){
-                        // TODO display an error message
+                        view.showErrorMessage("Ha habido un error evaluando las Graficas");
                     }
                 }
-            } catch (IOException e){
             } catch (Exception e) {
+                view.showErrorMessage("Ha ocurrido un error");
             }
 
             try{
                 generateCharts();
             } catch (Exception e){
                 System.out.println(e);
-
+                view.showErrorMessage("Ha habido un error generando las Graficas");
             }
 
             if (!parserstp.getErrors().isEmpty()) {
                 synStpErrors = parserstp.getErrors();
+                view.showWarningMessage("Existen Errores Sintacticos");
             }
             if (!scannerstp.getErrors().isEmpty()) {
                 lexJsonErrors = scannerstp.getErrors();
+                view.showWarningMessage("Existen Errores Lexicos");
             }
         }
 
@@ -383,8 +386,11 @@ public class EditorController {
                 parser = new JsonParser(scanner);
                 parseSymbol = parser.parse();
                 Variables.getInstance().jsonVars.put(fileName, new Json());
-                for (KeyVal cont : parser.content) {
-                    Variables.getInstance().jsonVars.get(fileName).addKeyValue(cont.id, cont.getVal());
+                for (int i = 0; i < parser.content.size(); i++){
+                    try{
+                        KeyVal keyVal = parser.content.get(i);
+                        Variables.getInstance().jsonVars.get(fileName).addKeyValue(keyVal.id, keyVal.getVal());
+                    } catch (Exception e){}
                 }
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -392,9 +398,11 @@ public class EditorController {
 
             if (!parser.getErrors().isEmpty()) {
                 synJsonErrors = parser.getErrors();
+                view.showWarningMessage("Existen Errores Sintacticos");
             }
             if (!scanner.getErrors().isEmpty()) {
                 lexJsonErrors = scanner.getErrors();
+                view.showWarningMessage("Existen Errores Lexicos");
             }
         }
     }
@@ -419,9 +427,14 @@ public class EditorController {
         public void actionPerformed(ActionEvent e) {
             Variables.getInstance().graphVars.clearEnv();
             view.setSelectedStatPy(false);
+            synJsonErrors.clear();
+            synStpErrors.clear();
+            lexJsonErrors.clear();
+            lexStpErrors.clear();
             Variables.getInstance().jsonVars = new HashMap<>();
             view.setLoadedJsonsText(String.valueOf(0));
             currentStatpyS = "";
         }
     }
 }
+

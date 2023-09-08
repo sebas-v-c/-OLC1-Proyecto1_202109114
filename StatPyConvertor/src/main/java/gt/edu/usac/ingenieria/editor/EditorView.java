@@ -138,6 +138,16 @@ public class EditorView extends JFrame{
         statPyRadioButton.setIcon(loadImageFromResources("not-mark.png"));
     }
 
+    public void showMessageDialog(String m){
+        JOptionPane.showMessageDialog(mainPanel, m);
+    }
 
+    public void showWarningMessage(String m){
+        JOptionPane.showMessageDialog(mainPanel, m, "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void showErrorMessage(String m){
+        JOptionPane.showMessageDialog(mainPanel, m, "ERROR",JOptionPane.ERROR_MESSAGE);
+    }
 
 }
