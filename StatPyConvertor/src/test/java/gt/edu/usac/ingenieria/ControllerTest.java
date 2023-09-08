@@ -55,13 +55,6 @@ public class ControllerTest {
             for (KeyVal cont: parser.content) {
                 Variables.getInstance().jsonVars.get(file).addKeyValue(cont.id, cont.getVal());
             }
-            for (Json json : Variables.getInstance().jsonVars.values()){
-                System.out.println("VALORES DEL JSON CARGADOS:\n" + json.getValues());
-            }
-            System.out.println("LLAVES DEL JSON CARGADAS:");
-            for (String keys : Variables.getInstance().jsonVars.get(file).getKeys()){
-                System.out.println(keys);
-            }
         } catch (Exception e){
             Logger.getLogger(ControllerTest.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -91,7 +84,7 @@ public class ControllerTest {
             parserstp = new STPParser(scannerstp);
             //parseSymbol = parser.debug_parse();
             parseSymbolstp = parserstp.parse();
-
+            int i = 1;
             for (Instruction inst: parserstp.inst) {
                 try{
                     if (((Structure) inst).structType == StructType.MAIN){
@@ -121,7 +114,16 @@ public class ControllerTest {
                 }
             }
 
+            System.out.println("VARIABLES GLOBALES");
             for (Map.Entry<String, Object> entry: Variables.getInstance().graphVars.globals.entrySet()){
+                System.out.println("KEY: "+ entry.getKey() + " Value: " + entry.getValue().toString());
+            }
+            System.out.println("VARIABLES DE BARRAS");
+            for (Map.Entry<String, Object> entry: Variables.getInstance().graphVars.bars.entrySet()){
+                System.out.println("KEY: "+ entry.getKey() + " Value: " + entry.getValue().toString());
+            }
+            System.out.println("VARIABLES DE PIE");
+            for (Map.Entry<String, Object> entry: Variables.getInstance().graphVars.pie.entrySet()){
                 System.out.println("KEY: "+ entry.getKey() + " Value: " + entry.getValue().toString());
             }
 
@@ -167,8 +169,11 @@ public class ControllerTest {
     }
 
     private void traverseBarsMethod(ArrayList<Instruction> instructions){
+        int i = 0;
         for (Instruction ins: instructions){
             ins.execute();
+            i++;
+            System.out.println("Error en la instruccion " + i);
             if (ins.type == Type.SENTENCE){
                 if (((Sentence) ins).sentType == SentType.DECLARE_ID){
                     DeclareId dcId = ((DeclareId) ins);

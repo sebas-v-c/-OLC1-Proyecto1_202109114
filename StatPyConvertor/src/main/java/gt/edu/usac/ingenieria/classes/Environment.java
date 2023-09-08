@@ -1,11 +1,13 @@
 package gt.edu.usac.ingenieria.classes;
 
+import gt.edu.usac.ingenieria.lang.statpy.expression.Value;
+
 import java.util.HashMap;
 
 public class Environment {
     public HashMap<String, Object> globals;
-    HashMap<String, Object> pie;
-    HashMap<String, Object> bars;
+    public HashMap<String, Object> pie;
+    public HashMap<String, Object> bars;
 
     public Environment(){
         globals = new HashMap<>();
@@ -37,15 +39,16 @@ public class Environment {
     }
 
     public Object findVar(String id) {
-        Object glob = getGlobalsValue(id);
+        System.out.println(id);
+        Object glob = ((Value)getGlobalsValue(id)).value();
         if (glob != null) {
             return glob;
         }
-        Object pie = getPieValue(id);
+        Object pie = ((Value)getPieValue(id)).value();
         if (pie != null){
             return pie;
         }
-        Object bars = getBarsValue(id);
+        Object bars = ((Value)getBarsValue(id)).value();
         if (bars != null){
             return bars;
         }

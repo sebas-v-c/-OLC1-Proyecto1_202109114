@@ -29,6 +29,6 @@ public class AccesId extends Expression{
             return new Value((Integer) obj, PrimitiveType.STRING);
         }
 
-        throw new IllegalStateException("Not declared type");
+        throw new IllegalStateException("Not declared type accessing this id: " + id);
     }
 }

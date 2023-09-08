@@ -16,7 +16,7 @@ void main ( ){
 		double pe2 = 0.5;
 		double pe3 = 0.2;
 		double po1 = ${ NewValor, "ejemplo.json", "valor1"};
-		double po2 = ${ NewValor, "ejemplo.json", "valor1"};
+		double po2 = ${ NewValor, "ejemplo.json", "valor2"};
 		string vart = "Valor Obtenido";
 		string var2 = "Valor Esperado clase 1";
 		string var22 = "Valor Obtenido clase 2";
@@ -24,8 +24,8 @@ void main ( ){
 	}
 	void GraficaBarras(){
 		string Titulo= reporte1;
-		string [] Ejex= { "Probabilidad 1", "Probabilidad 1", var2, var22, var3, var33};
-		double [] Valores= { pe1, po1, pe2, po2, pe3, ${ NewValor, "archivo1.json", "valor2"} };
+		string [] Ejex= { "Probabilidad 1", "Probabilidad 1", vart, var2, var22, var3};
+		double [] Valores= { pe1, po1, pe2, po2, pe3, ${ NewValor, "ejemplo.json", "valor2"} };
 		string TituloX= "Atributo";
 		string TituloY= "Puntaje";
 	}

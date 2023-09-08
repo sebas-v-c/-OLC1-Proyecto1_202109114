@@ -22,6 +22,7 @@ public class DeclareArr extends Sentence{
 
     @Override
     public void execute() {
+        arrVals = new ArrayList<>();
         for (Expression exp : expressions){
             arrVals.add(exp.evaluate());
         }
