@@ -728,6 +728,7 @@ public class STPParser extends java_cup.runtime.lr_parser {
 
 
     public ArrayList<Instruction> inst;
+    public ArrayList<Graph> graphs = new ArrayList<>();
     public ArrayList<SynError> errors = new ArrayList<>();
     public void syntax_error(Symbol s){
         errors.add(new SynError(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
@@ -844,7 +845,7 @@ class CUP$STPParser$actions {
 		int bleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
 		int bright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
 		Bars b = (Bars)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
-		RESULT = b;
+		RESULT = b; graphs.add(b);
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("GraphFuncs",30, ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -856,7 +857,7 @@ class CUP$STPParser$actions {
 		int bleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
 		int bright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
 		Pie b = (Pie)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
-		RESULT = b;
+		RESULT = b; graphs.add(b);
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("GraphFuncs",30, ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;
@@ -1128,7 +1129,7 @@ class CUP$STPParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 25: // GlobalVarsFunc ::= KW_VOID KW_DEFGLB TK_LPAR TK_RPAR GlobalVarsEnv 
             {
-              Graph RESULT =null;
+              Global RESULT =null;
 		int gleft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-3)).left;
 		int gright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.elementAt(CUP$STPParser$top-3)).right;
 		String g = (String)((java_cup.runtime.Symbol) CUP$STPParser$stack.elementAt(CUP$STPParser$top-3)).value;
@@ -1437,8 +1438,8 @@ class CUP$STPParser$actions {
               Instruction RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()).right;
-		Graph i = (Graph)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
-		RESULT=i;
+		Global i = (Global)((java_cup.runtime.Symbol) CUP$STPParser$stack.peek()).value;
+		RESULT=i; graphs.add(i);
               CUP$STPParser$result = parser.getSymbolFactory().newSymbol("Instruction",3, ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$STPParser$stack.peek()), RESULT);
             }
           return CUP$STPParser$result;

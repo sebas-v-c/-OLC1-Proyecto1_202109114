@@ -15,6 +15,7 @@ import gt.edu.usac.ingenieria.lang.statpy.structure.*;
 parser code
 {:
     public ArrayList<Instruction> inst;
+    public ArrayList<Graph> graphs = new ArrayList<>();
     public ArrayList<SynError> errors = new ArrayList<>();
     public void syntax_error(Symbol s){
         errors.add(new SynError(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
@@ -97,7 +98,7 @@ non terminal ArrayList<Expression> ArgsList;
 
 //non terminal DeclareFunc;
 
-non terminal Graph GlobalVarsFunc;
+non terminal Global GlobalVarsFunc;
 non terminal ArrayList<Instruction> GlobalVarsEnv;
 non terminal ArrayList<Instruction> GlobalVarsInsts;
 non terminal Instruction GlobalVarsInst;
@@ -144,8 +145,8 @@ Instructions    ::=
                 ;
 
 GraphFuncs      ::=
-                    BarGraph:b {:RESULT = b;:}
-                |   PieGraph:b {:RESULT = b;:}
+                    BarGraph:b {:RESULT = b; graphs.add(b);:}
+                |   PieGraph:b {:RESULT = b; graphs.add(b);:}
                 ;
 
 PieGraph        ::= KW_VOID KW_PIEGRPH:p TK_LPAR TK_RPAR TK_LBRC PieGraphInsts:i TK_RBRC {:RESULT = new Pie(pleft, pright, i);:};
@@ -218,7 +219,7 @@ Instruction     ::=
                 |   KW_RETURN:i TK_SCOLON                   {:RESULT= new Return(ileft, iright, null);:}
                 |   KW_RETURN:i Expresion:exp TK_SCOLON     {:RESULT= new Return(ileft, iright, exp);:}
                 |   KW_CONTINUE:i TK_SCOLON                 {:RESULT= new ControlRW(ileft, iright, i);:}
-                |   GlobalVarsFunc:i                        {:RESULT=i;:}
+                |   GlobalVarsFunc:i                        {:RESULT=i; graphs.add(i);:}
                 |   GraphFuncs:i                            {:RESULT=i;:}
                 |   error
                 ;
