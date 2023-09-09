@@ -456,9 +456,10 @@ public class EditorController {
     private class ReportTokensListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            TokenReport report = new TokenReport(jsonSymbols);
+            TokenReport report = new TokenReport(jsonSymbols, Mode.JSON);
             report.buildReport("Json Tokens");
             report.setSymbols(stpSymbols);
+            report.mode = Mode.STATPY;
             report.buildReport("StatPy Tokens");
 
             report.generateReport();

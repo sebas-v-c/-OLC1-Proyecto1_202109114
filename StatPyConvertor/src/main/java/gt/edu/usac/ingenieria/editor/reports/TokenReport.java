@@ -1,5 +1,6 @@
 package gt.edu.usac.ingenieria.editor.reports;
 
+import gt.edu.usac.ingenieria.editor.Mode;
 import java_cup.runtime.Symbol;
 
 import java.util.ArrayList;
@@ -7,12 +8,14 @@ import java.util.HashMap;
 
 public class TokenReport extends Report{
     private ArrayList<Symbol> symbols;
-    public TokenReport(ArrayList<Symbol> symbols) {
+    public Mode mode;
+    public TokenReport(ArrayList<Symbol> symbols, Mode mode) {
         super();
         this.symbols = symbols;
+        this.mode = mode;
     }
 
-    public TokenReport() {
+    public TokenReport(Mode mode) {
         super();
     }
 
@@ -34,7 +37,13 @@ public class TokenReport extends Report{
                 }
                 htmlTable.append("<tr>");
                 htmlTable.append("<td>").append(token.value).append("</td>");
-                htmlTable.append("<td>").append(gt.edu.usac.ingenieria.analyzer.json.SYM.terminalNames[token.sym]).append("</td>");
+                if (mode == Mode.JSON){
+                    htmlTable.append("<td>").append(gt.edu.usac.ingenieria.analyzer.json.SYM.terminalNames[token.sym]).append("</td>");
+                } else {
+                    htmlTable.append("<td>").append(gt.edu.usac.ingenieria.analyzer.statpy.SYM.terminalNames[token.sym]).append("</td>");
+                }
+
+
                 htmlTable.append("<td>").append(token.left).append("</td>");
                 htmlTable.append("<td>").append(token.right).append("</td>");
                 htmlTable.append("</tr>\n");
