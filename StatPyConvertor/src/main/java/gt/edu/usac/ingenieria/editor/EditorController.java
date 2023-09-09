@@ -440,7 +440,6 @@ public class EditorController {
         }
     }
 
-    // TODO generate errors report
     private class ReportErrorsListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -452,7 +451,6 @@ public class EditorController {
             report.generateReport();
         }
     }
-    // TODO generate tokens report
     private class ReportTokensListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
