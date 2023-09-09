@@ -202,16 +202,16 @@ public class EditorController {
         public void actionPerformed(ActionEvent e) {
             switch (analyzer) {
                 case STATPY -> {
+                    lexStpErrors.clear(); synStpErrors.clear();
                     scanStatPy();
                     executeStatPy();
                     Variables.getInstance().graphVars.clearEnv();
-                    lexStpErrors.clear(); synStpErrors.clear();
                     view.setSelectedStatPy(true);
                 }
                 case JSON -> {
+                    lexJsonErrors.clear(); synJsonErrors.clear();
                     scanJson();
                     loadJson();
-                    lexJsonErrors.clear(); synJsonErrors.clear();
                     view.setLoadedJsonsText(String.valueOf(Variables.getInstance().jsonVars.size()));
                 }
             }
@@ -275,16 +275,7 @@ public class EditorController {
                             case BARS -> traverseBarsMethod(((Bars) graph).instructions);
                             case PIE -> traversePieMethod(((Pie) graph).instructions);
                         }
-                    } catch (Exception e){
-                        /*
-                        switch (graph.graphType){
-                            case GLOBAL -> view.showWarningMessage("Ha habido un error en la definicion de variables Globales");
-                            case BARS -> view.showWarningMessage("Ha habido un error evaluando la Grafica de Barras");
-                            case PIE -> view.showWarningMessage("Ha habido un error evaluando la Grafica de Pie");
-                        }
-
-                         */
-                    }
+                    } catch (Exception e){}
                 }
             } catch (Exception e) {
                 view.showErrorMessage("Ha ocurrido un error");
@@ -297,7 +288,7 @@ public class EditorController {
                 view.showWarningMessage("Existen Errores Sintacticos");
             }
             if (!scannerstp.getErrors().isEmpty()) {
-                lexJsonErrors = scannerstp.getErrors();
+                lexStpErrors = scannerstp.getErrors();
                 view.showWarningMessage("Existen Errores Lexicos");
             }
         }

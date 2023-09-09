@@ -41,7 +41,6 @@ public class ErrorReport extends Report{
             System.out.println(e);
             System.out.println("Error generando reporte de errros");
         }
-
         // close table
         htmlTable.append("</table>");
 

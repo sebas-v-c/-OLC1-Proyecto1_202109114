@@ -34,7 +34,7 @@ public class TokenReport extends Report{
                 }
                 htmlTable.append("<tr>");
                 htmlTable.append("<td>").append(token.value).append("</td>");
-                htmlTable.append("<td>").append(gt.edu.usac.ingenieria.analyzer.statpy.SYM.terminalNames[token.sym]).append("</td>");
+                htmlTable.append("<td>").append(gt.edu.usac.ingenieria.analyzer.json.SYM.terminalNames[token.sym]).append("</td>");
                 htmlTable.append("<td>").append(token.left).append("</td>");
                 htmlTable.append("<td>").append(token.right).append("</td>");
                 htmlTable.append("</tr>\n");
