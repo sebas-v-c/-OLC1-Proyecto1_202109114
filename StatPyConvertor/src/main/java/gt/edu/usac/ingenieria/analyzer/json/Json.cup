@@ -1,0 +1,77 @@
+package gt.edu.usac.ingenieria.analyzer.json;
+import java.util.stream.Collectors;
+import java_cup.runtime.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import gt.edu.usac.ingenieria.analyzer.errors.SynError;
+import gt.edu.usac.ingenieria.lang.json.*;
+
+
+// PARSER
+parser code
+{:
+    public ArrayList<SynError> errors = new ArrayList<>();
+    public ArrayList<KeyVal> content = new ArrayList<>();
+    public void syntax_error(Symbol s){
+        errors.add(new SynError(s.left, s.right, s.value, SYM.terminalNames[s.sym]));
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+        errors.add(new SynError("Syntax error, impossible to recover"));
+    }
+    public ArrayList<SynError> getErrors() {
+        return errors;
+        //return errors.stream().map(Object::toString).collect(Collectors.joining("\n-> "));
+    }
+    public boolean isSuccessExecution() {
+        return !(errors.size() > 0);
+    }
+:}
+
+terminal String TK_LBRC, TK_RBRC;
+terminal String TK_COLON, TK_COMA;
+terminal String TK_STRING, TK_INT, TK_DOUBLE;
+terminal String TK_MINUS;
+terminal String TK_UMINUS;
+
+non terminal Init;
+
+non terminal Object;
+non terminal ArrayList<KeyVal> Contents;
+non terminal KeyVal Content;
+non terminal Value ValueType;
+
+
+precedence right TK_MINUS;
+
+
+
+
+start with Init;
+
+Init            ::= Object;
+
+Object          ::=
+                    TK_LBRC TK_RBRC
+                |   TK_LBRC Contents:c TK_RBRC {:content = c;:}
+                ;
+
+Contents        ::=
+                    Contents:l Content:c {:RESULT = l; RESULT.add(c);:}
+                |   Content:c            {:RESULT = new ArrayList<>(Arrays.asList(c));:}
+                ;
+
+Content         ::=
+                    TK_STRING:id TK_COLON ValueType:v TK_COMA {:RESULT = new KeyVal(idleft, idright, id, v);:}
+                |   TK_STRING:id TK_COLON ValueType:v         {:RESULT = new KeyVal(idleft, idright, id, v);:}
+                ;
+
+
+ValueType       ::=
+                    TK_STRING:v            {:RESULT = new Value(vleft, vright, v, Type.STRING);:}
+                |   TK_DOUBLE:v            {:RESULT = new Value(vleft, vright, v, Type.DOUBLE);:}
+                |   TK_INT:v               {:RESULT = new Value(vleft, vright, v, Type.INT);:}
+                |   TK_MINUS:s TK_INT:v    {:RESULT = new Value(sleft, sright, s + v, Type.INT);:}    %prec TK_UMINUS
+                |   TK_MINUS:s TK_DOUBLE:v {:RESULT = new Value(sleft, sright, s + v, Type.DOUBLE);:} %prec TK_UMINUS
+//                |   Object
+                ;

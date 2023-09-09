@@ -10,6 +10,94 @@
     </properties>
     <border type="none"/>
     <children>
+      <grid id="d3f8c" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="d4ec0" class="javax.swing.JMenuBar" binding="MenuBar" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="5d9f4" class="javax.swing.JMenu" binding="FileMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+                <constraints/>
+                <properties>
+                  <text value="Archivo"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="7a355" class="javax.swing.JMenuItem" binding="mOpen">
+                    <constraints/>
+                    <properties>
+                      <text value="Abrir Archivo"/>
+                    </properties>
+                  </component>
+                  <component id="d5f51" class="javax.swing.JMenuItem" binding="mSave">
+                    <constraints/>
+                    <properties>
+                      <text value="Guardar"/>
+                    </properties>
+                  </component>
+                  <component id="2e33b" class="javax.swing.JMenuItem" binding="mSaveAs">
+                    <constraints/>
+                    <properties>
+                      <text value="Guardar Como"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="b8998" class="javax.swing.JMenu" binding="AnalMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints/>
+                <properties>
+                  <text value="Analizador"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="de771" class="javax.swing.JMenuItem" binding="mStatPy">
+                    <constraints/>
+                    <properties>
+                      <text value="StatPy"/>
+                    </properties>
+                  </component>
+                  <component id="d8020" class="javax.swing.JMenuItem" binding="mJson">
+                    <constraints/>
+                    <properties>
+                      <text value="JSON"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="6c40e" class="javax.swing.JMenu" binding="ReportMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints/>
+                <properties>
+                  <text value="Reporte"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="4091a" class="javax.swing.JMenuItem" binding="mReportTokens">
+                    <constraints/>
+                    <properties>
+                      <text value="Tokens"/>
+                    </properties>
+                  </component>
+                  <component id="5d02a" class="javax.swing.JMenuItem" binding="mReportErrors">
+                    <constraints/>
+                    <properties>
+                      <text value="Errores Léxicos"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </grid>
       <grid id="244d1" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
@@ -18,7 +106,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="26408" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="26408" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="10" bottom="0" right="10"/>
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -54,15 +142,10 @@
                   </component>
                 </children>
               </grid>
-              <hspacer id="3d9d0">
-                <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-              </hspacer>
               <grid id="b9e22" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
@@ -75,12 +158,12 @@
                     </constraints>
                     <properties>
                       <autoscrolls value="true"/>
-                      <dividerLocation value="952"/>
+                      <dividerLocation value="1000"/>
                       <dividerSize value="10"/>
                       <doubleBuffered value="false"/>
                       <enabled value="true"/>
                       <inheritsPopupMenu value="false"/>
-                      <lastDividerLocation value="1000"/>
+                      <lastDividerLocation value="952"/>
                       <oneTouchExpandable value="false"/>
                     </properties>
                     <border type="bevel-lowered"/>
@@ -179,9 +262,10 @@
                                 <constraints/>
                                 <properties>
                                   <editable value="false"/>
-                                  <enabled value="false"/>
+                                  <enabled value="true"/>
                                   <font name="JetBrains Mono" size="14" style="0"/>
                                   <minimumSize width="350" height="20"/>
+                                  <opaque value="false"/>
                                 </properties>
                               </component>
                             </children>
@@ -192,9 +276,60 @@
                   </splitpane>
                 </children>
               </grid>
+              <grid id="29972" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="3b430" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Archivos JSON cargados:"/>
+                    </properties>
+                  </component>
+                  <component id="70ce3" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Archivo StatPy Cargado:"/>
+                    </properties>
+                  </component>
+                  <component id="d7e82" class="javax.swing.JLabel" binding="loadedJsonsLabel">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="0"/>
+                    </properties>
+                  </component>
+                  <component id="61059" class="javax.swing.JRadioButton" binding="statPyRadioButton" custom-create="true">
+                    <constraints>
+                      <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <contentAreaFilled value="true"/>
+                      <enabled value="false"/>
+                      <focusable value="false"/>
+                      <selected value="false"/>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <hspacer id="23bb1">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
             </children>
           </grid>
-          <grid id="e53ec" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="e53ec" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="10" left="10" bottom="10" right="10"/>
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -204,7 +339,7 @@
             <children>
               <component id="78d03" class="javax.swing.JButton" binding="execButton">
                 <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Ejecutar"/>
@@ -212,97 +347,17 @@
               </component>
               <hspacer id="a5645">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
               </hspacer>
-            </children>
-          </grid>
-        </children>
-      </grid>
-      <grid id="d3f8c" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
-        <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children>
-          <grid id="d4ec0" class="javax.swing.JMenuBar" binding="MenuBar" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties/>
-            <border type="none"/>
-            <children>
-              <grid id="5d9f4" class="javax.swing.JMenu" binding="FileMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
-                <constraints/>
+              <component id="c05c8" class="javax.swing.JButton" binding="cleanButton">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
                 <properties>
-                  <text value="Archivo"/>
+                  <text value="Limpiar"/>
                 </properties>
-                <border type="none"/>
-                <children>
-                  <component id="7a355" class="javax.swing.JMenuItem" binding="mOpen">
-                    <constraints/>
-                    <properties>
-                      <text value="Abrir Archivo"/>
-                    </properties>
-                  </component>
-                  <component id="d5f51" class="javax.swing.JMenuItem" binding="mSave">
-                    <constraints/>
-                    <properties>
-                      <text value="Guardar"/>
-                    </properties>
-                  </component>
-                  <component id="2e33b" class="javax.swing.JMenuItem" binding="mSaveAs">
-                    <constraints/>
-                    <properties>
-                      <text value="Guardar Como"/>
-                    </properties>
-                  </component>
-                </children>
-              </grid>
-              <grid id="b8998" class="javax.swing.JMenu" binding="AnalMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
-                <constraints/>
-                <properties>
-                  <text value="Analizador"/>
-                </properties>
-                <border type="none"/>
-                <children>
-                  <component id="de771" class="javax.swing.JMenuItem" binding="mStatPy">
-                    <constraints/>
-                    <properties>
-                      <text value="StatPy"/>
-                    </properties>
-                  </component>
-                  <component id="d8020" class="javax.swing.JMenuItem" binding="mJson">
-                    <constraints/>
-                    <properties>
-                      <text value="JSON"/>
-                    </properties>
-                  </component>
-                </children>
-              </grid>
-              <grid id="6c40e" class="javax.swing.JMenu" binding="ReportMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
-                <constraints/>
-                <properties>
-                  <text value="Reporte"/>
-                </properties>
-                <border type="none"/>
-                <children>
-                  <component id="4091a" class="javax.swing.JMenuItem" binding="mReportTokens">
-                    <constraints/>
-                    <properties>
-                      <text value="Tokens"/>
-                    </properties>
-                  </component>
-                  <component id="5d02a" class="javax.swing.JMenuItem" binding="mReportErrors">
-                    <constraints/>
-                    <properties>
-                      <text value="Errores Léxicos"/>
-                    </properties>
-                  </component>
-                </children>
-              </grid>
+              </component>
             </children>
           </grid>
         </children>

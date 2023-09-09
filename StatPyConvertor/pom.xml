@@ -14,4 +14,101 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.vbmacher</groupId>
+            <artifactId>cup-maven-plugin</artifactId>
+            <version>11b-20160615-2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>de.jflex</groupId>
+                <artifactId>jflex-maven-plugin</artifactId>
+                <version>1.9.1</version>
+                <executions>
+                    <!-- TO execute this file we need to run "mvn jflex:generate@stp" -->
+                    <execution>
+                        <id>stp</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <lexDefinitions>
+                                <lexDefinition>src/main/java/gt/edu/usac/ingenieria/analyzer/statpy/StatPy.flex</lexDefinition>
+                            </lexDefinitions>
+                            <outputDirectory>src/main/java</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <!-- TO execute this file we need to run "mvn jflex:generate@json" -->
+                    <execution>
+                        <id>json</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <lexDefinitions>
+                                <lexDefinition>src/main/java/gt/edu/usac/ingenieria/analyzer/json/Json.flex</lexDefinition>
+                            </lexDefinitions>
+                            <outputDirectory>src/main/java</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <plugin>
+                <groupId>com.github.vbmacher</groupId>
+                <artifactId>cup-maven-plugin</artifactId>
+                <version>11b-20160615-2</version>
+                <executions>
+                    <execution>
+                        <!-- TO execute this file we need to run "mvn cup:generate@stp" -->
+                        <id>stp</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <cupDefinition>src/main/java/gt/edu/usac/ingenieria/analyzer/statpy/StatPy.cup</cupDefinition>
+                            <outputDirectory>src/main/java</outputDirectory>
+                            <className>STPParser</className>
+                            <symbolsName>SYM</symbolsName>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <!-- TO execute this file we need to run "mvn cup:generate@json" -->
+                        <id>json</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <cupDefinition>src/main/java/gt/edu/usac/ingenieria/analyzer/json/Json.cup</cupDefinition>
+                            <outputDirectory>src/main/java</outputDirectory>
+                            <className>JsonParser</className>
+                            <symbolsName>SYM</symbolsName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
