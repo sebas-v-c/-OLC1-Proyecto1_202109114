@@ -8,7 +8,9 @@ import gt.edu.usac.ingenieria.lang.statpy.sentence.ControlRW;
 import gt.edu.usac.ingenieria.lang.statpy.sentence.SentType;
 import gt.edu.usac.ingenieria.lang.statpy.sentence.Sentence;
 
+import java.beans.Introspector;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Case extends Structure{
     Expression exp;
@@ -23,9 +25,14 @@ public class Case extends Structure{
     @Override
     public String toPython() {
         StringBuilder str = new StringBuilder();
-        str.append(exp.toPython());
-        cleanBlock();
-        str.append(TranslateUtils.tabulate(block.toPython()));
+
+        str.append("case ").append(exp.toPython()).append(" :");
+        for (Instruction inst : block.instructions){
+            if ((inst instanceof ControlRW) && (Objects.equals(((ControlRW) inst).crw, "break"))){
+                continue;
+            }
+            str.append(TranslateUtils.tabulate(inst.toPython()));
+        }
         return str.toString();
     }
 

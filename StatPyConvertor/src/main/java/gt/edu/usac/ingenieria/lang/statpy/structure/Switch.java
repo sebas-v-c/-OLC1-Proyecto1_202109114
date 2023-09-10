@@ -1,5 +1,6 @@
 package gt.edu.usac.ingenieria.lang.statpy.structure;
 
+import gt.edu.usac.ingenieria.lang.statpy.Instruction;
 import gt.edu.usac.ingenieria.lang.statpy.TranslateUtils;
 import gt.edu.usac.ingenieria.lang.statpy.expression.Expression;
 import gt.edu.usac.ingenieria.lang.statpy.sentence.CodeBlock;
@@ -21,16 +22,15 @@ public class Switch extends Structure {
     @Override
     public String toPython() {
         StringBuilder str = new StringBuilder();
-        Case firstCase = cases.remove(0);
-        str.append("\nif ").append(exp.toPython() + " == ").append(firstCase.exp.toPython()).append(":");
-        firstCase.cleanBlock();
-        str.append(TranslateUtils.tabulate(firstCase.block.toPython()));
+        str.append("\nmatch ").append(exp.toPython()).append(" :");
         for(Case case_ : cases){
-            str.append("\nelif ").append(exp.toPython() + " == ").append(case_.toPython());
+            str.append(TranslateUtils.tabulate(case_.toPython()));
         }
         if (deft != null){
-            str.append("\nelse:");
-            str.append("\t").append(TranslateUtils.tabulate(deft.toPython()));
+            str.append(TranslateUtils.tabulate("case _ :"));
+            for (Instruction inst : deft.instructions){
+                str.append("\n\t\t").append(inst.toPython());
+            }
         }
 
         return str.append("\n\n").toString();
