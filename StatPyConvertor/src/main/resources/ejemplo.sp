@@ -5,7 +5,7 @@ void main ( ){
 	int a =1;
 	int c = -5.03;
 	int var1 = 5+8*9;
-	if (b > a){
+	if ((b > a) && (c > -5.0)){
 		Console.Write("b mayor que a");
 	}else if(a == b){
 		Console.Write("a y b son iguales");
@@ -40,6 +40,7 @@ void main ( ){
 
 	while(a < 10){
 		Console.Write("el valor de a es: " + a);
+		a = 10;
 	}
 
 	switch(a){
@@ -53,11 +54,12 @@ void main ( ){
     		break;
     	default:
     	    Console.Write("sepa pvtas que es a");
+    	    a = 4+5-3*1;
     }
 
     	do{
     		int b = c;
     		Console.Write(b);
-    	}while(a < 10);
+    	}while(!(a < 10));
 
 }
