@@ -12,7 +12,6 @@ import gt.edu.usac.ingenieria.lang.statpy.sentence.Sentence;
 
 public class For extends Structure{
     String id;
-    String val;
     Sentence decid;
     Expression exp1;
     Expression exp2;
