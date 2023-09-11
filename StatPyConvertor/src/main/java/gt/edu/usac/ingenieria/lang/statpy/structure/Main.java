@@ -30,7 +30,7 @@ public class Main extends Structure{
         }
         str.append("\n\n");
 
-        str.append("\nif __name__ = \"__main__\":").append(TranslateUtils.tabulate("main()\n"));
+        str.append("\nif __name__ == \"__main__\":").append(TranslateUtils.tabulate("main()\n"));
 
         return str.toString();
     }

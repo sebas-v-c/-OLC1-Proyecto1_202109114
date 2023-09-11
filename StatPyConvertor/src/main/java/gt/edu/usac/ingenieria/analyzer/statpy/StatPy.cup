@@ -163,6 +163,7 @@ PieGraphInsts   ::=
 PieGraphInst    ::=
                     KW_STRING KW_TITLE:t TK_EQ TK_ID:v TK_SCOLON                                     {:RESULT = new DeclareId(tleft, tright, t, new AccesId(vleft, vright, v));:}
                 |   KW_STRING KW_TITLE:t TK_EQ TK_STRING:v TK_SCOLON                                 {:RESULT = new DeclareId(tleft, tright, t, new Primitive(vleft, vright, v, PrimitiveType.STRING));:}
+                |   KW_STRING KW_TITLE:t TK_EQ CallJson:v TK_SCOLON                                  {:RESULT = new DeclareId(tleft, tright, t, v);:}
                 |   KW_STRING TK_LBRK TK_RBRK KW_XAXIS:x TK_EQ TK_LBRC ArgsList:a TK_RBRC TK_SCOLON  {:RESULT = new DeclareArr(xleft, xright, x, a);:}
                 |   KW_DOUBLE TK_LBRK TK_RBRK KW_VALUES:v TK_EQ TK_LBRC ArgsList:a TK_RBRC TK_SCOLON {:RESULT = new DeclareArr(vleft, vright, v, a);:}
                 ;
@@ -175,10 +176,13 @@ BarGraphInsts   ::=
 BarGraphInst    ::=
                     KW_STRING KW_TITLE:t TK_EQ TK_ID:id TK_SCOLON                                    {:RESULT = new DeclareId(tleft, tright, t, new AccesId(idleft, idright, id));:}
                 |   KW_STRING KW_TITLE:t TK_EQ TK_STRING:s TK_SCOLON                                 {:RESULT = new DeclareId(tleft, tright, t, new Primitive(sleft, sright, s, PrimitiveType.STRING));:}
+                |   KW_STRING KW_TITLE:t TK_EQ CallJson:v TK_SCOLON                                  {:RESULT = new DeclareId(tleft, tright, t, v);:}
                 |   KW_STRING KW_TITLEX:tx TK_EQ TK_STRING:s TK_SCOLON                               {:RESULT = new DeclareId(txleft, txright, tx, new Primitive(sleft, sright, s, PrimitiveType.STRING));:}
                 |   KW_STRING KW_TITLEX:tx TK_EQ TK_ID:id TK_SCOLON                                  {:RESULT = new DeclareId(txleft, txright, tx, new AccesId(idleft, idright, id));:}
+                |   KW_STRING KW_TITLEX:tx TK_EQ CallJson:v TK_SCOLON                                {:RESULT = new DeclareId(txleft, txright, tx, v);:}
                 |   KW_STRING KW_TITLEY:ty TK_EQ TK_STRING:s TK_SCOLON                               {:RESULT = new DeclareId(tyleft, tyright, ty, new Primitive(sleft, sright, s, PrimitiveType.STRING));:}
                 |   KW_STRING KW_TITLEY:ty TK_EQ TK_ID:id TK_SCOLON                                  {:RESULT = new DeclareId(tyleft, tyright, ty, new AccesId(idleft, idright, id));:}
+                |   KW_STRING KW_TITLEY:ty TK_EQ CallJson:v TK_SCOLON                                {:RESULT = new DeclareId(tyleft, tyright, ty, v);:}
                 |   KW_STRING TK_LBRK TK_RBRK KW_XAXIS:x TK_EQ TK_LBRC ArgsList:a TK_RBRC TK_SCOLON  {:RESULT = new DeclareArr(xleft, xright, x, a);:}
                 |   KW_DOUBLE TK_LBRK TK_RBRK KW_VALUES:v TK_EQ TK_LBRC ArgsList:a TK_RBRC TK_SCOLON {:RESULT = new DeclareArr(vleft, vright, v, a);:}
                 ;

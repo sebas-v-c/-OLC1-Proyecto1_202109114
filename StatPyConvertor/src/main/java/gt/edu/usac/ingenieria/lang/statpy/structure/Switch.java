@@ -29,7 +29,7 @@ public class Switch extends Structure {
         if (deft != null){
             str.append(TranslateUtils.tabulate("case _ :"));
             for (Instruction inst : deft.instructions){
-                str.append("\n\t\t").append(inst.toPython());
+                str.append("\n        ").append(inst.toPython());
             }
         }
 

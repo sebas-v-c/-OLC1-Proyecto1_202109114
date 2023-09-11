@@ -19,8 +19,8 @@ public class DoWhile extends Structure{
 
         str.append("while True:");
         str.append(TranslateUtils.tabulate(block.toPython())).append("\n");
-        str.append("\tif not (").append(exp.toPython()).append("):\n");
-        str.append("\t\tbreak");
+        str.append("    if not (").append(exp.toPython()).append("):\n");
+        str.append("        break");
 
         return str.toString();
     }

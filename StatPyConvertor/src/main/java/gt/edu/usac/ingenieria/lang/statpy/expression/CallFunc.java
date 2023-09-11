@@ -7,7 +7,7 @@ public class CallFunc extends Expression{
     ArrayList<Expression> args;
     public CallFunc(int line, int column, String id, ArrayList<Expression> args) {
         super(line, column, gt.edu.usac.ingenieria.lang.statpy.expression.ExpType.CALLFUNC);
-        this.id = id;
+        this.id = id.toLowerCase();
         this.args = args;
     }
 

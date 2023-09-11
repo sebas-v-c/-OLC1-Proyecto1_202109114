@@ -11,7 +11,7 @@ public class ReasignId extends Sentence{
 
     public ReasignId(int line, int column, String id, Expression exp) {
         super(line, column, SentType.REASIGN_ID);
-        this.id = id;
+        this.id = id.toLowerCase();
         this.exp = exp;
     }
 

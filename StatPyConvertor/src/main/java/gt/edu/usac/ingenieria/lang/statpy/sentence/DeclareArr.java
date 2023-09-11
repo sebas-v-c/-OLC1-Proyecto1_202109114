@@ -11,7 +11,7 @@ public class DeclareArr extends Sentence{
     public ArrayList<Object> arrVals;
     public DeclareArr(int line, int column, String id, ArrayList<Expression> expressions) {
         super(line, column, SentType.DECLARE_ARR);
-        this.id = id;
+        this.id = id.toLowerCase();
         this.expressions = expressions;
     }
 

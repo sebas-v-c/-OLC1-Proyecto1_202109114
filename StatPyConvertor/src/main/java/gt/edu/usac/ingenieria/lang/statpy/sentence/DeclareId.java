@@ -9,7 +9,7 @@ public class DeclareId extends Sentence{
     public Object varVal;
     public DeclareId(int line, int column, String id, Expression expression) {
         super(line, column, SentType.DECLARE_ID);
-        this.id = id;
+        this.id = id.toLowerCase();
         this.expression = expression;
     }
 

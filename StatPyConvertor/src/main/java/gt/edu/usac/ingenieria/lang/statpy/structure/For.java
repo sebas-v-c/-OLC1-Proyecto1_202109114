@@ -52,7 +52,11 @@ public class For extends Structure{
             case "--" -> str.append(", -1):");
         }
 
-        str.append(TranslateUtils.tabulate(block.toPython()));
+        try{
+            str.append(TranslateUtils.tabulate(block.toPython()));
+        } catch (Exception e){
+            return "";
+        }
 
         return str.append("\n\n").toString();
     }
