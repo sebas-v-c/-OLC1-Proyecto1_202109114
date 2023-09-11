@@ -21,9 +21,7 @@ public class For extends Structure{
         super(line, column, StructType.FOR);
         try{
             this.id = ((ReasignId) decid).id;
-        } catch (Exception e){
-            System.out.println(e);
-        }
+        } catch (Exception e){}
 
         try{
             this.id = ((DeclareId) decid).id;
@@ -41,7 +39,7 @@ public class For extends Structure{
         StringBuilder str = new StringBuilder();
         str.append("for ").append(((DeclareId) decid).id).append(" in range(").append(((DeclareId) decid).expression.toPython()).append(", ");
         Relational rel = (Relational) exp1;
-        System.out.println(Integer.valueOf((String)((Primitive)rel.right).object) + 1);
+        //System.out.println(Integer.valueOf((String)((Primitive)rel.right).object) + 1);
         switch (rel.relType){
             case LEQ -> str.append(Integer.parseInt(((String)(((Primitive)rel.right).object)))+1);
             case GEQ -> str.append(Integer.parseInt(((String)(((Primitive)rel.right).object)))-1);
