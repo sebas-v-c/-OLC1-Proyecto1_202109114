@@ -131,6 +131,8 @@ public class ExecuteListener implements ActionListener {
             controller.lexStpErrors = scannerstp.getErrors();
             controller.view.showWarningMessage("Existen Errores Lexicos");
         }
+
+        controller.view.showMessageDialog("Archivo StatPy Cargado");
     }
 
     private void generateCharts(){
