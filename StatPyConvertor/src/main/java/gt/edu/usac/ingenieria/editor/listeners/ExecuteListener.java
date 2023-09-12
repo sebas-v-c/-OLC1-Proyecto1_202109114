@@ -274,5 +274,7 @@ public class ExecuteListener implements ActionListener {
             controller.lexJsonErrors = scanner.getErrors();
             controller.view.showWarningMessage("Existen Errores Lexicos");
         }
+
+        controller.view.showMessageDialog("Archivo Json Cargado");
     }
 }

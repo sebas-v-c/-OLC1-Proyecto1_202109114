@@ -142,6 +142,10 @@ public class EditorView extends JFrame{
         JOptionPane.showMessageDialog(mainPanel, m);
     }
 
+    public void showOkMessagedialog(String m){
+        JOptionPane.showMessageDialog(mainPanel, m, "EXITO", JOptionPane.OK_OPTION);
+    }
+
     public void showWarningMessage(String m){
         JOptionPane.showMessageDialog(mainPanel, m, "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
     }

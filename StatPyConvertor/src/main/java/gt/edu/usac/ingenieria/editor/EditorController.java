@@ -161,6 +161,7 @@ public class EditorController {
             Variables.getInstance().jsonVars = new HashMap<>();
             view.setLoadedJsonsText(String.valueOf(0));
             currentStatpyS = "";
+            view.showOkMessagedialog("Archivos Eliminados");
         }
     }
 }
