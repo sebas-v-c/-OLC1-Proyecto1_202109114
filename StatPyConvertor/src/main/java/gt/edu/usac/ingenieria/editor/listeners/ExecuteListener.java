@@ -24,7 +24,6 @@ import gt.edu.usac.ingenieria.lang.statpy.structure.StructType;
 import gt.edu.usac.ingenieria.lang.statpy.structure.Structure;
 import java_cup.runtime.Symbol;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -34,7 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ExecuteListener implements ActionListener {
-    private EditorController controller;
+    private final EditorController controller;
     public ExecuteListener(EditorController controller){
         this.controller = controller;
     }
@@ -58,8 +57,8 @@ public class ExecuteListener implements ActionListener {
 
     }
     private void scanJson(){
-        JsonLexer scanner = null;
-        Symbol parseSymbol = null;
+        JsonLexer scanner;
+        Symbol parseSymbol;
         try{
             BufferedReader br = new BufferedReader(new StringReader(controller.view.getEntryTextArea()));
             scanner = new JsonLexer(br);
@@ -67,11 +66,11 @@ public class ExecuteListener implements ActionListener {
                 parseSymbol = scanner.next_token();
                 controller.jsonSymbols.add(parseSymbol);
             } while (parseSymbol.value != null);
-        } catch (Exception e) {}
+        } catch (Exception ignored) {}
     }
     private void scanStatPy(){
-        STPLexer scanner = null;
-        Symbol parseSymbol = null;
+        STPLexer scanner;
+        Symbol parseSymbol;
         try{
             BufferedReader br = new BufferedReader(new StringReader(controller.view.getEntryTextArea()));
             scanner = new STPLexer(br);
@@ -79,7 +78,7 @@ public class ExecuteListener implements ActionListener {
                 parseSymbol = scanner.next_token();
                 controller.stpSymbols.add(parseSymbol);
             } while (parseSymbol.value != null);
-        } catch (Exception e) {}
+        } catch (Exception ignored) {}
     }
 
     // This should thow an exception
@@ -115,7 +114,7 @@ public class ExecuteListener implements ActionListener {
                         case BARS -> traverseBarsMethod(((Bars) graph).instructions);
                         case PIE -> traversePieMethod(((Pie) graph).instructions);
                     }
-                } catch (Exception e){}
+                } catch (Exception ignored){}
             }
         } catch (Exception e) {
             controller.view.showErrorMessage("Ha ocurrido un error");
@@ -123,6 +122,7 @@ public class ExecuteListener implements ActionListener {
 
         generateCharts();
 
+        assert parserstp != null;
         if (!parserstp.getErrors().isEmpty()) {
             controller.synStpErrors = parserstp.getErrors();
             controller.view.showWarningMessage("Existen Errores Sintacticos");
@@ -188,12 +188,7 @@ public class ExecuteListener implements ActionListener {
                         xAxisArr,
                         values
                 );
-                ch.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        ch.dispose();
-                    }
-                });
+                ch.addActionListener(e -> ch.dispose());
             }
         } catch (Exception e){
             controller.view.showErrorMessage("No se pudo generar la grafica de Pie");
@@ -249,7 +244,7 @@ public class ExecuteListener implements ActionListener {
 
     private void loadJson() {
         JsonLexer scanner;
-        JsonParser parser = null;
+        JsonParser parser;
         Symbol parseSymbol = null;
         try {
             String fileName = Path.of(controller.filePath).getFileName().toString();
@@ -262,7 +257,7 @@ public class ExecuteListener implements ActionListener {
                 try{
                     KeyVal keyVal = parser.content.get(i);
                     Variables.getInstance().jsonVars.get(fileName).addKeyValue(keyVal.id, keyVal.getVal());
-                } catch (Exception e){}
+                } catch (Exception ignored){}
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
