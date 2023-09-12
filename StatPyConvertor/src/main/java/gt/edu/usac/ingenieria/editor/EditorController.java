@@ -9,6 +9,7 @@ import gt.edu.usac.ingenieria.analyzer.statpy.STPLexer;
 import gt.edu.usac.ingenieria.analyzer.statpy.STPParser;
 import gt.edu.usac.ingenieria.classes.Json;
 import gt.edu.usac.ingenieria.editor.chart.ChartFrame;
+import gt.edu.usac.ingenieria.editor.listeners.ExecuteListener;
 import gt.edu.usac.ingenieria.editor.listeners.SaveListener;
 import gt.edu.usac.ingenieria.editor.reports.ErrorReport;
 import gt.edu.usac.ingenieria.editor.reports.TokenReport;
@@ -43,20 +44,20 @@ public class EditorController {
     public final EditorView view;
     public Mode analyzer = Mode.STATPY;
     public String filePath;
-    private String currentStatpyS = "";
-    private ArrayList<LexError> lexJsonErrors = new ArrayList<>();
-    private ArrayList<LexError> lexStpErrors = new ArrayList<>();
-    private ArrayList<SynError> synJsonErrors = new ArrayList<>();
-    private ArrayList<SynError> synStpErrors = new ArrayList<>();
-    private ArrayList<Symbol> stpSymbols = new ArrayList<>();
-    private ArrayList<Symbol> jsonSymbols = new ArrayList<>();
+    public String currentStatpyS = "";
+    public ArrayList<LexError> lexJsonErrors = new ArrayList<>();
+    public ArrayList<LexError> lexStpErrors = new ArrayList<>();
+    public ArrayList<SynError> synJsonErrors = new ArrayList<>();
+    public ArrayList<SynError> synStpErrors = new ArrayList<>();
+    public ArrayList<Symbol> stpSymbols = new ArrayList<>();
+    public ArrayList<Symbol> jsonSymbols = new ArrayList<>();
     public EditorController(EditorView view) {
         this.view = view;
 
         view.addMOpenListener(new OpenFileListener());
         view.addMSaveListener(new SaveListener.SaveFileListener(this));
         view.addMSaveAsListener(new SaveListener.SaveAsFileListener(this));
-        view.addExecButtonListener(new ExecuteListener());
+        view.addExecButtonListener(new ExecuteListener(this));
         view.addMReportErrorsListener(new ReportErrorsListener());
         view.addMReportTokensListener(new ReportTokensListener());
         view.addCleaButtonListener(new ClearListener());
@@ -124,250 +125,6 @@ public class EditorController {
         }
     }
 
-    // the execute either traduce or analyze only
-    private class ExecuteListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            switch (analyzer) {
-                case STATPY -> {
-                    lexStpErrors.clear(); synStpErrors.clear();
-                    scanStatPy();
-                    executeStatPy();
-                    Variables.getInstance().graphVars.clearEnv();
-                    view.setSelectedStatPy(true);
-                }
-                case JSON -> {
-                    lexJsonErrors.clear(); synJsonErrors.clear();
-                    scanJson();
-                    loadJson();
-                    view.setLoadedJsonsText(String.valueOf(Variables.getInstance().jsonVars.size()));
-                }
-            }
-
-        }
-        private void scanJson(){
-            JsonLexer scanner = null;
-            Symbol parseSymbol = null;
-            try{
-                BufferedReader br = new BufferedReader(new StringReader(view.getEntryTextArea()));
-                scanner = new JsonLexer(br);
-                do {
-                    parseSymbol = scanner.next_token();
-                    jsonSymbols.add(parseSymbol);
-                } while (parseSymbol.value != null);
-            } catch (Exception e) {}
-        }
-        private void scanStatPy(){
-            STPLexer scanner = null;
-            Symbol parseSymbol = null;
-            try{
-                BufferedReader br = new BufferedReader(new StringReader(view.getEntryTextArea()));
-                scanner = new STPLexer(br);
-                do {
-                    parseSymbol = scanner.next_token();
-                    stpSymbols.add(parseSymbol);
-                } while (parseSymbol.value != null);
-            } catch (Exception e) {}
-        }
-
-        // This should thow an exception
-        private void executeStatPy() {
-            STPLexer scannerstp = null;
-            STPParser parserstp = null;
-            Symbol parseSymbolstp = null;
-            currentStatpyS = view.getEntryTextArea();
-            try {
-                BufferedReader br = new BufferedReader(new StringReader(view.getEntryTextArea()));
-                scannerstp = new STPLexer(br);
-                parserstp = new STPParser(scannerstp);
-                parseSymbolstp = parserstp.parse();
-                /*
-                CODE TO TRADUCE TO PYTHON
-                 */
-                for (Instruction inst: parserstp.inst) {
-                    try{
-                        if (((Structure) inst).structType == StructType.MAIN){
-                            view.setOutTextArea(inst.toPython());
-                        }
-                    } catch (Exception e){
-                        view.showErrorMessage("Ha habido un error traduciendo el archivo");
-                    }
-                }
-                /*
-                CODE TO LOAD A GRAPH
-                 */
-                for (Graph graph: parserstp.graphs){
-                    try {
-                        switch (graph.graphType){
-                            case GLOBAL -> traverseGlobalMethod(((Global) graph).instructions);
-                            case BARS -> traverseBarsMethod(((Bars) graph).instructions);
-                            case PIE -> traversePieMethod(((Pie) graph).instructions);
-                        }
-                    } catch (Exception e){}
-                }
-            } catch (Exception e) {
-                view.showErrorMessage("Ha ocurrido un error");
-            }
-
-            generateCharts();
-
-            if (!parserstp.getErrors().isEmpty()) {
-                synStpErrors = parserstp.getErrors();
-                view.showWarningMessage("Existen Errores Sintacticos");
-            }
-            if (!scannerstp.getErrors().isEmpty()) {
-                lexStpErrors = scannerstp.getErrors();
-                view.showWarningMessage("Existen Errores Lexicos");
-            }
-        }
-
-        private void generateCharts(){
-            try {
-                for (HashMap<String, Object> hs : Variables.getInstance().graphVars.getBars()) {
-                    ArrayList<Value> tempArr = (ArrayList<Value>) hs.get("ejex");
-                    String[] xAxisArr = new String[tempArr.size()];
-                    for (int i = 0; i < tempArr.size(); i++) {
-                        xAxisArr[i] = (String) tempArr.get(i).value();
-
-                    }
-                    tempArr = (ArrayList<Value>) hs.get("valores");
-                    Double[] values = new Double[tempArr.size()];
-                    for (int i = 0; i < tempArr.size(); i++) {
-                        values[i] = (Double) tempArr.get(i).value();
-                    }
-
-                    ChartFrame chartFrame = new ChartFrame(
-                            (String) ((Value) hs.get("titulo")).value(),
-                            xAxisArr,
-                            values,
-                            (String) ((Value) hs.get("titulox")).value(),
-                            (String) ((Value) hs.get("tituloy")).value()
-                    );
-                    chartFrame.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            chartFrame.dispose();
-                        }
-                    });
-                }
-            } catch (Exception e){
-                view.showErrorMessage("No se pudo generar la grafica de Barras");
-            }
-
-            try {
-                for (HashMap<String, Object> hs : Variables.getInstance().graphVars.getPie()) {
-                    ArrayList<Value> tempArr = (ArrayList<Value>) hs.get("ejex");
-                    String[] xAxisArr = new String[tempArr.size()];
-                    for (int i = 0; i < tempArr.size(); i++) {
-                        xAxisArr[i] = (String) tempArr.get(i).value();
-
-                    }
-
-                    tempArr = (ArrayList<Value>) hs.get("valores");
-                    Double[] values = new Double[tempArr.size()];
-                    for (int i = 0; i < tempArr.size(); i++) {
-                        values[i] = (Double) tempArr.get(i).value();
-                    }
-
-                    ChartFrame ch = new ChartFrame(
-                            (String) ((Value) hs.get("titulo")).value(),
-                            xAxisArr,
-                            values
-                    );
-                    ch.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            ch.dispose();
-                        }
-                    });
-                }
-            } catch (Exception e){
-                view.showErrorMessage("No se pudo generar la grafica de Pie");
-            }
-        }
-
-        private void traverseGlobalMethod(ArrayList<Instruction> instructions){
-            for (Instruction ins: instructions){
-                ins.execute();
-                if (ins.type == Type.SENTENCE){
-                    if (((Sentence) ins).sentType == SentType.DECLARE_ID){
-                        DeclareId dcId = ((DeclareId) ins);
-                        Variables.getInstance().graphVars.updateGlobalsValue(dcId.id.toLowerCase(), dcId.varVal);
-                    } else if (((Sentence) ins).sentType == SentType.DECLARE_ARR) {
-                        DeclareArr dcArr = ((DeclareArr) ins);
-                        Variables.getInstance().graphVars.updateGlobalsValue(dcArr.id.toLowerCase(), dcArr.arrVals);
-                    }
-                }
-            }
-        }
-
-        private void traverseBarsMethod(ArrayList<Instruction> instructions){
-            Variables.getInstance().graphVars.addNewBars();
-            for (Instruction ins: instructions){
-                ins.execute();
-                if (ins.type == Type.SENTENCE){
-                    if (((Sentence) ins).sentType == SentType.DECLARE_ID){
-                        DeclareId dcId = ((DeclareId) ins);
-                        Variables.getInstance().graphVars.updateBarsValue(dcId.id.toLowerCase(), dcId.varVal);
-                    } else if (((Sentence) ins).sentType == SentType.DECLARE_ARR) {
-                        DeclareArr dcArr = ((DeclareArr) ins);
-                        Variables.getInstance().graphVars.updateBarsValue(dcArr.id.toLowerCase(), dcArr.arrVals);
-                    }
-                }
-            }
-        }
-
-        private void traversePieMethod(ArrayList<Instruction> instructions){
-            Variables.getInstance().graphVars.addNewPie();
-            for (Instruction ins: instructions){
-                ins.execute();
-                if (ins.type == Type.SENTENCE){
-                    if (((Sentence) ins).sentType == SentType.DECLARE_ID){
-                        DeclareId dcId = ((DeclareId) ins);
-                        Variables.getInstance().graphVars.updatePieValue(dcId.id.toLowerCase(), dcId.varVal);
-                    } else if (((Sentence) ins).sentType == SentType.DECLARE_ARR) {
-                        DeclareArr dcArr = ((DeclareArr) ins);
-                        Variables.getInstance().graphVars.updatePieValue(dcArr.id.toLowerCase(), dcArr.arrVals);
-                    }
-                }
-            }
-        }
-
-
-
-        // This should thow an exception
-        private void loadJson() {
-            JsonLexer scanner;
-            JsonParser parser = null;
-            Symbol parseSymbol = null;
-            try {
-                String fileName = Path.of(filePath).getFileName().toString();
-                BufferedReader br = new BufferedReader(new StringReader(view.getEntryTextArea()));
-                scanner = new JsonLexer(br);
-                parser = new JsonParser(scanner);
-                parseSymbol = parser.parse();
-                Variables.getInstance().jsonVars.put(fileName, new Json());
-                for (int i = 0; i < parser.content.size(); i++){
-                    try{
-                        KeyVal keyVal = parser.content.get(i);
-                        Variables.getInstance().jsonVars.get(fileName).addKeyValue(keyVal.id, keyVal.getVal());
-                    } catch (Exception e){}
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-
-            if (!parser.getErrors().isEmpty()) {
-                synJsonErrors = parser.getErrors();
-                view.showWarningMessage("Existen Errores Sintacticos");
-            }
-            if (!scanner.getErrors().isEmpty()) {
-                lexJsonErrors = scanner.getErrors();
-                view.showWarningMessage("Existen Errores Lexicos");
-            }
-        }
-    }
-
     private class ReportErrorsListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -407,4 +164,3 @@ public class EditorController {
         }
     }
 }
-
