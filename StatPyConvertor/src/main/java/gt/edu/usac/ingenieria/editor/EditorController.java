@@ -9,6 +9,7 @@ import gt.edu.usac.ingenieria.analyzer.statpy.STPLexer;
 import gt.edu.usac.ingenieria.analyzer.statpy.STPParser;
 import gt.edu.usac.ingenieria.classes.Json;
 import gt.edu.usac.ingenieria.editor.chart.ChartFrame;
+import gt.edu.usac.ingenieria.editor.listeners.SaveListener;
 import gt.edu.usac.ingenieria.editor.reports.ErrorReport;
 import gt.edu.usac.ingenieria.editor.reports.TokenReport;
 import gt.edu.usac.ingenieria.lang.json.KeyVal;
@@ -39,9 +40,9 @@ import java.util.logging.Logger;
 
 
 public class EditorController {
-    private final EditorView view;
-    private Mode analyzer = Mode.STATPY;
-    private String filePath;
+    public final EditorView view;
+    public Mode analyzer = Mode.STATPY;
+    public String filePath;
     private String currentStatpyS = "";
     private ArrayList<LexError> lexJsonErrors = new ArrayList<>();
     private ArrayList<LexError> lexStpErrors = new ArrayList<>();
@@ -53,8 +54,8 @@ public class EditorController {
         this.view = view;
 
         view.addMOpenListener(new OpenFileListener());
-        view.addMSaveListener(new SaveFileListener());
-        view.addMSaveAsListener(new SaveAsFileListener());
+        view.addMSaveListener(new SaveListener.SaveFileListener(this));
+        view.addMSaveAsListener(new SaveListener.SaveAsFileListener(this));
         view.addExecButtonListener(new ExecuteListener());
         view.addMReportErrorsListener(new ReportErrorsListener());
         view.addMReportTokensListener(new ReportTokensListener());
@@ -120,79 +121,6 @@ public class EditorController {
             }
             chooser.setFileFilter(filter);
             return chooser;
-        }
-    }
-
-    private class SaveFileListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (filePath == null){
-                SaveAsFileListener savadfile = new SaveAsFileListener();
-                savadfile.actionPerformed(e);
-                return;
-            }
-            String extension;
-            switch (analyzer){
-                case STATPY -> extension = ".sp";
-                case JSON -> extension = ".json";
-                default -> throw new IllegalStateException("Unexpected value: " + analyzer);
-            }
-
-            try {
-                if (!filePath.endsWith(extension)){
-                    filePath += extension;
-                }
-
-                Path path = Path.of(filePath);
-                Files.write(path, view.getEntryTextArea().getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-    }
-
-    private class SaveAsFileListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // JFileChooser configuration
-            UIManager.put("FileChooser.openButtonText", "Save");
-            String currentDir = System.getProperty("user.dir");
-            JFileChooser chooser = new JFileChooser(currentDir);
-            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            FileNameExtensionFilter filter;
-            String extension;
-
-            filter = switch (analyzer) {
-                case STATPY -> {
-                    extension = "sp";
-                    yield new FileNameExtensionFilter("Archivos StatPy (*.stp)", extension);
-                }
-                case JSON -> {
-                    extension = "json";
-                    yield new FileNameExtensionFilter("Archivos JSON (*.json)", extension);
-                }
-                default -> throw new IllegalStateException("Unexpected value: " + analyzer);
-            };
-            chooser.setFileFilter(filter);
-
-            int returnval = chooser.showOpenDialog(null);
-            if (returnval == JFileChooser.APPROVE_OPTION){
-                File file = chooser.getSelectedFile();
-                String filepath = chooser.getSelectedFile().getAbsolutePath();
-                filePath = filepath;
-                if (!filepath.endsWith("." + extension)){
-                    filepath += "." + extension;
-                    file = new File(filepath);
-                }
-
-                try {
-                    Path path = Path.of(filepath);
-                    Files.write(path, view.getEntryTextArea().getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-            }
         }
     }
 
