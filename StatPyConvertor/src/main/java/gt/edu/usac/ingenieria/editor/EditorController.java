@@ -36,6 +36,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,6 +46,9 @@ public class EditorController {
     public Mode analyzer = Mode.STATPY;
     public String filePath;
     public String currentStatpyS = "";
+    public HashMap<String, ArrayList<LexError>> lexJsonErrorFiles = new HashMap<>();
+    public HashMap<String, ArrayList<SynError>> synJsonErrorFiles = new HashMap<>();
+    public HashMap<String, ArrayList<Symbol>> jsonSymbolFiles = new HashMap<>();
     public ArrayList<LexError> lexJsonErrors = new ArrayList<>();
     public ArrayList<LexError> lexStpErrors = new ArrayList<>();
     public ArrayList<SynError> synJsonErrors = new ArrayList<>();
@@ -128,10 +132,18 @@ public class EditorController {
     private class ReportErrorsListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ErrorReport report = new ErrorReport(lexJsonErrors, synJsonErrors);
-            report.buildReport("Json Errors");
+            ErrorReport report = new ErrorReport();
+            for (Map.Entry<String, ArrayList<LexError>> entry : lexJsonErrorFiles.entrySet()){
+                report.filename = entry.getKey();
+                report.setErrors(entry.getValue(), null);
+                report.buildReport("Json Tokens");
+            }
+
+            report.loadTables("Json Errors");
+
             report.setErrors(lexStpErrors, synStpErrors);
-            report.buildReport("StatPy Errors");
+            report.buildReport("StatPy Tokens");
+            report.loadTables("StatPy Errors");
 
             report.generateReport();
         }
@@ -139,11 +151,18 @@ public class EditorController {
     private class ReportTokensListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            TokenReport report = new TokenReport(jsonSymbols, Mode.JSON);
-            report.buildReport("Json Tokens");
+            TokenReport report = new TokenReport(Mode.JSON);
+            for (Map.Entry<String, ArrayList<Symbol>> entry : jsonSymbolFiles.entrySet()){
+                report.filename = entry.getKey();
+                report.setSymbols(entry.getValue());
+                report.buildReport("Json Tokens");
+
+            }
+            report.loadTables("Json Tokens");
             report.setSymbols(stpSymbols);
             report.mode = Mode.STATPY;
             report.buildReport("StatPy Tokens");
+            report.loadTables("StatPy tokens");
 
             report.generateReport();
         }
@@ -158,6 +177,9 @@ public class EditorController {
             synStpErrors.clear();
             lexJsonErrors.clear();
             lexStpErrors.clear();
+            lexJsonErrorFiles.clear();
+            synJsonErrorFiles.clear();
+            jsonSymbols.clear();
             Variables.getInstance().jsonVars = new HashMap<>();
             view.setLoadedJsonsText(String.valueOf(0));
             currentStatpyS = "";

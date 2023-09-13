@@ -41,17 +41,19 @@ public class ExecuteListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (controller.analyzer) {
             case STATPY -> {
-                controller.lexStpErrors.clear(); controller.synStpErrors.clear();
+                controller.lexStpErrors.clear(); controller.synStpErrors.clear(); controller.stpSymbols.clear();
                 scanStatPy();
                 executeStatPy();
                 Variables.getInstance().graphVars.clearEnv();
                 controller.view.setSelectedStatPy(true);
             }
             case JSON -> {
-                controller.lexJsonErrors.clear(); controller.synJsonErrors.clear();
+                controller.lexJsonErrors.clear(); controller.synJsonErrors.clear(); controller.jsonSymbols.clear();
                 scanJson();
                 loadJson();
                 controller.view.setLoadedJsonsText(String.valueOf(Variables.getInstance().jsonVars.size()));
+                controller.lexJsonErrorFiles.put(controller.filePath, new ArrayList<>(controller.lexJsonErrors));
+                controller.synJsonErrorFiles.put(controller.filePath, new ArrayList<>(controller.synJsonErrors));
             }
         }
 
@@ -67,6 +69,9 @@ public class ExecuteListener implements ActionListener {
                 controller.jsonSymbols.add(parseSymbol);
             } while (parseSymbol.value != null);
         } catch (Exception ignored) {}
+        finally {
+            controller.jsonSymbolFiles.put(controller.filePath, new ArrayList<>(controller.jsonSymbols));
+        }
     }
     private void scanStatPy(){
         STPLexer scanner;

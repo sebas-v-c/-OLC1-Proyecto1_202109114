@@ -10,6 +10,8 @@ public class ErrorReport extends Report{
 
     private ArrayList<LexError> lexErrors;
     private ArrayList<SynError> synErrors;
+    private StringBuilder htmlTable = new StringBuilder();
+    public String filename;
     public ErrorReport(){
         super();
     }
@@ -21,7 +23,9 @@ public class ErrorReport extends Report{
 
     @Override
     public void buildReport(String reportName) {
-        StringBuilder htmlTable = new StringBuilder();
+        if (filename != null){
+            htmlTable.append("<H2>").append(filename).append("</H2>");
+        }
 
         // table headlines
         htmlTable.append("<table border='1'>\n");
@@ -43,8 +47,12 @@ public class ErrorReport extends Report{
         }
         // close table
         htmlTable.append("</table>");
+    }
 
+    public void loadTables(String reportName){
         super.reports.put(reportName, htmlTable.toString());
+        filename = null;
+        htmlTable = new StringBuilder();
     }
 
     public void setErrors(ArrayList<LexError> lexErrors, ArrayList<SynError> synErrors){

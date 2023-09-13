@@ -8,6 +8,8 @@ import java.util.HashMap;
 
 public class TokenReport extends Report{
     private ArrayList<Symbol> symbols;
+    public String filename;
+    private StringBuilder htmlTable = new StringBuilder();
     public Mode mode;
     public TokenReport(ArrayList<Symbol> symbols, Mode mode) {
         super();
@@ -15,14 +17,26 @@ public class TokenReport extends Report{
         this.mode = mode;
     }
 
+    public TokenReport(ArrayList<Symbol> symbols, String filename,Mode mode){
+        super();
+        this.symbols = symbols;
+        this.filename = filename;
+        this.mode = mode;
+    }
+
+
     public TokenReport(Mode mode) {
         super();
+        this.mode = mode;
     }
 
     @Override
     public void buildReport(String reportName) {
 
-        StringBuilder htmlTable = new StringBuilder();
+
+        if ((filename != null) && (mode == Mode.JSON)){
+            htmlTable.append("<H2>").append(filename).append("</H2>");
+        }
 
         // Encabezados de la tabla
         htmlTable.append("<table border='1'>\n");
@@ -56,7 +70,10 @@ public class TokenReport extends Report{
         // Cierre de la tabla
         htmlTable.append("</table>");
 
+    }
+    public void loadTables(String reportName){
         super.reports.put(reportName, htmlTable.toString());
+        htmlTable = new StringBuilder();
     }
 
     public void setSymbols(ArrayList<Symbol> symbols){
