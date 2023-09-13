@@ -21,7 +21,7 @@ public class Primitive extends Expression{
             case INT -> (String) object;
             case DOUBLE -> (String) object;
             case BOOLEAN -> ((String) object).equalsIgnoreCase("true") ? "True" : "False";
-            case CHAR -> "'"+(String) object+"'";
+            case CHAR -> (String) object;
             case STRING -> "\""+((String) object)+"\"";
             default -> "";
         };

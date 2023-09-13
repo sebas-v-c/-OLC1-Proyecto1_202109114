@@ -274,7 +274,6 @@ LocalEnv        ::=
 
 SwitchStatement ::=
                     KW_SWITCH:s TK_LPAR Expresion:exp TK_RPAR LocalEnvs:env {:RESULT = new Switch(sleft, sright, exp, (ArrayList<Case>) env[0], (CodeBlock)env[1]);:}
-
                 ;
 
 LocalEnvs       ::=
